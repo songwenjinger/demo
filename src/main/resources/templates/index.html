@@ -1,8 +1,14 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="UTF-8"/>
     <title>首页</title>
 </head>
 <body>
-亲爱的${user.userName}，欢迎登录首页！
+<h1>this is the hello.html in templates</h1>
+<span th:text="${key}"></span>
+亲爱的${user.userName}，欢迎登录template首页！
+<!--默认的classpath是在static下面-->
+<img src="/img/1.jpg"/>
+
 </body>
 </html>

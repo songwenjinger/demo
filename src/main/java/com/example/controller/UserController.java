@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -23,6 +23,15 @@ public class UserController {
 //        return "login";
         System.out.println("ok");
         return "index";
+    }
+
+    @RequestMapping("/hi")
+    public ModelAndView sayHello() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        modelAndView.addObject("key", 12345);
+        return modelAndView;
+
     }
 
     //@PostMapping注解表示以POST方法请求/user/login.do时运行本方法
