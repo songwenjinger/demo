@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -23,6 +24,11 @@ public class UserController {
 //        return "login";
         System.out.println("ok");
         return "index";
+    }
+
+    @GetMapping("/adminMainShow.do")
+    public String adminMainShow() {
+        return "adminMainShow";
     }
 
     @RequestMapping("/hi")
