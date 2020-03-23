@@ -21,7 +21,6 @@ public class UserController {
     //@GetMapping注解表示以GET方法请求/user/login.do时运行本方法
     @GetMapping("/login.do")
     public String toLogin() {
-//        return "login";
         System.out.println("ok");
         return "index";
     }
@@ -51,6 +50,22 @@ public class UserController {
             return "login";
         }
         return "login";
+    }
+
+    @GetMapping("/test.do")
+    public String toTest() {
+//        System.out.println("ok");
+        return "test";
+    }
+
+    @GetMapping("/order.do")
+    public String jumpOrder() {
+        return "order";
+    }
+
+    @GetMapping("/car.do")
+    public String jumpCar() {
+        return "car";
     }
 
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    /* 清除浏览器默认边距 */
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrap {
+        display: flex;
+        font-size: 20px;
+    }
+
+    .left {
+        height: 200px;
+        background: #2cdde7;
+        flex: 0 0 200px
+    }
+
+    .right {
+        background: #505050;
+        height: 200px;
+        flex: 1;
+        color: #ffffff;
+    }
+</style>
+<body>
+<!-- HTML结构 -->
+<div class="wrap">
+    <div class="left">
+        <!--<a href="#" onclick="test('car.html')">cars</a>-->
+        <a href="#" onclick="test('/user/car.do')">cars</a>
+        <a href="#" onclick="test('/user/order.do')">order</a>
+    </div>
+    <div class="right" id="main">
+        右侧内容自适应
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+<script>
+    function test(url) {// url  请求的页面url
+        $.get(url, function (result) {
+            $("#main").html(result);// 将返回的字符串渲染为html
+        });
+    }
+</script>
+</html>

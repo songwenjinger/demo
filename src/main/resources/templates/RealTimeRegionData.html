@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>后端分页</title>
+    <link href="/css/easyui.css" type="text/css" rel="stylesheet">
+    <link href="/css/icon.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#studatagrid").datagrid({
+                title: "基本数据表格",
+                singleSelect: true,
+                collapsible: true,
+                fitColumns: true,
+                rownumbers: true,
+                fit: true,
+                pagination: true,
+                pageSize: 10,
+                pageList: [10, 20, 40],
+                url: '${pageContext.request.contextPath}/stuDatagridDataBack.do',
+            })
+        })
+    </script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'center',title:'center title'"
+     style="padding: 5px; background: #eee;">
+    <table id="studatagrid" class="easyui-datagrid"
+           style="width: 100%; height: 100%">
+        <thead>
+        <tr>
+            <th data-options="field:'stuSno',width:100,align:'center'">学生学号</th>
+            <th data-options="field:'stuName',width:100,align:'center'">学生姓名</th>
+            <th data-options="field:'stuSex',width:100,align:'center'">学生性别</th>
+            <th data-options="field:'stuAge',width:100,align:'center'">学生年龄</th>
+            <th data-options="field:'stuEmail',width:100,align:'center'">学生邮箱</th>
+            <th data-options="field:'stuQQ',width:100,align:'center'">学生QQ</th>
+            <th data-options="field:'stuAddress',width:100,align:'center'">学生地址</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>

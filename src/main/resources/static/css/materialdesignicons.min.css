@@ -1,4 +1,5 @@
 /* MaterialDesignIcons.com */
+/*图标页面*/
 @font-face {
     font-family: "Material Design Icons";
     src: url("/fonts/materialdesignicons.eot?v=2.0.46");
@@ -17,6 +18,15 @@
     -moz-osx-font-smoothing: grayscale
 }
 
+.mdi1:before {
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: 30px;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
 .mdi-access-point:before {
     content: "\F002"
 }
