@@ -5,43 +5,56 @@
     <title>后端分页</title>
     <link href="/css/easyui.css" type="text/css" rel="stylesheet">
     <link href="/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#studatagrid").datagrid({
-                title: "基本数据表格",
-                singleSelect: true,
-                collapsible: true,
-                fitColumns: true,
-                rownumbers: true,
-                fit: true,
-                pagination: true,
-                pageSize: 10,
-                pageList: [10, 20, 40],
-                url: '${pageContext.request.contextPath}/stuDatagridDataBack.do',
-            })
-        })
-    </script>
 </head>
-<body class="easyui-layout">
-<div data-options="region:'center',title:'center title'"
-     style="padding: 5px; background: #eee;">
-    <table id="studatagrid" class="easyui-datagrid"
-           style="width: 100%; height: 100%">
-        <thead>
+<body>
+<div class="r_card1">
+    <div class="r_card1-body">
+        <h4>折线图</h4>
+    </div>
+</div>
+<div class="r_card2">
+    <div class="r_card1-body">
+        <h4>数据对比</h4>
+    </div>
+</div>
+<div class="r_card1">
+    <table class="table1 table-bordered">
         <tr>
-            <th data-options="field:'stuSno',width:100,align:'center'">学生学号</th>
-            <th data-options="field:'stuName',width:100,align:'center'">学生姓名</th>
-            <th data-options="field:'stuSex',width:100,align:'center'">学生性别</th>
-            <th data-options="field:'stuAge',width:100,align:'center'">学生年龄</th>
-            <th data-options="field:'stuEmail',width:100,align:'center'">学生邮箱</th>
-            <th data-options="field:'stuQQ',width:100,align:'center'">学生QQ</th>
-            <th data-options="field:'stuAddress',width:100,align:'center'">学生地址</th>
+            <td width="75">区域号</td>
+            <td width="75">水温</td>
+            <td width="75">PH</td>
+            <td width="75">耗氧量</td>
+            <td width="75">氨氮</td>
+            <td width="75">溶解氧</td>
+            <td width="75">电导率</td>
+            <td width="75">浊度</td>
+            <td width="79">发送时间</td>
         </tr>
-        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>125</td>
+            <td>36.00</td>
+            <td>36.00</td>
+            <td>36.00</td>
+        </tr>
+        </tbody>
     </table>
 </div>
+
+<div class="r_card2">
+    <div class="r_card1-body">
+        <h4>数据分析</h4>
+    </div>
+</div>
 </body>
+
 </html>

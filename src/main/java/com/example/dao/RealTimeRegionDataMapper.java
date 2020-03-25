@@ -16,5 +16,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface RealTimeRegionDataMapper {
-    List<RegionData> queryTodayMessage();
+    List<RegionData> queryTodayMessage(@Param("zoneId") Integer zoneId);
 }

@@ -1,0 +1,201 @@
+body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #ffffff;
+    line-height: 1.5;
+    font-size: 14px;
+    overflow-x: hidden;
+    background-color: #f5f6fa;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+/* card */
+.r_card1 {
+    /*距离前面一个card的高度*/
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    /*字体颜色*/
+    color: #3b4552;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    /*每一个卡片的宽和高*/
+    height: 240px;
+    width: 700px;
+    /*字体距离div的距离*/
+    padding-left: 10px;
+    padding-top: 10px;
+    /*左浮动*/
+    float: left;
+    border-top: 2px solid #1D6FA3;
+
+
+}
+
+.r_card2 {
+    /*距离前面一个card的高度*/
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: #3b4552;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    /*每一个卡片的宽和高*/
+    height: 240px;
+    width: 320px;
+    /*字体距离div的距离*/
+    padding-left: 10px;
+    padding-top: 10px;
+    float: left;
+    border-top: 2px solid #1D6FA3;
+}
+
+.r_card1-header {
+    display: table;
+    width: 100%;
+    margin: 0;
+    padding: 15px 24px;
+    border-bottom: 1px solid rgba(77, 82, 89, 0.05);
+}
+
+.r_card1-header > * {
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.r_card1-body {
+    /*padding: 10px 10px;*/
+    /*border: 3px;*/
+    /*border-top: #34baff;*/
+
+}
+
+.r_card1-header .h4,
+.r_card1-header h4 {
+    font-size: 16px;
+}
+
+.r_card1-header + .r_card1-body {
+    padding-top: 15px;
+}
+
+.r_card1-header[class*='bg'] .r_card1-actions > li > a:not(.label),
+.r_card1-header[class*='bg'] .r_card1-actions > li > button,
+.r_card1-header[class*='bg'] h1,
+.r_card1-header[class*='bg'] h2,
+.r_card1-header[class*='bg'] h3,
+.r_card1-header[class*='bg'] h4,
+.r_card1-header[class*='bg'] h5,
+.r_card1-header[class*='bg'] h6,
+.r_card1-header[class*='bg'] .h1,
+.r_card1-header[class*='bg'] .h2,
+.r_card1-header[class*='bg'] .h3,
+.r_card1-header[class*='bg'] .h4,
+.r_card1-header[class*='bg'] .h5,
+.r_card1-header[class*='bg'] .h6 {
+    color: #ffffff;
+}
+
+.r_card1-toolbar {
+    padding: 24px 24px 0px 24px;
+    position: relative;
+}
+
+.r_card1-toolbar .search-bar {
+    max-width: 280px;
+}
+
+.r_card1-toolbar .dropdown-menu {
+    min-width: 100%;
+}
+
+/* r_card1-actions */
+.r_card1-actions {
+    float: right;
+    margin-bottom: 0;
+    margin-left: auto;
+    padding: 0;
+}
+
+.r_card1-actions > li {
+    display: inline-block;
+    padding: 0;
+}
+
+.r_card1-actions > li > a:not(.label),
+.r_card1-actions > li > button {
+    color: #86939e;
+    display: inline-block;
+    padding: 0;
+    line-height: 1;
+    opacity: .7;
+    vertical-align: middle;
+    -webkit-transition: opacity 0.15s ease-out;
+    transition: opacity 0.15s ease-out;
+}
+
+.r_card1-actions > li > a:not(.label):hover,
+.r_card1-actions > li > button:hover {
+    text-decoration: none;
+    opacity: 1;
+}
+
+.r_card1-actions > li > a:not(.label):active,
+.r_card1-actions > li > button:active {
+    opacity: .6;
+}
+
+.r_card1-actions > li > span {
+    display: block;
+}
+
+.r_card1-actions > li > .label {
+    line-height: 1.25;
+}
+
+.r_card1-actions > li > a:focus {
+    text-decoration: none;
+    opacity: 1;
+}
+
+.r_card1-actions > li > button {
+    background: none;
+    border: none;
+}
+
+.r_card1-actions > li.active > a,
+.r_card1-actions > li.open > button {
+    text-decoration: none;
+    opacity: 1;
+}
+
+.r_card1-actions > li + li {
+    margin-left: 10px;
+}
+
+.r_card1 .tab-content {
+    padding: 10px 24px;
+}
+
+.table1 {
+    table-layout: fixed;
+    text-align: center;
+    vertical-align: middle!important;
+    margin-top: 30px;
+    width: 680px;
+    /*height: 160px;*/
+    border-spacing: 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.table1-bordered {
+    border: 1px solid #ddd;
+}
+
