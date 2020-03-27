@@ -16,7 +16,7 @@ public class RealTimeRegionDataController {
     RealTimeRegionDataService realTimeRegionDataService;
 
     //    @PostMapping("/queryTodayMessage")
-    @GetMapping("/queryTodayMessage.do")
+    @PostMapping("/queryTodayMessage.do")
     @ResponseBody
     public ServerResponse queryTodayMessage(Integer id) {
         System.out.println("ok");

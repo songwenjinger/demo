@@ -186,8 +186,8 @@ body {
 .table1 {
     table-layout: fixed;
     text-align: center;
-    vertical-align: middle!important;
-    margin-top: 30px;
+    vertical-align: middle !important;
+    margin-top: 10px;
     width: 680px;
     /*height: 160px;*/
     border-spacing: 0;
@@ -198,4 +198,35 @@ body {
 .table1-bordered {
     border: 1px solid #ddd;
 }
+
+.mySearch {
+    font-size: 0;
+}
+
+.mySearch input {
+    font-size: 10px;
+    width: 90px;
+    height: 25px;
+    border: 1px solid #dddddd;
+}
+
+.mySearch input:focus {
+    border: 1px solid #dddddd;
+}
+
+.mySearch button {
+    margin-left: 10px;
+    vertical-align: top;
+
+}
+
+.myPage {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.myPage button {
+    float: right;
+}
+
 

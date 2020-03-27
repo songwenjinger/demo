@@ -12,21 +12,21 @@ import java.io.Serializable;
 public class ServerResponse<T> implements Serializable {
     private int code;
     private String message;
-    private T data;
+    private T result;
 
     private ServerResponse(int code) {
         this.code = code;
     }
 
-    private ServerResponse(int code, T data) {
+    private ServerResponse(int code, T result) {
         this.code = code;
-        this.data = data;
+        this.result = result;
     }
 
-    private ServerResponse(int code, String message, T data) {
+    private ServerResponse(int code, String message, T result) {
         this.code = code;
         this.message = message;
-        this.data = data;
+        this.result = result;
     }
 
     private ServerResponse(int code, String message) {
@@ -47,8 +47,8 @@ public class ServerResponse<T> implements Serializable {
         return message;
     }
 
-    public T getData() {
-        return data;
+    public T getresult() {
+        return result;
     }
 
     public static <T> ServerResponse<T> createBySuccess() {
@@ -59,12 +59,12 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), message);
     }
 
-    public static <T> ServerResponse<T> createBySuccess(T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), data);
+    public static <T> ServerResponse<T> createBySuccess(T result) {
+        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), result);
     }
 
-    public static <T> ServerResponse<T> createBySuccess(String message, T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), message, data);
+    public static <T> ServerResponse<T> createBySuccess(String message, T result) {
+        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), message, result);
     }
 
     public static <T> ServerResponse<T> createByError() {
@@ -84,7 +84,7 @@ public class ServerResponse<T> implements Serializable {
         return "ServerResponse{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
-                ", data=" + data +
+                ", result=" + result +
                 '}';
     }
 

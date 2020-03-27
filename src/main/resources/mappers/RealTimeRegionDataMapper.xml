@@ -10,12 +10,13 @@
         <result property="ph" column="ph" jdbcType="FLOAT"/>
         <result property="cod" column="cod" jdbcType="FLOAT"/>
         <result property="nh3" column="nh3" jdbcType="FLOAT"/>
+        <result property="dox" column="dox" jdbcType="FLOAT"/>
         <result property="conductivity" column="conductivity" jdbcType="FLOAT"/>
         <result property="turbidity" column="turbidity" jdbcType="FLOAT"/>
         <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, zone_id, water_temperature, ph, cod, nh3, conductivity, turbidity, send_time
+    id, zone_id, water_temperature, ph, cod, nh3,dox, conductivity, turbidity, send_time
    </sql>
     <select id="queryTodayMessage" resultMap="BaseResultMap">
         select

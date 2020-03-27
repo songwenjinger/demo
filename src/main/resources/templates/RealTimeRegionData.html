@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>后端分页</title>
@@ -9,6 +9,54 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
+    <script>
+        var ccurPage = 1;
+        document.getElementById("curPage").value = ccurPage;
+        $(document).load('click', "#zoneQuery", function () {
+            realTimeQuery();
+        });
+
+        function realTimeQuery() {
+            $.ajax({
+                url: "/realTimeRegionData/queryTodayMessage.do",
+                type: "post",
+                dataType: "json",
+                // data: JSON.stringify({}),
+                data: {"id": 1},
+                success: function (data) {
+                    /*这个方法里是ajax发送请求成功之后执行的代码*/
+                    var str = "";//定义用于拼接的字符串
+                    $("#tab tbody").remove();
+                    for (var i = 0; i < data.result.length; i++) {
+                        //拼接表格的行和列
+                        str = "<tbody><tr><td>" + data.result[i].zoneId +
+                            "</td><td>" + data.result[i].waterTemperature +
+                            "</td><td>" + data.result[i].ph +
+                            "</td><td>" + data.result[i].cod +
+                            "</td><td>" + data.result[i].nh3 +
+                            "</td><td>" + data.result[i].dox +
+                            "</td><td>" + data.result[i].conductivity +
+                            "</td><td>" + data.result[i].turbidity +
+                            "</td><td>" + data.result[i].sendTime +
+                            "</td></tr></tbody>";
+                        //追加到table中
+                        $("#tab").append(str);
+                    }
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
+
+        function nextPage() {
+
+        }
+
+        function prePage() {
+
+        }
+    </script>
 </head>
 <body>
 <div class="r_card1">
@@ -22,39 +70,35 @@
     </div>
 </div>
 <div class="r_card1">
-    <table class="table1 table-bordered">
+    <div class="mySearch">
+        <input type="text" placeholder="输入区域号">
+        <button class="btn btn-info btn-xs" type="button">查询</button>
+    </div>
+    <table class="table1 table-bordered" id="tab">
+        <thead>
         <tr>
-            <td width="75">区域号</td>
-            <td width="75">水温</td>
-            <td width="75">PH</td>
-            <td width="75">耗氧量</td>
-            <td width="75">氨氮</td>
-            <td width="75">溶解氧</td>
-            <td width="75">电导率</td>
-            <td width="75">浊度</td>
-            <td width="79">发送时间</td>
+            <td width="60">区域号</td>
+            <td width="70">水温</td>
+            <td width="70">PH</td>
+            <td width="70">耗氧量</td>
+            <td width="70">氨氮</td>
+            <td width="70">溶解氧</td>
+            <td width="70">电导率</td>
+            <td width="70">浊度</td>
+            <td width="130">发送时间</td>
         </tr>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>125</td>
-            <td>36.00</td>
-            <td>36.00</td>
-            <td>36.00</td>
-        </tr>
-        </tbody>
+        </thead>
     </table>
+    <div class="myPage">
+        <button class="btn btn-default btn-xs" type="button" onclick="nextPage()">下一页</button>
+        <button class="btn btn-info btn-xs" type="button" id="curPage"></button>
+        <button class="btn btn-default btn-xs" type="button" onclick="prePage()">上一页</button>
+    </div>
 </div>
-
 <div class="r_card2">
     <div class="r_card1-body">
         <h4>数据分析</h4>
     </div>
 </div>
 </body>
-
 </html>

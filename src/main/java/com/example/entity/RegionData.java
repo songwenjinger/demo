@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class RegionData {
@@ -15,11 +17,13 @@ public class RegionData {
     private Float cod;
     //氨氮
     private Float nh3;
+    private Float dox;
     //电导率
     private Float conductivity;
     //浊度
     private Float turbidity;
     //发送时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date sendTime;
 
     public RegionData() {
@@ -97,6 +101,14 @@ public class RegionData {
         this.sendTime = sendTime;
     }
 
+    public Float getDox() {
+        return dox;
+    }
+
+    public void setDox(Float dox) {
+        this.dox = dox;
+    }
+
     @Override
     public String toString() {
         return "RegionData{" +
@@ -106,6 +118,7 @@ public class RegionData {
                 ", ph=" + ph +
                 ", cod=" + cod +
                 ", nh3=" + nh3 +
+                ", dox=" + dox +
                 ", conductivity=" + conductivity +
                 ", turbidity=" + turbidity +
                 ", sendTime=" + sendTime +

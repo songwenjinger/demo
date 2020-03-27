@@ -1889,7 +1889,7 @@ output {
 }
 
 .form-control::-moz-placeholder {
-    color: #999;
+    color: #999999;
     opacity: 1
 }
 
