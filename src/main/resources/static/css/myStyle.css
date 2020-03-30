@@ -221,12 +221,38 @@ body {
 }
 
 .myPage {
+    font-size: 0;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-left: 530px;
 }
 
-.myPage button {
-    float: right;
+.myPage input {
+    margin-left: 0px;
 }
 
+.angle_bottom {
+    content: '';
+    margin-left: 100px;
+    margin-top: -8px;
+    width: 0;
+    height: 0;
+    display: block;
+    border-style: solid;
+    border-width: 0 3px 5px;
+    border-color: transparent transparent #868e96;
+    position: absolute;
+    transform: rotate(180deg);
+}
 
+.angle_top {
+    content: '';
+    margin-left: 100px;
+    margin-top: -14px;
+    width: 0;
+    height: 0;
+    display: block;
+    border-style: solid;
+    border-width: 0 3px 5px;
+    border-color: transparent transparent #868e96;
+    position: absolute;
+}

@@ -25,4 +25,22 @@
         where zone_id=#{zoneId} and
         to_days(send_time) = to_days(now());
     </select>
+    <select id="queryPaginationTodayMessage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        to_days(send_time) = to_days(now())
+        order by send_time
+        limit #{startNum},#{limitNum}
+    </select>
+    <select id="queryPaginationTodayMessageDescend" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        to_days(send_time) = to_days(now())
+        order by send_time desc
+        limit #{startNum},#{limitNum}
+    </select>
 </mapper>

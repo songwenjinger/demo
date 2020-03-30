@@ -23,4 +23,24 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
             return ServerResponse.createBySuccess(result);
         }
     }
+
+    @Override
+    public ServerResponse queryPaginationTodayMessage(Integer zoneId, Integer startNum, Integer limitNum) {
+        List<RegionData> result = realTimeRegionDataMapper.queryPaginationTodayMessage(zoneId, startNum, limitNum);
+        if (result == null) {
+            return ServerResponse.createByErrorMessage("查不到数据");
+        } else {
+            return ServerResponse.createBySuccess(result);
+        }
+    }
+
+    @Override
+    public ServerResponse queryPaginationTodayMessageDescend(Integer zoneId, Integer startNum, Integer limitNum) {
+        List<RegionData> result = realTimeRegionDataMapper.queryPaginationTodayMessageDescend(zoneId, startNum, limitNum);
+        if (result == null) {
+            return ServerResponse.createByErrorMessage("查不到数据");
+        } else {
+            return ServerResponse.createBySuccess(result);
+        }
+    }
 }

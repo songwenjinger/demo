@@ -17,4 +17,18 @@ import java.util.List;
 @Repository
 public interface RealTimeRegionDataMapper {
     List<RegionData> queryTodayMessage(@Param("zoneId") Integer zoneId);
+
+    List<RegionData> queryPaginationTodayMessage(@Param("zoneId") Integer zoneId, @Param("startNum") Integer startNum,
+                                                 @Param("limitNum") Integer limitNum);
+
+    /**
+     * 按照发送的时间进行的降序的排列
+     *
+     * @param zoneId   区域id
+     * @param startNum 开始的条数
+     * @param limitNum 一共几条
+     * @return list
+     */
+    List<RegionData> queryPaginationTodayMessageDescend(@Param("zoneId") Integer zoneId, @Param("startNum") Integer startNum,
+                                                        @Param("limitNum") Integer limitNum);
 }

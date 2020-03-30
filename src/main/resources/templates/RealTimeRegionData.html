@@ -11,37 +11,92 @@
     <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
     <script>
         var ccurPage = 1;
+        var zoneId;
+        var orderStatus = 1;
         document.getElementById("curPage").value = ccurPage;
         $(document).load('click', "#zoneQuery", function () {
+            judgePrePageButtonStatus();
             realTimeQuery();
         });
 
+        function judgePrePageButtonStatus() {
+            if (ccurPage <= 1) {
+                document.getElementById("prePageButton").disabled = true;
+            } else {
+                document.getElementById("prePageButton").disabled = false;
+            }
+        }
+
+        function inputAssignment() {
+            if ($('#searchText').val() == null || $('#searchText').val() == '') {
+                zoneId = 1;
+            } else {
+                zoneId = $('#searchText').val();
+            }
+        }
+
+        function fillTable(data) {
+            /*这个方法里是ajax发送请求成功之后执行的代码*/
+            var str = "";//定义用于拼接的字符串
+            $("#tab tbody").remove();
+            for (var i = 0; i < data.result.length; i++) {
+                //拼接表格的行和列
+                str = "<tbody><tr><td>" + data.result[i].zoneId +
+                    "</td><td>" + data.result[i].waterTemperature +
+                    "</td><td>" + data.result[i].ph +
+                    "</td><td>" + data.result[i].cod +
+                    "</td><td>" + data.result[i].nh3 +
+                    "</td><td>" + data.result[i].dox +
+                    "</td><td>" + data.result[i].conductivity +
+                    "</td><td>" + data.result[i].turbidity +
+                    "</td><td>" + data.result[i].sendTime +
+                    "</td></tr></tbody>";
+                //追加到table中
+                $("#tab").append(str);
+
+            }
+            if (data.result.length < 6) {
+                document.getElementById("nextPageButton").disabled = true;
+            } else {
+                document.getElementById("nextPageButton").disabled = false;
+            }
+        }
+
         function realTimeQuery() {
+            orderStatus = 1;
+            var btn1 = document.getElementById("ascOrder");
+            var btn2 = document.getElementById("descOrder");
+            btn1.style.borderColor = "transparent transparent #34baff";
+            btn2.style.borderColor = "transparent transparent #868e96";
+            inputAssignment();
             $.ajax({
-                url: "/realTimeRegionData/queryTodayMessage.do",
+                url: "/realTimeRegionData/queryPaginationTodayMessage.do",
                 type: "post",
                 dataType: "json",
-                // data: JSON.stringify({}),
-                data: {"id": 1},
+                data: {"zoneId": zoneId, "startNum": (ccurPage - 1) * 6, "limitNum": 6},
                 success: function (data) {
-                    /*这个方法里是ajax发送请求成功之后执行的代码*/
-                    var str = "";//定义用于拼接的字符串
-                    $("#tab tbody").remove();
-                    for (var i = 0; i < data.result.length; i++) {
-                        //拼接表格的行和列
-                        str = "<tbody><tr><td>" + data.result[i].zoneId +
-                            "</td><td>" + data.result[i].waterTemperature +
-                            "</td><td>" + data.result[i].ph +
-                            "</td><td>" + data.result[i].cod +
-                            "</td><td>" + data.result[i].nh3 +
-                            "</td><td>" + data.result[i].dox +
-                            "</td><td>" + data.result[i].conductivity +
-                            "</td><td>" + data.result[i].turbidity +
-                            "</td><td>" + data.result[i].sendTime +
-                            "</td></tr></tbody>";
-                        //追加到table中
-                        $("#tab").append(str);
-                    }
+                    fillTable(data);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
+
+        function realTimeQueryDesc() {
+            orderStatus = 0;
+            var btn1 = document.getElementById("ascOrder");
+            var btn2 = document.getElementById("descOrder");
+            btn1.style.borderColor = "transparent transparent #868e96";
+            btn2.style.borderColor = "transparent transparent #34baff";
+            inputAssignment();
+            $.ajax({
+                url: "/realTimeRegionData/queryPaginationTodayMessageDescend.do",
+                type: "post",
+                dataType: "json",
+                data: {"zoneId": zoneId, "startNum": (ccurPage - 1) * 6, "limitNum": 6},
+                success: function (data) {
+                    fillTable(data);
                 },
                 error: function (msg) {
                     alert("ajax连接异常：" + msg);
@@ -50,18 +105,67 @@
         }
 
         function nextPage() {
-
+            var tempUrl;
+            if (orderStatus.valueOf() == 1) {
+                tempUrl = "/realTimeRegionData/queryPaginationTodayMessage.do";
+            } else {
+                tempUrl = "/realTimeRegionData/queryPaginationTodayMessageDescend.do";
+            }
+            inputAssignment();
+            ccurPage++;
+            judgePrePageButtonStatus();
+            document.getElementById("curPage").value = ccurPage;
+            $.ajax({
+                url: tempUrl,
+                type: "post",
+                dataType: "json",
+                data: {"zoneId": zoneId, "startNum": (ccurPage - 1) * 6, "limitNum": 6},
+                success: function (data) {
+                    fillTable(data);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
         }
 
         function prePage() {
+            var tempUrl;
+            if (orderStatus.valueOf() == 0) {
+                tempUrl = "/realTimeRegionData/queryPaginationTodayMessageDescend.do";
+            } else {
+                tempUrl = "/realTimeRegionData/queryPaginationTodayMessage.do";
+            }
+            inputAssignment();
+            ccurPage--;
+            judgePrePageButtonStatus();
+            document.getElementById("curPage").value = ccurPage;
+            $.ajax({
+                url: tempUrl,
+                type: "post",
+                dataType: "json",
+                data: {"zoneId": zoneId, "startNum": (ccurPage - 1) * 6, "limitNum": 6},
+                success: function (data) {
+                    fillTable(data);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
 
+        function search() {
+            ccurPage = 1;
+            document.getElementById("curPage").value = ccurPage;
+            judgePrePageButtonStatus();
+            realTimeQuery();
         }
     </script>
 </head>
 <body>
 <div class="r_card1">
     <div class="r_card1-body">
-        <h4>折线图</h4>
+        <h4>实时数据</h4>
     </div>
 </div>
 <div class="r_card2">
@@ -71,8 +175,8 @@
 </div>
 <div class="r_card1">
     <div class="mySearch">
-        <input type="text" placeholder="输入区域号">
-        <button class="btn btn-info btn-xs" type="button">查询</button>
+        <input type="text" placeholder="输入区域号" id="searchText">
+        <button class="btn btn-info btn-xs" type="button" onclick="search()">查询</button>
     </div>
     <table class="table1 table-bordered" id="tab">
         <thead>
@@ -85,14 +189,23 @@
             <td width="70">溶解氧</td>
             <td width="70">电导率</td>
             <td width="70">浊度</td>
-            <td width="130">发送时间</td>
+            <td width="130">发送时间
+                <!--上面的箭头，升序-->
+                <i class="angle_top" onclick="realTimeQuery()" id="ascOrder"></i>
+                <!--下面的箭头，降序-->
+                <i class="angle_bottom" onclick="realTimeQueryDesc()" id="descOrder"></i>
+            </td>
         </tr>
         </thead>
     </table>
     <div class="myPage">
-        <button class="btn btn-default btn-xs" type="button" onclick="nextPage()">下一页</button>
-        <button class="btn btn-info btn-xs" type="button" id="curPage"></button>
-        <button class="btn btn-default btn-xs" type="button" onclick="prePage()">上一页</button>
+        <button class="btn btn-default btn-xs" type="button"
+                onclick="prePage()" id="prePageButton">上一页
+        </button>
+        <input class="btn btn-info btn-xs" type="button" id="curPage"/>
+        <button class="btn btn-default btn-xs" type="button"
+                onclick="nextPage()" id="nextPageButton">下一页
+        </button>
     </div>
 </div>
 <div class="r_card2">

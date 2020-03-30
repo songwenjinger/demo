@@ -19,9 +19,25 @@ public class RealTimeRegionDataMapperTest {
     @Test
     public void testQueryRealTimeRegionData() {
         List<RegionData> result = realTimeRegionDataMapper.queryTodayMessage(1);
-        Iterator<RegionData> iterator=result.iterator();
-        while (iterator.hasNext())
-        {
+        Iterator<RegionData> iterator = result.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next().toString());
+        }
+    }
+
+    @Test
+    public void testQueryPaginationTodayMessage() {
+        List<RegionData> result = realTimeRegionDataMapper.queryPaginationTodayMessage(1, 2, 6);
+        Iterator<RegionData> iterator = result.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next().toString());
+        }
+    }
+    @Test
+    public void testQueryPaginationTodayMessageDescend() {
+        List<RegionData> result = realTimeRegionDataMapper.queryPaginationTodayMessageDescend(1, 2, 6);
+        Iterator<RegionData> iterator = result.iterator();
+        while (iterator.hasNext()) {
             System.out.println(iterator.next().toString());
         }
     }

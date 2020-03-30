@@ -23,4 +23,18 @@ public class RealTimeRegionDataController {
         return realTimeRegionDataService.queryTodayMessage(id);
     }
 
+    @PostMapping("/queryPaginationTodayMessage.do")
+    @ResponseBody
+    public ServerResponse queryPaginationTodayMessage(Integer zoneId, Integer startNum, Integer limitNum) {
+        System.out.println("zoneId:" + zoneId + "startNum:" + startNum + "limitNum:" + limitNum);
+        return realTimeRegionDataService.queryPaginationTodayMessage(zoneId, startNum, limitNum);
+    }
+
+    @PostMapping("/queryPaginationTodayMessageDescend.do")
+    @ResponseBody
+    public ServerResponse queryPaginationTodayMessageDescend(Integer zoneId, Integer startNum, Integer limitNum) {
+        return realTimeRegionDataService.queryPaginationTodayMessageDescend(zoneId, startNum, limitNum);
+    }
+
+
 }
