@@ -1,12 +1,14 @@
 package com.example.dao;
 
 
+import com.example.auxiliary.DataStatistics;
 import com.example.entity.RegionData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 根据区域的信息查找区域的实时数据，默认的是查找当前的一个小时内的数据
@@ -31,4 +33,9 @@ public interface RealTimeRegionDataMapper {
      */
     List<RegionData> queryPaginationTodayMessageDescend(@Param("zoneId") Integer zoneId, @Param("startNum") Integer startNum,
                                                         @Param("limitNum") Integer limitNum);
+
+    /**
+     *
+     */
+    DataStatistics dataStatistics(@Param("zoneId") Integer zoneId, @Param("queryParam") String queryParam);
 }

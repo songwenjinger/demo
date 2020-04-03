@@ -23,7 +23,8 @@
         <include refid="Base_Column_List"/>
         from region_data
         where zone_id=#{zoneId} and
-        to_days(send_time) = to_days(now());
+        to_days(send_time) = to_days(now())
+        order by send_time
     </select>
     <select id="queryPaginationTodayMessage" resultMap="BaseResultMap">
         select
@@ -43,4 +44,15 @@
         order by send_time desc
         limit #{startNum},#{limitNum}
     </select>
+
+    <select id="dataStatistics" resultType="com.example.auxiliary.DataStatistics" >
+        select max(${queryParam}) as maxData ,
+        min(${queryParam}) as minData,
+        sum(${queryParam}) as sumData,
+        avg(${queryParam}) as avgData
+        from region_data
+        where zone_id=#{zoneId} and
+        to_days(send_time) = to_days(now())
+    </select>
+
 </mapper>

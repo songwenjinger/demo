@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 @Controller
 @RequestMapping("/realTimeRegionData")
 public class RealTimeRegionDataController {
@@ -34,6 +35,12 @@ public class RealTimeRegionDataController {
     @ResponseBody
     public ServerResponse queryPaginationTodayMessageDescend(Integer zoneId, Integer startNum, Integer limitNum) {
         return realTimeRegionDataService.queryPaginationTodayMessageDescend(zoneId, startNum, limitNum);
+    }
+
+    @PostMapping("/queryDataStatistics.do")
+    @ResponseBody
+    public ServerResponse queryDataStatistics(Integer zoneId) {
+        return realTimeRegionDataService.dataStatistics(zoneId);
     }
 
 

@@ -1,4 +1,5 @@
 package com.example.service;
+
 import com.example.response.ServerResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,12 @@ public class RealTimeRegionDataServiceTest {
     @Test
     public void queryRealTimeRegionData() {
         ServerResponse serverResponse = realTimeRegionDataService.queryTodayMessage(1);
+        System.out.println(serverResponse.toString());
+    }
+
+    @Test
+    public void testQueryDataStatistics() {
+        ServerResponse serverResponse=realTimeRegionDataService.dataStatistics(1);
         System.out.println(serverResponse.toString());
     }
 }

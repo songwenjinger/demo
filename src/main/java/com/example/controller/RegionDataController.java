@@ -15,8 +15,8 @@ public class RegionDataController {
     private RegionDataService regionDataService;
 
     @GetMapping(value = "/queryRealTimeRegionData.do")
+
     public ServerResponse queryRealTimeRegionData(Integer id) {
-        System.out.println("ok");
         return regionDataService.queryRealTimeRegionData(id);
     }
 
