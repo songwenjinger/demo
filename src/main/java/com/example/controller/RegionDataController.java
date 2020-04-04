@@ -1,5 +1,9 @@
 package com.example.controller;
-
+/**
+ * @author: SongWenjing
+ * @Date 2020/4/3 17:24
+ * 区域数据监测_主页
+ */
 import com.example.response.ServerResponse;
 import com.example.service.RegionDataService;
 import org.springframework.beans.factory.annotation.Autowired;

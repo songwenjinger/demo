@@ -1,5 +1,10 @@
 package com.example.auxiliary;
 
+/**
+ * @author: SongWenjing
+ * @Date 2020/4/3 17:24
+ * 最大值，最小值，累加和，平均数据的辅助类
+ */
 public class DataStatistics {
     private Float maxData;
     private Float minData;

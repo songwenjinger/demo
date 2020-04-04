@@ -1,4 +1,9 @@
 package com.example.dao;
+/**
+ * @author: SongWenjing
+ * @Date 2020/4/3 17:24
+ * 区域数据监测dao层接口
+ */
 
 import com.example.entity.RegionData;
 import org.apache.ibatis.annotations.Mapper;

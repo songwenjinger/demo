@@ -1,4 +1,9 @@
 package com.example.controller;
+/**
+ * @author: SongWenjing
+ * @Date 2020/4/3 17:24
+ * 区域数据监测_实时数据监测页面
+ */
 
 import com.example.response.ServerResponse;
 import com.example.service.RealTimeRegionDataService;
@@ -16,7 +21,12 @@ public class RealTimeRegionDataController {
     @Autowired
     RealTimeRegionDataService realTimeRegionDataService;
 
-    //    @PostMapping("/queryTodayMessage")
+    /**
+     * 查询当天的信息
+     *
+     * @param id 传入的区域id
+     * @return ServerResponse
+     */
     @PostMapping("/queryTodayMessage.do")
     @ResponseBody
     public ServerResponse queryTodayMessage(Integer id) {
@@ -24,6 +34,13 @@ public class RealTimeRegionDataController {
         return realTimeRegionDataService.queryTodayMessage(id);
     }
 
+    /**
+     * 分页查询当天的信息
+     * @param zoneId 区域id
+     * @param startNum 开始的条数
+     * @param limitNum 限制的条数
+     * @return ServerResponse
+     */
     @PostMapping("/queryPaginationTodayMessage.do")
     @ResponseBody
     public ServerResponse queryPaginationTodayMessage(Integer zoneId, Integer startNum, Integer limitNum) {
@@ -31,12 +48,24 @@ public class RealTimeRegionDataController {
         return realTimeRegionDataService.queryPaginationTodayMessage(zoneId, startNum, limitNum);
     }
 
+    /**
+     * 分页查询当天的信息，按照发送时间进行降序排列
+     * @param zoneId 区域id
+     * @param startNum 开始条数
+     * @param limitNum 限制的条数
+     * @return ServerResponse
+     */
     @PostMapping("/queryPaginationTodayMessageDescend.do")
     @ResponseBody
     public ServerResponse queryPaginationTodayMessageDescend(Integer zoneId, Integer startNum, Integer limitNum) {
         return realTimeRegionDataService.queryPaginationTodayMessageDescend(zoneId, startNum, limitNum);
     }
 
+    /**
+     * 查询最大值，最小值，平均值，累加和
+     * @param zoneId 区域id
+     * @return ServerResponse
+     */
     @PostMapping("/queryDataStatistics.do")
     @ResponseBody
     public ServerResponse queryDataStatistics(Integer zoneId) {

@@ -55,6 +55,12 @@ body {
     border-top: 2px solid #1D6FA3;
 }
 
+.part4_1 {
+    float: left;
+    width: 10px;
+    height: 15px;
+}
+
 .r_card1-header {
     display: table;
     width: 100%;
@@ -255,4 +261,17 @@ body {
     border-width: 0 3px 5px;
     border-color: transparent transparent #868e96;
     position: absolute;
+}
+
+.part4 {
+    display: flex;
+}
+
+.part4_1 {
+    flex: 1;
+}
+
+.part4_2 {
+    padding-left: 10px;
+    flex: 1;
 }
