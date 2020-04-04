@@ -45,11 +45,11 @@
         limit #{startNum},#{limitNum}
     </select>
 
-    <select id="dataStatistics" resultType="com.example.auxiliary.DataStatistics" >
+    <select id="dataStatistics" resultType="com.example.auxiliary.DataStatistics">
         select max(${queryParam}) as maxData ,
         min(${queryParam}) as minData,
         sum(${queryParam}) as sumData,
-        avg(${queryParam}) as avgData
+        convert (avg(${queryParam}),decimal (10,2)) as avgData
         from region_data
         where zone_id=#{zoneId} and
         to_days(send_time) = to_days(now())

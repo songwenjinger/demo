@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>后端分页</title>
@@ -210,7 +210,7 @@
                 tooltip: {},
                 legend: {
                     top: 10,
-                    data: ['温度', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度'],
+                    data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度'],
                     selected: {
                         'PH': false,
                         '耗氧量': false,
@@ -228,7 +228,7 @@
                 },
                 yAxis: {},
                 series: [{
-                    name: '温度',
+                    name: '水温',
                     type: 'line',
                     data: waterTemperature
                 }, {
@@ -284,6 +284,7 @@
                 data: {"zoneId": zoneId},
                 success: function (data) {
                     fillPart2(data);
+                    fillPart4(data);
                 },
                 error: function (msg) {
                     alert("ajax连接异常：" + msg);
@@ -295,7 +296,6 @@
             var myChart = echarts.init(document.getElementById('part22'));
             var maxData = new Array();
             var minData = new Array();
-
             // 指定图表的配置项和数据
             paramToArray1(data, maxData, minData);
             var option = {
@@ -315,7 +315,7 @@
                 },
                 xAxis: {},
                 yAxis: {
-                    data: ['温度', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度']
+                    data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度']
                 },
                 series: [{
                     name: '最大值',
@@ -349,6 +349,54 @@
             minData[6] = obj.turbidity.minData;
         }
 
+
+    </script>
+    <script>
+        function fillPart4(data) {
+            var obj = data.result;
+            var dom1 = document.getElementById("avg_water_temperature");
+            dom1.innerHTML = "<span style=\"color:black;\">水温:</span>" + obj.waterTemperature.avgData;
+            dom1.style.color = "#228b22";
+            var dom2 = document.getElementById("avg_ph");
+            dom2.innerHTML = "<span style=\"color:black;\">PH:</span>" + obj.ph.avgData;
+            dom2.style.color = "#228b22";
+            var dom3 = document.getElementById("avg_cod");
+            dom3.innerHTML = "<span style=\"color:black;\">耗氧量:</span>" + obj.cod.avgData;
+            dom3.style.color = "#228b22";
+            var dom4 = document.getElementById("avg_nh3");
+            dom4.innerHTML = "<span style=\"color:black;\">氨氮:</span>" + obj.nh3.avgData;
+            dom4.style.color = "#228b22";
+            var dom5 = document.getElementById("avg_dox");
+            dom5.innerHTML = "<span style=\"color:black;\">溶解氧:</span>" + obj.dox.avgData;
+            dom5.style.color = "#228b22";
+            var dom6 = document.getElementById("avg_conductivity");
+            dom6.innerHTML = "<span style=\"color:black;\">电导率:</span>" + obj.conductivity.avgData;
+            dom6.style.color = "#228b22";
+            var dom7 = document.getElementById("avg_turbidity");
+            dom7.innerHTML = "<span style=\"color:black;\">浊度:</span>" + obj.turbidity.avgData;
+            dom7.style.color = "#228b22";
+            var dom8 = document.getElementById("sum_water_temperature");
+            dom8.innerHTML = "<span style=\"color:black;\">水温:</span>" + obj.waterTemperature.sumData;
+            dom8.style.color = "#228b22";
+            var dom9 = document.getElementById("sum_ph");
+            dom9.innerHTML = "<span style=\"color:black;\">PH:</span>" + obj.ph.sumData;
+            dom9.style.color = "#228b22";
+            var dom10 = document.getElementById("sum_cod");
+            dom10.innerHTML = "<span style=\"color:black;\">耗氧量:</span>" + obj.cod.sumData;
+            dom10.style.color = "#228b22";
+            var dom11 = document.getElementById("sum_nh3");
+            dom11.innerHTML = "<span style=\"color:black;\">氨氮:</span>" + obj.nh3.sumData;
+            dom11.style.color = "#228b22";
+            var dom12 = document.getElementById("sum_dox");
+            dom12.innerHTML = "<span style=\"color:black;\">溶解氧:</span>" + obj.dox.sumData;
+            dom12.style.color = "#228b22";
+            var dom13 = document.getElementById("sum_conductivity");
+            dom13.innerHTML = "<span style=\"color:black;\">电导率:</span>" + obj.conductivity.sumData;
+            dom13.style.color = "#228b22";
+            var dom14 = document.getElementById("sum_turbidity");
+            dom14.innerHTML = "<span style=\"color:black;\">浊度:</span>" + obj.turbidity.sumData;
+            dom14.style.color = "#228b22";
+        }
     </script>
 </head>
 <body>
@@ -398,13 +446,29 @@
 <div class="r_card2" id="part4">
     <h6>数据分析</h6>
     <div class="part4">
-        <div class="part4_1" id="part4_2">
-            111
+        <div class="part4_1" id="part4_1">
+            <p class="part4_3 link-bottom">平均数据</p>
+            <p class="part4_3 link-bottom" id="avg_water_temperature"></p>
+            <p class="part4_3 link-bottom" id="avg_ph"></p>
+            <p class="link-bottom" id="avg_cod"></p>
+            <p class="link-bottom" id="avg_nh3"></p>
+            <p class="link-bottom" id="avg_dox"></p>
+            <p class="link-bottom" id="avg_conductivity"></p>
+            <p class="link-bottom" id="avg_turbidity"></p>
+
         </div>
-        <div class="part4_2">
-            222
+        <div class="part4_2" id="part4_2">
+            <p class="part4_3 link-bottom">累加数据</p>
+            <p class="part4_3 link-bottom" id="sum_water_temperature"></p>
+            <p class="part4_3 link-bottom" id="sum_ph"></p>
+            <p class="link-bottom" id="sum_cod"></p>
+            <p class="link-bottom" id="sum_nh3"></p>
+            <p class="link-bottom" id="sum_dox"></p>
+            <p class="link-bottom" id="sum_conductivity"></p>
+            <p class="link-bottom" id="sum_turbidity"></p>
         </div>
     </div>
 </div>
 </body>
+
 </html>
