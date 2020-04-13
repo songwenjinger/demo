@@ -39,8 +39,10 @@
                     <li class="nav-item nav-item-has-subnav">
                         <a href="#"><i class="mdi mdi-trending-up"></i> 数据实时检测</a>
                         <ul class="nav nav-subnav">
-                            <li><a href="#" id="zoneQuery" onclick="test('/regionData/jumpRealTimeRegionData.do')">区域信息查询</a></li>
-                            <li><a href="#!">区域信息对比</a></li>
+                            <li><a href="#" id="zoneQuery" onclick="test('/regionData/jumpRealTimeRegionData.do')">区域信息查询</a>
+                            </li>
+                            <li><a href="#" id="zoneCompare" onclick="test('/realDataCompare/jumpRealDataCompare.do')">区域信息对比</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-item-has-subnav">
@@ -182,7 +184,6 @@
                     </div>
                 </div>
             </div>
-            <div id="main" style="width: 400px;height:300px;"></div>
         </div>
     </main>
 </div>
@@ -194,7 +195,7 @@
         });
     }
 
-   var myChart = echarts.init(document.getElementById('main'));
+    var myChart = echarts.init(document.getElementById('main'));
 
     // 指定图表的配置项和数据
     var option = {

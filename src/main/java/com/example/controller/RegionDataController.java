@@ -3,7 +3,9 @@ package com.example.controller;
  * @author: SongWenjing
  * @Date 2020/4/3 17:24
  * 区域数据监测_主页
+ * 部分跳转接口
  */
+
 import com.example.response.ServerResponse;
 import com.example.service.RegionDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,6 @@ public class RegionDataController {
     private RegionDataService regionDataService;
 
     @GetMapping(value = "/queryRealTimeRegionData.do")
-
     public ServerResponse queryRealTimeRegionData(Integer id) {
         return regionDataService.queryRealTimeRegionData(id);
     }
@@ -27,12 +28,6 @@ public class RegionDataController {
     @GetMapping(value = "/jumpRealTimeRegionData.do")
     public String jumpRealTimeRegionData() {
         return "RealTimeRegionData";
-    }
-
-    @GetMapping(value = "/jumpRealTimeTable.do")
-    @RequestMapping(method = RequestMethod.GET)
-    public String jumpRealTimeTable() {
-        return "realTimeTable";
     }
 
 }

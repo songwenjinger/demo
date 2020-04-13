@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.response.ServerResponse;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class RealTimeRegionDataServiceTest {
     @Test
     public void testQueryDataStatistics() {
         ServerResponse serverResponse=realTimeRegionDataService.dataStatistics(1);
+        System.out.println(serverResponse.toString());
+    }
+
+    @Test
+    public void testQueryMultiTodayMessage()
+    {
+        ServerResponse serverResponse=realTimeRegionDataService.queryMultiTodayMessage("1,2");
         System.out.println(serverResponse.toString());
     }
 }

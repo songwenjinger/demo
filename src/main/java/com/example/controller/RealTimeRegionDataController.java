@@ -3,6 +3,7 @@ package com.example.controller;
  * @author: SongWenjing
  * @Date 2020/4/3 17:24
  * 区域数据监测_实时数据监测页面
+ * 区域数据监测_区域参数对比页面
  */
 
 import com.example.response.ServerResponse;
@@ -30,13 +31,13 @@ public class RealTimeRegionDataController {
     @PostMapping("/queryTodayMessage.do")
     @ResponseBody
     public ServerResponse queryTodayMessage(Integer id) {
-        System.out.println("ok");
         return realTimeRegionDataService.queryTodayMessage(id);
     }
 
     /**
      * 分页查询当天的信息
-     * @param zoneId 区域id
+     *
+     * @param zoneId   区域id
      * @param startNum 开始的条数
      * @param limitNum 限制的条数
      * @return ServerResponse
@@ -50,7 +51,8 @@ public class RealTimeRegionDataController {
 
     /**
      * 分页查询当天的信息，按照发送时间进行降序排列
-     * @param zoneId 区域id
+     *
+     * @param zoneId   区域id
      * @param startNum 开始条数
      * @param limitNum 限制的条数
      * @return ServerResponse
@@ -63,6 +65,7 @@ public class RealTimeRegionDataController {
 
     /**
      * 查询最大值，最小值，平均值，累加和
+     *
      * @param zoneId 区域id
      * @return ServerResponse
      */

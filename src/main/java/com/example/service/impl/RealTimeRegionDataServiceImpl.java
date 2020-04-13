@@ -64,4 +64,28 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
             return ServerResponse.createBySuccess(dataStatisticsLinkedHashMap);
         }
     }
+
+    /**
+     * 区域信息实时处理_根据传进来的string字符串，截取出需要对比的区域
+     *
+     * @param zoneMessage controller层传来的字符串
+     * @return ServerResponse
+     */
+    @Override
+    public ServerResponse queryMultiTodayMessage(String zoneMessage) {
+        String[] zoneMessageArray = zoneMessage.split(",");
+        LinkedHashMap<Integer, List<RegionData>> linkedHashMap = new LinkedHashMap<Integer, List<RegionData>>();
+        int[] zoneMessageIntArray = new int[zoneMessageArray.length];
+        for (int i = 0; i < zoneMessageArray.length; i++) {
+            zoneMessageIntArray[i] = Integer.parseInt(zoneMessageArray[i]);
+        }
+        for (int i = 0; i < zoneMessageIntArray.length; i++) {
+            linkedHashMap.put(zoneMessageIntArray[i], realTimeRegionDataMapper.queryTodayMessage(zoneMessageIntArray[i]));
+        }
+        if (linkedHashMap.isEmpty()) {
+            return ServerResponse.createByErrorMessage("查不到数据");
+        } else {
+            return ServerResponse.createBySuccess(linkedHashMap);
+        }
+    }
 }
