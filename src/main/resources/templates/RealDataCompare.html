@@ -110,29 +110,72 @@
                             x: 'center'
                         },
                         {
-                            textStyle: {
-                                color: '#1D6FA3'//字体颜色
-                            },
+                            // textStyle: {
+                            //     color: '#1D6FA3'//字体颜色
+                            // },
                             icon: 'none',
                             top: 30,
                             x: 'center',
                             // selectedMode: 'single',
-                            data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度'],
+                            // data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度'],
+                            data: [
+                                {
+                                    name: '水温',
+                                    textStyle: {
+                                        color: '#1D6FA3',
+                                    }
+                                },
+                                {
+                                    name: 'PH',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                },
+                                {
+                                    name: '耗氧量',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                },
+                                {
+                                    name: '氨氮',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                },
+                                {
+                                    name: '溶解氧',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                },
+                                {
+                                    name: '电导率',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                },
+                                {
+                                    name: '浊度',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                }],
                             selected: {
                                 '水温':
-                                    false,
+                                    true,
                                 'PH':
                                     true,
                                 '耗氧量':
                                     true,
                                 '氨氮':
-                                    false,
+                                    true,
                                 '溶解氧':
-                                    false,
+                                    true,
                                 '电导率':
-                                    false,
+                                    true,
                                 '浊度':
-                                    false
+                                    true
                             }
                             ,
                             inactiveColor: "#73716d"
@@ -153,20 +196,18 @@
                     series: seriesArray
                 }
             ;
-            myChart.setOption(option, true);
+
             myChart.on('legendselectchanged', function (obj) {
-                console.log("点击触发:");
                 propertyName = obj.name;
-                // obj.data = true;
-                // console.log(obj.selected.氨氮);
-                // console.log("设置后:");
-                console.log(obj.selected);
-                // myChart.setOption(option, true);
                 for (var i = 0; i < horLegend.length; i++) {
                     seriesArray[i].data = getTotalResponse(data, horLegend[i]);
                 }
-                myChart.setOption(option, true);
+                obj.selected[propertyName] = false;
+                setLegendColor(propertyName);
+                myChart.setOption(option);
+                // triggerAction('legendSelect', obj);
             });
+            myChart.setOption(option, true);
 
             // 使用刚指定的配置项和数据显示图表。
             function getTotalResponse(data, i) {
@@ -191,6 +232,26 @@
                 return temp;
             }
 
+            function setLegendColor() {
+                for (var i = 0; i < 7; i++) {
+                    option.legend[1].data[i].textStyle.color = '#1D6FA3';
+                }
+                if (propertyName == '水温') {
+                    option.legend[1].data[0].textStyle.color = '#2c6e58';
+                } else if (propertyName == 'PH') {
+                    option.legend[1].data[1].textStyle.color = '#2c6e58';
+                } else if (propertyName == '耗氧量') {
+                    option.legend[1].data[2].textStyle.color = '#2c6e58';
+                } else if (propertyName == '氨氮') {
+                    option.legend[1].data[3].textStyle.color = '#2c6e58';
+                } else if (propertyName == '溶解氧') {
+                    option.legend[1].data[4].textStyle.color = '#2c6e58';
+                } else if (propertyName == '电导率') {
+                    option.legend[1].data[5].textStyle.color = '#2c6e58';
+                } else {
+                    option.legend[1].data[6].textStyle.color = '#2c6e58';
+                }
+            }
 
         }
 
