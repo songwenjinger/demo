@@ -110,55 +110,51 @@
                             x: 'center'
                         },
                         {
-                            // textStyle: {
-                            //     color: '#1D6FA3'//字体颜色
-                            // },
                             icon: 'none',
                             top: 30,
                             x: 'center',
                             // selectedMode: 'single',
-                            // data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度'],
                             data: [
                                 {
                                     name: '水温',
                                     textStyle: {
-                                        color: '#1D6FA3',
+                                        color: '#73716d',
                                     }
                                 },
                                 {
                                     name: 'PH',
                                     textStyle: {
-                                        color: '#1D6FA3'
+                                        color: '#73716d'
                                     }
                                 },
                                 {
                                     name: '耗氧量',
                                     textStyle: {
-                                        color: '#1D6FA3'
+                                        color: '#73716d'
                                     }
                                 },
                                 {
                                     name: '氨氮',
                                     textStyle: {
-                                        color: '#1D6FA3'
+                                        color: '#73716d'
                                     }
                                 },
                                 {
                                     name: '溶解氧',
                                     textStyle: {
-                                        color: '#1D6FA3'
+                                        color: '#73716d'
                                     }
                                 },
                                 {
                                     name: '电导率',
                                     textStyle: {
-                                        color: '#1D6FA3'
+                                        color: '#73716d'
                                     }
                                 },
                                 {
                                     name: '浊度',
                                     textStyle: {
-                                        color: '#1D6FA3'
+                                        color: '#73716d'
                                     }
                                 }],
                             selected: {
@@ -178,7 +174,7 @@
                                     true
                             }
                             ,
-                            inactiveColor: "#73716d"
+                            // inactiveColor: "#73716d"
                         }
                     ],
                     xAxis: {
@@ -234,22 +230,22 @@
 
             function setLegendColor() {
                 for (var i = 0; i < 7; i++) {
-                    option.legend[1].data[i].textStyle.color = '#1D6FA3';
+                    option.legend[1].data[i].textStyle.color = '#73716d';
                 }
                 if (propertyName == '水温') {
-                    option.legend[1].data[0].textStyle.color = '#2c6e58';
+                    option.legend[1].data[0].textStyle.color = '#1D6FA3';
                 } else if (propertyName == 'PH') {
-                    option.legend[1].data[1].textStyle.color = '#2c6e58';
+                    option.legend[1].data[1].textStyle.color = '#1D6FA3';
                 } else if (propertyName == '耗氧量') {
-                    option.legend[1].data[2].textStyle.color = '#2c6e58';
+                    option.legend[1].data[2].textStyle.color = '#1D6FA3';
                 } else if (propertyName == '氨氮') {
-                    option.legend[1].data[3].textStyle.color = '#2c6e58';
+                    option.legend[1].data[3].textStyle.color = '#1D6FA3';
                 } else if (propertyName == '溶解氧') {
-                    option.legend[1].data[4].textStyle.color = '#2c6e58';
+                    option.legend[1].data[4].textStyle.color = '#1D6FA3';
                 } else if (propertyName == '电导率') {
-                    option.legend[1].data[5].textStyle.color = '#2c6e58';
+                    option.legend[1].data[5].textStyle.color = '#1D6FA3';
                 } else {
-                    option.legend[1].data[6].textStyle.color = '#2c6e58';
+                    option.legend[1].data[6].textStyle.color = '#1D6FA3';
                 }
             }
 
