@@ -50,3 +50,26 @@ body {
     vertical-align: top;
 
 }
+
+/* card */
+.realData_compare_r_card2 {
+    /*距离前面一个card的高度*/
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    /*字体颜色*/
+    color: #3b4552;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    /*每一个卡片的宽和高*/
+    height: 505px;
+    width: 350px;
+    /*字体距离div的距离*/
+    padding-left: 10px;
+    padding-top: 10px;
+    /*左浮动*/
+    float: right;
+    border-top: 2px solid #1D6FA3;
+}
+

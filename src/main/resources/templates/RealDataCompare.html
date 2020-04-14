@@ -198,10 +198,9 @@
                 for (var i = 0; i < horLegend.length; i++) {
                     seriesArray[i].data = getTotalResponse(data, horLegend[i]);
                 }
-                obj.selected[propertyName] = false;
+                // obj.selected[propertyName] = false;
                 setLegendColor(propertyName);
                 myChart.setOption(option);
-                // triggerAction('legendSelect', obj);
             });
             myChart.setOption(option, true);
 
@@ -263,6 +262,7 @@
     </script>
 </head>
 <body>
+<!--第一个区域，数据区域参数对比-->
 <div class="realData_compare_r_card1" id="part1">
     <div class="realData_compare_r_card1_part1_2">
         <input type="text" placeholder="请输入要对比的区域,用逗号分割，例如: 1,2,3" id="searchText_rc">
@@ -271,11 +271,8 @@
     <div id="part1_2_rc" style="height: 440px;width: 700px;">
     </div>
 </div>
-<div class="r_card2" id="part2">
-
-</div>
-<div class="r_card2" id="part4">
-
+<div class="realData_compare_r_card2" id="part2">
+<h6>232</h6>
 </div>
 </body>
 
