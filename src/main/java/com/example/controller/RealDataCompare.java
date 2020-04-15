@@ -33,5 +33,10 @@ public class RealDataCompare {
         return realTimeRegionDataService.queryMultiTodayMessage(zoneMessage);
     }
 
+    @PostMapping(value = "/queryMultiTodayDataStatistics.do")
+    @ResponseBody
+    public ServerResponse queryMultiTodayDataStatistics(String zoneMessage) {
+        return realTimeRegionDataService.queryMultiDataStatistics(zoneMessage);
+    }
 
 }

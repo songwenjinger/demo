@@ -19,8 +19,7 @@
 
         function searchAllPart_rc() {
             part1Chart_rc();
-            // part2Chart();
-            // part3Search();
+            part2Chart_rc();
         }
 
         function part1Chart_rc() {
@@ -48,7 +47,6 @@
                 horLegend_name[i] = horLegend[i] + "号区域";
             }
             var seriesArray = [];
-
             for (var i = 0; i < horLegend.length; i++) {
                 seriesArray.push({
                     name: horLegend_name[i],
@@ -118,7 +116,7 @@
                                 {
                                     name: '水温',
                                     textStyle: {
-                                        color: '#73716d',
+                                        color: '#1D6FA3'
                                     }
                                 },
                                 {
@@ -192,7 +190,7 @@
                     series: seriesArray
                 }
             ;
-
+            //点击触发的函数
             myChart.on('legendselectchanged', function (obj) {
                 propertyName = obj.name;
                 for (var i = 0; i < horLegend.length; i++) {
@@ -258,6 +256,171 @@
             }
         }
 
+        //第二部分的填充函数
+        function part2Chart_rc() {
+            inputAssignment();
+            $.ajax({
+                url: "/realDataCompare/queryMultiTodayDataStatistics.do",
+                type: "post",
+                dataType: "json",
+                data: {"zoneMessage": zoneMessage},
+                success: function (data) {
+                    fillPart2_rc(data);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
+
+        function fillPart2_rc(data) {
+            var myChart = echarts.init(document.getElementById('part2_1_rc'));
+            var propertyName = '最大值';
+            var seriesArray = [];
+            var horLegend = zoneMessage.split(",");
+            var horLegend_name = new Array(horLegend.length);
+            for (var i = 0; i < horLegend.length; i++) {
+                horLegend_name[i] = horLegend[i] + "号区域";
+            }
+            for (var i = 0; i < horLegend.length; i++) {
+                seriesArray.push({
+                    name: horLegend_name[i],
+                    type: 'bar',
+                    data: getDataStatisticsResponse(data, horLegend[i]),
+                    barWidth:'10'
+                })
+                ;
+            }
+            seriesArray.push({
+                name: '最大值',
+                type: 'bar',
+                data: null
+            });
+
+            seriesArray.push({
+                name: '最小值',
+                type: 'bar',
+                data: null
+            });
+            seriesArray.push({
+                name: '平均值',
+                type: 'bar',
+                data: null
+            });
+            seriesArray.push({
+                name: '累加值',
+                type: 'bar',
+                data: null
+            });
+            var option = {
+                grid: {
+                    left: 45,
+                    right: 20,
+                    height: '70%',
+                    bottom: 80,
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {},
+                legend: [{
+                    top: 10,
+                    data: horLegend_name,
+                    selectedMode: false,//取消图例上的点击事件
+                    x: 'center'
+                }, {
+                    icon: 'none',
+                    top: 30,
+                    x: 'center',
+                    data: [
+                        {
+                            name: '最大值',
+                            textStyle: {
+                                color: '#1D6FA3'
+                            }
+                        },
+                        {
+                            name: '最小值',
+                            textStyle: {
+                                color: '#73716d'
+                            }
+                        },
+                        {
+                            name: '平均值',
+                            textStyle: {
+                                color: '#73716d'
+                            }
+                        },
+                        {
+                            name: '累加值',
+                            textStyle: {
+                                color: '#73716d'
+                            }
+                        }
+                    ],
+                    selected: {
+                        '最大值': true,
+                        '最小值': true,
+                        '平均值': true,
+                        '累加值': true
+                    }
+                }
+
+                ],
+                xAxis: {},
+                yAxis: {
+                    data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度']
+                },
+                series: seriesArray
+            };
+            myChart.on('legendselectchanged', function (obj) {
+                propertyName = obj.name;
+                for (var i = 0; i < horLegend.length; i++) {
+                    seriesArray[i].data = getDataStatisticsResponse(data, horLegend[i]);
+                }
+                // obj.selected[propertyName] = false;
+                setLegendColor1(propertyName);
+                myChart.setOption(option);
+            });
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option, true);
+
+            function getDataStatisticsResponse(data, i) {
+                var temp = new Array(data.result[i].length);
+                var propertyArray = ["water_temperature", "ph", "cod", "nh3",
+                    "dox", "conductivity", "turbidity"];
+                for (var j = 0; j < propertyArray.length; j++) {
+                    if (propertyName == '最大值') {
+                        temp[j] = data.result[i][propertyArray[j]].maxData;
+                    } else if (propertyName == '最小值') {
+                        temp[j] = data.result[i][propertyArray[j]].minData;
+                    } else if (propertyName == '平均值') {
+                        temp[j] = data.result[i][propertyArray[j]].avgData;
+                    } else if (propertyName == '累加值') {
+                        temp[j] = data.result[i][propertyArray[j]].sumData;
+                    }
+                }
+                return temp;
+            }
+
+            //第二部分设置颜色
+            function setLegendColor1() {
+                for (var i = 0; i < 4; i++) {
+                    option.legend[1].data[i].textStyle.color = '#73716d';
+                }
+                if (propertyName == '最大值') {
+                    option.legend[1].data[0].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '最小值') {
+                    option.legend[1].data[1].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '平均值') {
+                    option.legend[1].data[2].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '累加值') {
+                    option.legend[1].data[3].textStyle.color = '#1D6FA3';
+                }
+            }
+
+        }
+
         //得到区域id和参数值对应的横线
     </script>
 </head>
@@ -272,7 +435,8 @@
     </div>
 </div>
 <div class="realData_compare_r_card2" id="part2">
-<h6>232</h6>
+    <div id="part2_1_rc" style="height: 480px;width: 320px;">
+    </div>
 </div>
 </body>
 

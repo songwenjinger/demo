@@ -19,8 +19,11 @@ public interface RealTimeRegionDataService {
 
     /**
      * 区域信息实时处理_根据传进来的string字符串，截取出需要对比的区域
+     *
      * @param zoneMessage controller层传来的字符串
      * @return ServerResponse
      */
     ServerResponse queryMultiTodayMessage(String zoneMessage);
+
+    ServerResponse queryMultiDataStatistics(String zoneMessage);
 }

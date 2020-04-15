@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
 public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService {
+    String[] property = {"water_temperature", "ph", "cod", "nh3",
+            "dox", "conductivity", "turbidity"};
     @Autowired
     RealTimeRegionDataMapper realTimeRegionDataMapper;
 
@@ -51,13 +54,9 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
     @Override
     public ServerResponse dataStatistics(Integer zoneId) {
         LinkedHashMap<String, DataStatistics> dataStatisticsLinkedHashMap = new LinkedHashMap<String, DataStatistics>();
-        dataStatisticsLinkedHashMap.put("waterTemperature", realTimeRegionDataMapper.dataStatistics(zoneId, "water_temperature"));
-        dataStatisticsLinkedHashMap.put("ph", realTimeRegionDataMapper.dataStatistics(zoneId, "ph"));
-        dataStatisticsLinkedHashMap.put("cod", realTimeRegionDataMapper.dataStatistics(zoneId, "cod"));
-        dataStatisticsLinkedHashMap.put("nh3", realTimeRegionDataMapper.dataStatistics(zoneId, "nh3"));
-        dataStatisticsLinkedHashMap.put("dox", realTimeRegionDataMapper.dataStatistics(zoneId, "dox"));
-        dataStatisticsLinkedHashMap.put("conductivity", realTimeRegionDataMapper.dataStatistics(zoneId, "conductivity"));
-        dataStatisticsLinkedHashMap.put("turbidity", realTimeRegionDataMapper.dataStatistics(zoneId, "turbidity"));
+        for (int i = 0; i < property.length; i++) {
+            dataStatisticsLinkedHashMap.put(property[i], realTimeRegionDataMapper.dataStatistics(zoneId, property[i]));
+        }
         if (dataStatisticsLinkedHashMap.isEmpty()) {
             return ServerResponse.createByErrorMessage("查不到数据");
         } else {
@@ -73,12 +72,8 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
      */
     @Override
     public ServerResponse queryMultiTodayMessage(String zoneMessage) {
-        String[] zoneMessageArray = zoneMessage.split(",");
         LinkedHashMap<Integer, List<RegionData>> linkedHashMap = new LinkedHashMap<Integer, List<RegionData>>();
-        int[] zoneMessageIntArray = new int[zoneMessageArray.length];
-        for (int i = 0; i < zoneMessageArray.length; i++) {
-            zoneMessageIntArray[i] = Integer.parseInt(zoneMessageArray[i]);
-        }
+        int[] zoneMessageIntArray = transformIntArray(zoneMessage);
         for (int i = 0; i < zoneMessageIntArray.length; i++) {
             linkedHashMap.put(zoneMessageIntArray[i], realTimeRegionDataMapper.queryTodayMessage(zoneMessageIntArray[i]));
         }
@@ -87,5 +82,32 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
         } else {
             return ServerResponse.createBySuccess(linkedHashMap);
         }
+    }
+
+    @Override
+    public ServerResponse queryMultiDataStatistics(String zoneMessage) {
+        LinkedHashMap<Integer, HashMap<String, DataStatistics>> linkedHashMap = new LinkedHashMap<Integer, HashMap<String, DataStatistics>>();
+        int[] zoneMessageIntArray = transformIntArray(zoneMessage);
+        for (int i = 0; i < zoneMessageIntArray.length; i++) {
+            LinkedHashMap<String, DataStatistics> propertyDataStatistic = new LinkedHashMap<String, DataStatistics>();
+            for (int j = 0; j < property.length; j++) {
+                propertyDataStatistic.put(property[j], realTimeRegionDataMapper.dataStatistics(zoneMessageIntArray[i], property[j]));
+            }
+            linkedHashMap.put(zoneMessageIntArray[i], propertyDataStatistic);
+        }
+        if (linkedHashMap.isEmpty()) {
+            return ServerResponse.createByErrorMessage("查不到数据");
+        } else {
+            return ServerResponse.createBySuccess(linkedHashMap);
+        }
+    }
+
+    private int[] transformIntArray(String zoneMessage) {
+        String[] zoneMessageArray = zoneMessage.split(",");
+        int[] zoneMessageIntArray = new int[zoneMessageArray.length];
+        for (int i = 0; i < zoneMessageArray.length; i++) {
+            zoneMessageIntArray[i] = Integer.parseInt(zoneMessageArray[i]);
+        }
+        return zoneMessageIntArray;
     }
 }

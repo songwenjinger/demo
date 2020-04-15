@@ -33,5 +33,11 @@ public class RealTimeRegionDataServiceTest {
         ServerResponse serverResponse=realTimeRegionDataService.queryMultiTodayMessage("1,2");
         System.out.println(serverResponse.toString());
     }
+    @Test
+    public void testQueryMultiDataStatistics()
+    {
+        ServerResponse serverResponse=realTimeRegionDataService.queryMultiDataStatistics("1,2");
+        System.out.println(serverResponse);
+    }
 }
 

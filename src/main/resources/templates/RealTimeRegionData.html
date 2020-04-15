@@ -333,14 +333,14 @@
 
         function paramToArray1(data, maxData, minData) {
             var obj = data.result;
-            maxData[0] = obj.waterTemperature.maxData;
+            maxData[0] = obj.water_temperature.maxData;
             maxData[1] = obj.ph.maxData;
             maxData[2] = obj.cod.maxData;
             maxData[3] = obj.nh3.maxData;
             maxData[4] = obj.dox.maxData;
             maxData[5] = obj.conductivity.maxData;
             maxData[6] = obj.turbidity.maxData;
-            minData[0] = obj.waterTemperature.minData;
+            minData[0] = obj.water_temperature.minData;
             minData[1] = obj.ph.minData;
             minData[2] = obj.cod.minData;
             minData[3] = obj.nh3.minData;
@@ -355,7 +355,7 @@
         function fillPart4(data) {
             var obj = data.result;
             var dom1 = document.getElementById("avg_water_temperature");
-            dom1.innerHTML = "<span style=\"color:black;\">水温:</span>" + obj.waterTemperature.avgData;
+            dom1.innerHTML = "<span style=\"color:black;\">水温:</span>" + obj.water_temperature.avgData;
             dom1.style.color = "#228b22";
             var dom2 = document.getElementById("avg_ph");
             dom2.innerHTML = "<span style=\"color:black;\">PH:</span>" + obj.ph.avgData;
@@ -376,7 +376,7 @@
             dom7.innerHTML = "<span style=\"color:black;\">浊度:</span>" + obj.turbidity.avgData;
             dom7.style.color = "#228b22";
             var dom8 = document.getElementById("sum_water_temperature");
-            dom8.innerHTML = "<span style=\"color:black;\">水温:</span>" + obj.waterTemperature.sumData;
+            dom8.innerHTML = "<span style=\"color:black;\">水温:</span>" + obj.water_temperature.sumData;
             dom8.style.color = "#228b22";
             var dom9 = document.getElementById("sum_ph");
             dom9.innerHTML = "<span style=\"color:black;\">PH:</span>" + obj.ph.sumData;
