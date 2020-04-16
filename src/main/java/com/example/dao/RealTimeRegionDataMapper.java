@@ -35,7 +35,7 @@ public interface RealTimeRegionDataMapper {
                                                         @Param("limitNum") Integer limitNum);
 
     /**
-     *
+     * 数据统计
      */
     DataStatistics dataStatistics(@Param("zoneId") Integer zoneId, @Param("queryParam") String queryParam);
 }
