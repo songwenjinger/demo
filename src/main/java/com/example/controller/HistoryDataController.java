@@ -4,11 +4,11 @@ import com.example.response.ServerResponse;
 import com.example.service.HistoryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.rmi.ServerError;
 import java.util.Date;
 
 /**
@@ -20,6 +20,12 @@ import java.util.Date;
 public class HistoryDataController {
     @Autowired
     HistoryDataService historyDataService;
+
+    @GetMapping(value = "/jumpHistoryData.do")
+    public String jumpRealTimeRegionData() {
+        System.out.println("HistoryData");
+        return "HistoryData";
+    }
 
     @PostMapping(value = "/queryByUserDefined.do")
     @ResponseBody

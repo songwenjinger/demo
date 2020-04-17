@@ -14,7 +14,7 @@ body {
 }
 
 /* card */
-.realData_compare_r_card1 {
+.hd_card1 {
     /*距离前面一个card的高度*/
     display: inline-block;
     margin-top: 10px;
@@ -36,25 +36,25 @@ body {
     border-top: 2px solid #1D6FA3;
 }
 
-.realData_compare_r_card1_part1_2 input {
+.hd_card1 input {
     font-size: 10px;
     width: 220px;
     height: 25px;
     border: 1px solid #dddddd;
 }
 
-.realData_compare_r_card1_part1_2 input:focus {
+.hd_card1 input:focus {
     border: 1px solid #dddddd;
 }
 
-.realData_compare_r_card1_part1_2 button {
+.hd_card1 button {
     margin-left: 10px;
     vertical-align: top;
 
 }
 
 /* card */
-.realData_compare_r_card2 {
+.hd_card2 {
     /*距离前面一个card的高度*/
     display: inline-block;
     margin-top: 10px;
