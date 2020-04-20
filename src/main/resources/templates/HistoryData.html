@@ -1,24 +1,94 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
     <title>后端分页</title>
-    <link href="/css/easyui.css" type="text/css" rel="stylesheet">
     <link href="/css/icon.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle1.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle2.css" type="text/css" rel="stylesheet">
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <!--时间选择插件-->
+    <!--<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">-->
+    <!--日期选择插件-->
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link href="/css/style.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <!--时间选择器-->
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <!--<script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>-->
+    <script type="text/javascript" src="/js/zh-cn.js"></script>
+    <!--日期选择器-->
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script>
+        function hd_drop_down_event(value) {
+            document.getElementById("hd_part1_1_1").style.display = "none";
+            document.getElementById("hd_part1_1_2").style.display = "none";
+            document.getElementById("hd_part1_1_3").style.display = "none";
+            document.getElementById("hd_part1_1_4").style.display = "none";
+            if (value === "weekQuery") {
+                document.getElementById("hd_part1_1_1").style.display = "";
+            } else if (value === "monthQuery") {
+                document.getElementById("hd_part1_1_2").style.display = "";
+            } else if (value === "yearQuery") {
+                document.getElementById("hd_part1_1_3").style.display = "";
+            } else if (value === "ownQuery") {
+                document.getElementById("hd_part1_1_4").style.display = "";
+
+            }
+
+        }
+    </script>
 </head>
 <body>
 <div class="hd_card1" id="part1">
-    <div class="mySearch">
+    <div class="mySearch" id="hd_part1_1">
         <input type="text" placeholder="输入区域号" id="searchText">
-        <button class="btn btn-info btn-xs" type="button" onclick="searchAllPart()">查询</button>
+        <!--<button class="btn btn-info btn-xs" type="button" onclick="searchAllPart()">查询</button>-->
+        <select class="hd_drop_down_box" onclick="hd_drop_down_event(this.options[this.selectedIndex].value);">
+            <option disabled="disabled" selected="selected">查询类型</option>
+            <option value="weekQuery">按周查询</option>
+            <option value="monthQuery">按月查询</option>
+            <option value="yearQuery">按年查询</option>
+            <option value="ownQuery">自定义查询</option>
+        </select>
+        <div class="dynamicDisplay">
+            <div id="hd_part1_1_1" style="display: none">
+                <h6 style="display: inline">近&nbsp;</h6>
+                <input style="display: inline;width: 50px" placeholder='输入数字'/>
+                <h6 style="display: inline">&nbsp;周</h6>
+            </div>
+            <div id="hd_part1_1_2" style="display: none">
+                <h6 style="display: inline">近&nbsp;</h6>
+                <input style="display: inline;width: 50px" placeholder='输入数字'/>
+                <h6 style="display: inline">&nbsp;月</h6>
+            </div>
+            <div id="hd_part1_1_3" style="display: none">
+                <h6 style="display: inline">近&nbsp;</h6>
+                <input style="display: inline;width: 50px" placeholder='输入数字'/>
+                <h6 style="display: inline">&nbsp;年</h6>
+            </div>
+
+            <div class="dynamicDisplay_detail" id="hd_part1_1_4" style="display:none;">
+                <input class="js-datepicker " id="example-datepicker"
+                       name="example-datepicker" placeholder="开始日期" value=""
+                       data-date-format="yyyy-mm-dd"
+                       style="width: 70px;text-align: center"/>
+                <input placeholder="至"
+                       style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb"
+                       disabled="disabled"/>
+                <input class="js-datepicker " id="example-datepicker1"
+                       name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
+                       style="width: 70px;text-align: center"/>
+            </div>
+        </div>
     </div>
     <div id="hd_part1_2" style="height: 210px;width: 700px;">
+
     </div>
 </div>
 <div class="hd_card2" id="part2">

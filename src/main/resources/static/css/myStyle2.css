@@ -38,7 +38,7 @@ body {
 
 .hd_card1 input {
     font-size: 10px;
-    width: 220px;
+    width: 90px;
     height: 25px;
     border: 1px solid #dddddd;
 }
@@ -76,3 +76,34 @@ body {
     border-top: 2px solid #1D6FA3;
 }
 
+.hd_drop_down_box {
+    margin-left: 25px;
+    /*color: aliceblue;*/
+    width: 100px;
+    height: 25px;
+    border: 2px solid #48b0f7;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 25px;
+    /*cursor: pointer;*/
+}
+
+.dynamicDisplay {
+    /*margin: auto;*/
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 50px;
+    width: 320px;
+    height: 25px;
+}
+
+.dynamicDisplay_input {
+    width: 50px;
+}
+
+.dynamicDisplay_detail {
+    vertical-align: top;
+    display: inline-block;
+    /*height: 25px;*/
+}

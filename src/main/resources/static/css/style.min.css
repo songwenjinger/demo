@@ -1,3 +1,4 @@
+
 body {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     /*color: #4d5259;*/
@@ -2373,6 +2374,7 @@ fieldset[disabled] .btn-dark:hover {
 .bg-light {
     background-color: #f5f6f7 !important
 }
+
 /*图标的背景颜色，透明度*/
 .bg-translucent {
     background-color: rgba(255, 255, 255, 0.175)
@@ -3182,7 +3184,7 @@ dd, dt {
     flex-direction: row-reverse;
     list-style: none;
     margin: 0px;
-    padding: 0px,0px;
+    padding: 0px, 0px;
 }
 
 .topbar-right > li > a {
@@ -3211,18 +3213,21 @@ dd, dt {
     border-radius: 50%;
     padding-bottom: 0px;
 }
+
 /*首页右上角管理员头像*/
 .img-avatar-48 {
     width: 48px;
     height: 48px;
     line-height: 48px;
 }
+
 /*卡片中的圆图标*/
 .img-avatar-58 {
     width: 58px;
     height: 58px;
     line-height: 58px;
 }
+
 .edit-avatar {
     display: -ms-flexbox;
     display: flex;
