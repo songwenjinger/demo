@@ -21,4 +21,20 @@ public interface HistoryDataService {
     ServerResponse queryByYear(Integer zoneId, Integer num);
 
     ServerResponse queryRecentSevenDays(Integer zoneId);
+
+    /**
+     * 多个区域历史参数的对比
+     *
+     * @param zoneMessage input框中的string类型的信息
+     * @return ServerResponse
+     */
+    ServerResponse queryMultiByUserDefined(String zoneMessage, String startTime, String endTime) throws ParseException;
+
+    ServerResponse queryMultiByWeek(String zoneMessage, Integer num);
+
+    ServerResponse queryMultiByMonth(String zoneMessage, Integer num);
+
+    ServerResponse queryMultiByYear(String zoneMessage, Integer num);
+
+    ServerResponse queryMultiRecentSevenDays(String zoneMessage);
 }

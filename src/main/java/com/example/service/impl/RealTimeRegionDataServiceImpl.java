@@ -5,6 +5,7 @@ import com.example.dao.RealTimeRegionDataMapper;
 import com.example.entity.RegionData;
 import com.example.response.ServerResponse;
 import com.example.service.RealTimeRegionDataService;
+import com.example.util.TransformIntArray;
 import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,7 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
     @Override
     public ServerResponse queryMultiTodayMessage(String zoneMessage) {
         LinkedHashMap<Integer, List<RegionData>> linkedHashMap = new LinkedHashMap<Integer, List<RegionData>>();
-        int[] zoneMessageIntArray = transformIntArray(zoneMessage);
+        int[] zoneMessageIntArray = TransformIntArray.transformIntArray(zoneMessage);
         for (int i = 0; i < zoneMessageIntArray.length; i++) {
             linkedHashMap.put(zoneMessageIntArray[i], realTimeRegionDataMapper.queryTodayMessage(zoneMessageIntArray[i]));
         }
@@ -87,7 +88,7 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
     @Override
     public ServerResponse queryMultiDataStatistics(String zoneMessage) {
         LinkedHashMap<Integer, HashMap<String, DataStatistics>> linkedHashMap = new LinkedHashMap<Integer, HashMap<String, DataStatistics>>();
-        int[] zoneMessageIntArray = transformIntArray(zoneMessage);
+        int[] zoneMessageIntArray = TransformIntArray.transformIntArray(zoneMessage);
         for (int i = 0; i < zoneMessageIntArray.length; i++) {
             LinkedHashMap<String, DataStatistics> propertyDataStatistic = new LinkedHashMap<String, DataStatistics>();
             for (int j = 0; j < property.length; j++) {
@@ -102,12 +103,4 @@ public class RealTimeRegionDataServiceImpl implements RealTimeRegionDataService 
         }
     }
 
-    private int[] transformIntArray(String zoneMessage) {
-        String[] zoneMessageArray = zoneMessage.split(",");
-        int[] zoneMessageIntArray = new int[zoneMessageArray.length];
-        for (int i = 0; i < zoneMessageArray.length; i++) {
-            zoneMessageIntArray[i] = Integer.parseInt(zoneMessageArray[i]);
-        }
-        return zoneMessageIntArray;
-    }
 }
