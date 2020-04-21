@@ -56,7 +56,6 @@
             inputAssignment();
             var selectObject = document.getElementById("hd_select");
             var selectValue = selectObject.options[selectObject.selectedIndex].value;
-            console.log(selectValue);
             var urlString;
             if (selectValue === 'weekQuery') {
                 urlString = "/historyData/queryByWeek.do";
@@ -71,15 +70,12 @@
                 urlString = "/historyData/queryByUserDefined.do";
                 startTime = $("#hd_part1_1_4_startTime").val();
                 endTime = $("#hd_part1_1_4_endTime").val();
-                console.log(startTime);
-                console.log(endTime);
                 if (startTime === "" || endTime === "" || startTime > endTime) {
                     alert("日期输入错误");
                     return;
                 }
             } else {
-                urlString = "/historyData/queryByWeek.do";
-                num = $('#hd_part1_1_1_input').val();
+                urlString = "/historyData/queryRecentSevenDays.do";
             }
 
             $.ajax({
@@ -100,12 +96,22 @@
         //填充数据第一部分
         function fillPart1_hd(data) {
             var myChart = echarts.init(document.getElementById('hd_part1_2'));
+            var waterTemperature = new Array(data.result.length / 7);
+            var ph = new Array(data.result.length / 7);
+            var cod = new Array(data.result.length / 7);
+            var nh3 = new Array(data.result.length / 7);
+            var dox = new Array(data.result.length / 7);
+            var conductivity = new Array(data.result.length / 7);
+            var turbidity = new Array(data.result.length / 7);
+            var xAxisData = new Array(data.result.length / 7);
+            // 指定图表的配置项和数据
+            hd_paramToArray(data, xAxisData, waterTemperature, ph, cod, nh3, dox, conductivity, turbidity);
             var option = {
                 grid: {
                     left: 60,
                     right: 60,
-                    height: '60%',
-                    bottom: 45
+                    height: '70%',
+                    bottom: 60
                 },
                 title: {
                     text: ""
@@ -115,53 +121,73 @@
                     top: 10,
                     data: ['水温', 'PH', '耗氧量', '氨氮', '溶解氧', '电导率', '浊度'],
                     selected: {
-                        'PH': false,
-                        '耗氧量': false,
-                        '氨氮': false,
-                        '溶解氧': false,
-                        '电导率': false,
-                        '浊度': false
+                        'PH': true,
+                        '耗氧量': true,
+                        '氨氮': true,
+                        '溶解氧': true,
+                        '电导率': true,
+                        '浊度': true
                     }
                 },
                 xAxis: {
-                    data: ["0", "1", "2", "3", "4", "5",
-                        "6", "7", "8", "9", "10", "11",
-                        "12", "13", "14", "15", "16", "17",
-                        "18", "19", "20", "21", "22", "23"]
+                    data: xAxisData,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 0
+                    }
                 },
                 yAxis: {},
                 series: [{
                     name: '水温',
                     type: 'line',
-                    data: 1
+                    data: waterTemperature
                 }, {
                     name: 'PH',
                     type: 'line',
-                    data: 2
+                    data: ph
+
                 }, {
                     name: '耗氧量',
                     type: 'line',
-                    data: 3
+                    data: cod
                 }, {
                     name: '氨氮',
                     type: 'line',
-                    data: 4
+                    data: nh3
                 }, {
                     name: '溶解氧',
                     type: 'line',
-                    data: 56
+                    data: dox
                 }, {
                     name: '电导率',
                     type: 'line',
-                    data: 5
+                    data: conductivity
                 }, {
                     name: '浊度',
                     type: 'line',
-                    data: 4
+                    data: turbidity
                 }]
             };
             // 使用刚指定的配置项和数据显示图表。
+            var myChartxAxisData = option.xAxis.data;
+            if (myChartxAxisData.length >= 8) {
+                option.xAxis.axisLabel.interval = 0;
+                option.xAxis.axisLabel.rotate = 50;
+            }
             myChart.setOption(option);
+        }
+
+        function hd_paramToArray(data, xAxisData, waterTemperature, ph, cod, nh3, dox, conductivity, turbidity) {
+            for (var i = 0, j = 0; i < data.result.length; i = i + 7, j++) {
+                waterTemperature[j] = data.result[i].avgData;
+                xAxisData[j] = data.result[i].sendTime;
+                ph[j] = data.result[i + 1].avgData;
+                cod[j] = data.result[i + 2].avgData;
+                nh3[j] = data.result[i + 3].avgData;
+                dox[j] = data.result[i + 4].avgData;
+                conductivity[j] = data.result[i + 5].avgData;
+                turbidity[j] = data.result[i + 6].avgData;
+            }
         }
 
         function inputAssignment() {
@@ -218,10 +244,10 @@
         </div>
         <button class="btn btn-info btn-xs" type="button" onclick="hd_searchAllPart()">查询</button>
     </div>
-    <div id="hd_part1_2" style="height: 400px;width: 680px;">
+    <div id="hd_part1_2" style="height: 420px;width: 980px;">
 
     </div>
 </div>
-
+</body>
 
 </html>

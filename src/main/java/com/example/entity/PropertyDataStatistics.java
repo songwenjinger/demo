@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -15,17 +17,18 @@ public class PropertyDataStatistics {
     private Integer id;
 
 
-
     private Integer zoneId;
     private String property;
     private Float maxData;
     private Float minData;
     private Float avgData;
     private Float sumData;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date sendTime;
 
     public PropertyDataStatistics() {
     }
+
     public Integer getId() {
         return id;
     }
@@ -33,6 +36,7 @@ public class PropertyDataStatistics {
     public void setId(Integer id) {
         this.id = id;
     }
+
     public Integer getZoneId() {
         return zoneId;
     }

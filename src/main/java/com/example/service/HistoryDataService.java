@@ -19,4 +19,6 @@ public interface HistoryDataService {
     ServerResponse queryByMonth(Integer zoneId, Integer num);
 
     ServerResponse queryByYear(Integer zoneId, Integer num);
+
+    ServerResponse queryRecentSevenDays(Integer zoneId);
 }

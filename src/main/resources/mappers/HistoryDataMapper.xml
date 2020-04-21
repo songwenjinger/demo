@@ -48,5 +48,12 @@
         where zone_id=#{zoneId} and
         send_time between date_sub(now(),interval #{num} year ) and now();
     </select>
+    <select id="queryRecentSevenDays" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from day_region_data
+        where zone_id=#{zoneId} and
+        DATE_SUB(CURDATE(), INTERVAL 7 DAY)<![CDATA[ <= ]]> date(send_time)
+    </select>
 
 </mapper>

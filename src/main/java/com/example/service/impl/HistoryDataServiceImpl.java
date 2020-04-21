@@ -63,4 +63,14 @@ public class HistoryDataServiceImpl implements HistoryDataService {
             return ServerResponse.createBySuccess(list);
         }
     }
+
+    @Override
+    public ServerResponse queryRecentSevenDays(Integer zoneId) {
+        List<PropertyDataStatistics> list = historyDataMapper.queryRecentSevenDays(zoneId);
+        if (list == null) {
+            return ServerResponse.createByErrorMessage("查不到数据");
+        } else {
+            return ServerResponse.createBySuccess(list);
+        }
+    }
 }

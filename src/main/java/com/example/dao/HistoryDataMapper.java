@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.entity.PropertyDataStatistics;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -54,4 +55,11 @@ public interface HistoryDataMapper {
      * @return DataStatistics
      */
     List<PropertyDataStatistics> queryByYear(@Param("zoneId") Integer zoneId, @Param("num") Integer num);
+
+    /**
+     * 查询最近七天的数据
+     * @param zoneId
+     * @return
+     */
+    List<PropertyDataStatistics> queryRecentSevenDays(@Param("zoneId") Integer zoneId);
 }

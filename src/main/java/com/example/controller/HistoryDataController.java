@@ -52,4 +52,9 @@ public class HistoryDataController {
         return historyDataService.queryByYear(zoneId, num);
     }
 
+    @PostMapping(value = "queryRecentSevenDays.do")
+    @ResponseBody
+    ServerResponse queryRecentSevenDays(Integer zoneId) {
+        return historyDataService.queryRecentSevenDays(zoneId);
+    }
 }

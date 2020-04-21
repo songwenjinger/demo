@@ -45,9 +45,9 @@ public class HistoryDataMapperTest {
             System.out.println(iterator.next());
         }
     }
+
     @Test
-    public void testQueryByMonth()
-    {
+    public void testQueryByMonth() {
         List<PropertyDataStatistics> dataStatistics = historyDataMapper.queryByMonth(1, 2);
         System.out.println("size:" + dataStatistics.size());
         Iterator iterator = dataStatistics.iterator();
@@ -55,9 +55,9 @@ public class HistoryDataMapperTest {
             System.out.println(iterator.next());
         }
     }
+
     @Test
-    public void testQueryByYear()
-    {
+    public void testQueryByYear() {
         List<PropertyDataStatistics> dataStatistics = historyDataMapper.queryByYear(1, 4);
         System.out.println("size:" + dataStatistics.size());
         Iterator iterator = dataStatistics.iterator();
@@ -65,4 +65,15 @@ public class HistoryDataMapperTest {
             System.out.println(iterator.next());
         }
     }
+
+    @Test
+    public void testQueryByRecentSevenDays() {
+        List<PropertyDataStatistics> dataStatistics = historyDataMapper.queryRecentSevenDays(1);
+        System.out.println("size:" + dataStatistics.size());
+        Iterator iterator = dataStatistics.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
 }
