@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.response.ServerResponse;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * @Date 2020/4/16 10:36
  */
 public interface HistoryDataService {
-    ServerResponse queryByUserDefined(Integer zoneId, Date StartTime, Date endTime);
+    ServerResponse queryByUserDefined(Integer zoneId, String StartTime, String endTime) throws ParseException;
 
     ServerResponse queryByWeek(Integer zoneId, Integer num);
 

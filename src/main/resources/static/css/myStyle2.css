@@ -27,7 +27,7 @@ body {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
     /*每一个卡片的宽和高*/
     height: 505px;
-    width: 700px;
+    width: 1050px;
     /*字体距离div的距离*/
     padding-left: 10px;
     padding-top: 10px;
@@ -77,11 +77,11 @@ body {
 }
 
 .hd_drop_down_box {
-    margin-left: 25px;
+    margin-left: 50px;
     /*color: aliceblue;*/
     width: 100px;
     height: 25px;
-    border: 2px solid #48b0f7;
+    border: 1px solid #dfdfdf;
     border-radius: 5px;
     text-align: center;
     font-size: 12px;
@@ -94,7 +94,7 @@ body {
     vertical-align: top;
     display: inline-block;
     margin-left: 50px;
-    width: 320px;
+    width: 220px;
     height: 25px;
 }
 
@@ -106,4 +106,33 @@ body {
     vertical-align: top;
     display: inline-block;
     /*height: 25px;*/
+}
+
+.hd_mySearch {
+    /*margin: auto;*/
+    /*height: 50px;*/
+    font-size: 0;
+}
+
+.hd_mySearch input {
+    margin-left: 30px;
+    font-size: 10px;
+    width: 90px;
+    height: 25px;
+    border: 1px solid #dddddd;
+}
+
+.hd_mySearch input:focus {
+    border: 1px solid #dddddd;
+}
+
+.hd_mySearch button {
+    margin-left: 10px;
+    vertical-align: top;
+
+}
+
+.hd_mySearch span {
+    width: 30px;
+    height: 25px;
 }

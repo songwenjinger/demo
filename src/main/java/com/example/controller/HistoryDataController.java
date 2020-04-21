@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -29,7 +30,7 @@ public class HistoryDataController {
 
     @PostMapping(value = "/queryByUserDefined.do")
     @ResponseBody
-    ServerResponse queryByUserDefined(Integer zoneId, Date startTime, Date endTime) {
+    ServerResponse queryByUserDefined(Integer zoneId, String startTime, String endTime) throws ParseException {
         return historyDataService.queryByUserDefined(zoneId, startTime, endTime);
     }
 

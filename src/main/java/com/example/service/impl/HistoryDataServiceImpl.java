@@ -7,6 +7,8 @@ import com.example.service.HistoryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +22,11 @@ public class HistoryDataServiceImpl implements HistoryDataService {
     HistoryDataMapper historyDataMapper;
 
     @Override
-    public ServerResponse queryByUserDefined(Integer zoneId, Date startTime, Date endTime) {
-        List<PropertyDataStatistics> list = historyDataMapper.queryByUserDefined(zoneId, startTime, endTime);
+    public ServerResponse queryByUserDefined(Integer zoneId, String startTime, String endTime) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse(startTime);
+        Date endDate = sdf.parse(endTime);
+        List<PropertyDataStatistics> list = historyDataMapper.queryByUserDefined(zoneId, startDate, endDate);
         if (list == null) {
             return ServerResponse.createByErrorMessage("查不到数据");
         } else {

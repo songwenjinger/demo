@@ -32,7 +32,7 @@ public class HistoryDataServiceTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date startTime = sdf.parse("2019-04-10");
         Date endTime = sdf.parse("2020-04-06");
-        ServerResponse serverResponse = historyDataService.queryByUserDefined(1, startTime, endTime);
+        ServerResponse serverResponse = historyDataService.queryByUserDefined(1, "2019-04-10", "2020-04-06");
         System.out.println(serverResponse);
     }
 
