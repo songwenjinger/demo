@@ -3,41 +3,351 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>后端分页</title>
-    <link href="/css/easyui.css" type="text/css" rel="stylesheet">
     <link href="/css/icon.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle1.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle2.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <!--时间选择插件-->
+    <!--日期选择插件-->
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link href="/css/style.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!--时间选择器-->
+    <script type="text/javascript" src="/js/zh-cn.js"></script>
+    <!--日期选择器-->
+    <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
     <script>
-        function hd_drop_down_event(value) {
-            document.getElementById("hd_part1_1_1").style.display = "none";
-            document.getElementById("hd_part1_1_2").style.display = "none";
-            document.getElementById("hd_part1_1_3").style.display = "none";
-            document.getElementById("hd_part1_1_4").style.display = "none";
+        var zoneMessage;
+        var num;
+        var startTime;
+        var endTime;
+        $(document).load('click', "#historyDataCompare", function () {
+            hdc_searchAllPart();
+        });
+
+        function hdc_searchAllPart() {
+            part1Chart_hdc();
+        }
+
+        function hdc_drop_down_event(value) {
+            document.getElementById("hdc_part1_1_1").style.display = "none";
+            document.getElementById("hdc_part1_1_2").style.display = "none";
+            document.getElementById("hdc_part1_1_3").style.display = "none";
+            document.getElementById("hdc_part1_1_4").style.display = "none";
             if (value === "weekQuery") {
-                document.getElementById("hd_part1_1_1").style.display = "";
+                document.getElementById("hdc_part1_1_1").style.display = "";
             } else if (value === "monthQuery") {
-                document.getElementById("hd_part1_1_2").style.display = "";
+                document.getElementById("hdc_part1_1_2").style.display = "";
             } else if (value === "yearQuery") {
-                document.getElementById("hd_part1_1_3").style.display = "";
+                document.getElementById("hdc_part1_1_3").style.display = "";
             } else if (value === "ownQuery") {
-                document.getElementById("hd_part1_1_4").style.display = "";
+                document.getElementById("hdc_part1_1_4").style.display = "";
 
             }
+
         }
+
+        function part1Chart_hdc() {
+            inputAssignment();
+            var selectObject = document.getElementById("hdc_select");
+            var selectValue = selectObject.options[selectObject.selectedIndex].value;
+            var urlString;
+            if (selectValue === 'weekQuery') {
+                urlString = "/historyDataCompare/queryMultiByWeek.do";
+                num = $('#hdc_part1_1_1_input').val();
+            } else if (selectValue === 'monthQuery') {
+                urlString = "/historyDataCompare/queryMultiByMonth.do";
+                num = $('#hdc_part1_1_2_input').val();
+            } else if (selectValue === 'yearQuery') {
+                urlString = "/historyDataCompare/queryMultiByYear.do";
+                num = $('#hdc_part1_1_3_input').val();
+            } else if (selectValue === 'ownQuery') {
+                urlString = "/historyDataCompare/queryMultiByUserDefined.do";
+                startTime = $("#hdc_part1_1_4_startTime").val();
+                endTime = $("#hdc_part1_1_4_endTime").val();
+                if (startTime === "" || endTime === "" || startTime > endTime) {
+                    alert("日期输入错误");
+                    return;
+                }
+            } else {
+                urlString = "/historyDataCompare/queryMultiRecentSevenDays.do";
+            }
+
+            $.ajax({
+                url: urlString,
+                type: "post",
+                dataType: "json",
+                data: {"zoneMessage": zoneMessage, "num": num, "startTime": startTime, "endTime": endTime},
+                success: function (data) {
+                    fillPart1_hdc(data);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+
+        }
+
+        function fillPart1_hdc(data) {
+            var myChart = echarts.init(document.getElementById('hdc_part1_2'));
+            var horLegend = zoneMessage.split(",");
+            var horLegend_name = new Array(horLegend.length);
+            var propertyName = '水温';
+            for (var i = 0; i < horLegend.length; i++) {
+                horLegend_name[i] = horLegend[i] + "号区域";
+            }
+            console.log(horLegend_name);
+            var seriesArray = [];
+            for (var i = 0; i < horLegend.length; i++) {
+                seriesArray.push({
+                    name: horLegend_name[i],
+                    type: 'line',
+                    data: getTotalResponse(data, horLegend[i])
+                });
+            }
+            seriesArray.push({
+                name: '水温',
+                type: 'line',
+                data: null
+            });
+            seriesArray.push({
+                name: 'PH',
+                type: 'line',
+                data: null
+            });
+            seriesArray.push({
+                name: '耗氧量',
+                type: 'line',
+                data: null
+            });
+            seriesArray.push({
+                name: '氨氮',
+                type: 'line',
+                data: null
+            });
+            seriesArray.push({
+                name: '溶解氧',
+                type: 'line',
+                data: null
+            });
+            seriesArray.push({
+                name: '电导率',
+                type: 'line',
+                data: null
+            });
+            seriesArray.push({
+                name: '浊度',
+                type: 'line',
+                data: null
+            });
+            var option = {
+                    grid: {
+                        left: 70,
+                        right: 60,
+                        height: '70%',
+                        bottom: 65
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {},
+                    legend: [
+                        {
+                            top: 10,
+                            data: horLegend_name,
+                            selectedMode: false,//取消图例上的点击事件
+                            x: 'center'
+                        },
+                        {
+                            icon: 'none',
+                            top: 30,
+                            x: 'center',
+                            // selectedMode: 'single',
+                            data: [
+                                {
+                                    name: '水温',
+                                    textStyle: {
+                                        color: '#1D6FA3'
+                                    }
+                                },
+                                {
+                                    name: 'PH',
+                                    textStyle: {
+                                        color: '#73716d'
+                                    }
+                                },
+                                {
+                                    name: '耗氧量',
+                                    textStyle: {
+                                        color: '#73716d'
+                                    }
+                                },
+                                {
+                                    name: '氨氮',
+                                    textStyle: {
+                                        color: '#73716d'
+                                    }
+                                },
+                                {
+                                    name: '溶解氧',
+                                    textStyle: {
+                                        color: '#73716d'
+                                    }
+                                },
+                                {
+                                    name: '电导率',
+                                    textStyle: {
+                                        color: '#73716d'
+                                    }
+                                },
+                                {
+                                    name: '浊度',
+                                    textStyle: {
+                                        color: '#73716d'
+                                    }
+                                }],
+                            selected: {
+                                '水温':
+                                    true,
+                                'PH':
+                                    true,
+                                '耗氧量':
+                                    true,
+                                '氨氮':
+                                    true,
+                                '溶解氧':
+                                    true,
+                                '电导率':
+                                    true,
+                                '浊度':
+                                    true
+                            }
+                            ,
+                            // inactiveColor: "#73716d"
+                        }
+                    ],
+                    xAxis: {
+                        data: getxAxisData(data, horLegend),
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 0
+                        }
+                    }
+                    ,
+                    yAxis: {
+                        // boundaryGap: true,
+                        // min: 10
+                    }
+                    ,
+                    series: seriesArray
+                }
+            ;
+            //点击触发的函数
+            myChart.on('legendselectchanged', function (obj) {
+                propertyName = obj.name;
+                for (var i = 0; i < horLegend.length; i++) {
+                    seriesArray[i].data = getTotalResponse(data, horLegend[i]);
+                }
+                // obj.selected[propertyName] = false;
+                setLegendColor(propertyName);
+                myChart.setOption(option,true);
+            });
+            var myChartxAxisData = option.xAxis.data;
+            if (myChartxAxisData.length >= 8) {
+                option.xAxis.axisLabel.interval = 0;
+                option.xAxis.axisLabel.rotate = 50;
+            }
+            myChart.setOption(option, true);
+
+            // 使用刚指定的配置项和数据显示图表。
+            function getTotalResponse(data, i) {
+                var temp = new Array(data.result[i].length);
+                for (var j = 0, k = 0; j < data.result[i].length; j += 7, k++) {
+                    if (propertyName == '水温') {
+                        temp[k] = data.result[i][j].avgData;
+                    } else if (propertyName == 'PH') {
+                        temp[k] = data.result[i][j + 1].avgData;
+                    } else if (propertyName == '耗氧量') {
+                        temp[k] = data.result[i][j + 2].avgData;
+                    } else if (propertyName == '氨氮') {
+                        temp[k] = data.result[i][j + 3].avgData;
+                    } else if (propertyName == '溶解氧') {
+                        temp[k] = data.result[i][j + 4].avgData;
+                    } else if (propertyName == '电导率') {
+                        temp[k] = data.result[i][j + 5].avgData;
+                    } else if (propertyName == '浊度') {
+                        temp[k] = data.result[i][j + 6].avgData;
+                    }
+                }
+                return temp;
+            }
+
+            function setLegendColor() {
+                for (var i = 0; i < 7; i++) {
+                    option.legend[1].data[i].textStyle.color = '#73716d';
+                }
+                if (propertyName == '水温') {
+                    option.legend[1].data[0].textStyle.color = '#1D6FA3';
+                } else if (propertyName == 'PH') {
+                    option.legend[1].data[1].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '耗氧量') {
+                    option.legend[1].data[2].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '氨氮') {
+                    option.legend[1].data[3].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '溶解氧') {
+                    option.legend[1].data[4].textStyle.color = '#1D6FA3';
+                } else if (propertyName == '电导率') {
+                    option.legend[1].data[5].textStyle.color = '#1D6FA3';
+                } else {
+                    option.legend[1].data[6].textStyle.color = '#1D6FA3';
+                }
+            }
+
+            function getxAxisData(data, horLegend) {
+                //确定最大长度的区域
+                var temp = [];
+                var maxLength = -1;
+                var tag = -1;
+                for (var i = 0; i < horLegend.length; i++) {
+                    if (data.result[horLegend[i]].length > maxLength) {
+                        maxLength = data.result[horLegend[i]].length;
+                        tag = horLegend[i];
+                    }
+
+                }
+                console.log("tag:" + tag);
+                console.log("maxLength" + maxLength);
+                for (var i = 0, j = 0; i < maxLength; i += 7, j++) {
+                    temp[j] = data.result[tag][i].sendTime;
+                }
+                console.log(temp);
+                return temp;
+            }
+
+        }
+
+        function inputAssignment() {
+            if ($('#searchText_hdc').val() == null || $('#searchText_hdc').val() == '') {
+                zoneMessage = '1,2,3';
+            } else {
+                zoneMessage = $('#searchText_hdc').val();
+            }
+        }
+
     </script>
 </head>
 <body>
-<!--第一个区域，数据区域参数对比-->
 <div class="hd_card1" id="part1">
-    <div class="hd_mySearch" id="part1_1">
-        <input type="text" placeholder="请输入要对比的区域,用逗号分割，例如: 1,2,3" id="searchText_rc" style="width: 220px">
-        <select id="hd_select" class="hd_drop_down_box"
-                onclick="hd_drop_down_event(this.options[this.selectedIndex].value);">
+    <div class="hd_mySearch" id="hdc_part1_1">
+        <input type="text" placeholder="请输入要对比的区域,用逗号分割，例如: 1,2,3" id="searchText_hdc" style="width: 220px">
+        <select id="hdc_select" class="hd_drop_down_box"
+                onclick="hdc_drop_down_event(this.options[this.selectedIndex].value);">
             <option disabled="disabled" selected="selected">查询类型</option>
             <option value="weekQuery">按周查询</option>
             <option value="monthQuery">按月查询</option>
@@ -45,39 +355,43 @@
             <option value="ownQuery">自定义查询</option>
         </select>
         <div class="dynamicDisplay">
-            <div id="hd_part1_1_1" style="display: none;padding-left: 40px">
+            <div id="hdc_part1_1_1" style="display: none;padding-left: 40px">
                 <h6 style="display: inline">近</h6>
-                <input id="hd_part1_1_1_input" style="display: inline;width: 50px;margin-left: 5px" placeholder='输入数字'/>
+                <input id="hdc_part1_1_1_input" style="display: inline;width: 50px;margin-left: 5px"
+                       placeholder='输入数字'/>
                 <h6 style="display: inline">&nbsp;周</h6>
             </div>
-            <div id="hd_part1_1_2" style="display: none;padding-left: 40px">
+            <div id="hdc_part1_1_2" style="display: none;padding-left: 40px">
                 <h6 style="display: inline">近</h6>
-                <input id="hd_part1_1_2_input" style="display: inline;width: 50px;margin-left: 5px" placeholder='输入数字'/>
+                <input id="hdc_part1_1_2_input" style="display: inline;width: 50px;margin-left: 5px"
+                       placeholder='输入数字'/>
                 <h6 style="display: inline">&nbsp;月</h6>
             </div>
-            <div id="hd_part1_1_3" style="display: none;padding-left: 40px">
+            <div id="hdc_part1_1_3" style="display: none;padding-left: 40px">
                 <h6 style="display: inline">近</h6>
-                <input id="hd_part1_1_3_input" style="display: inline;width: 50px;margin-left: 5px" placeholder='输入数字'/>
+                <input id="hdc_part1_1_3_input" style="display: inline;width: 50px;margin-left: 5px"
+                       placeholder='输入数字'/>
                 <h6 style="display: inline">&nbsp;年</h6>
             </div>
 
-            <div class="dynamicDisplay_detail" id="hd_part1_1_4" style="display:none;">
-                <input class="js-datepicker " id="hd_part1_1_4_startTime"
+            <div class="dynamicDisplay_detail" id="hdc_part1_1_4" style="display:none;">
+                <input class="js-datepicker " id="hdc_part1_1_4_startTime"
                        name="example-datepicker" placeholder="开始日期" value=""
                        data-date-format="yyyy-mm-dd"
                        style="width: 70px;text-align: center;margin-left: 20px"/>
                 <input placeholder="至"
                        style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left: 0px"
                        disabled="disabled"/>
-                <input class="js-datepicker " id="hd_part1_1_4_endTime"
+                <input class="js-datepicker " id="hdc_part1_1_4_endTime"
                        name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
                        style="width: 70px;text-align: center;margin-left: 0"/>
             </div>
         </div>
-        <button class="btn btn-info btn-xs" type="button" onclick="searchAllPart_rc()">查询</button>
+        <button class="btn btn-info btn-xs" type="button" onclick="hdc_searchAllPart()">查询</button>
     </div>
-    <!--<div id="part1_2_rc" style="height: 440px;width: 700px;">
-    </div>-->
+    <div id="hdc_part1_2" style="height: 420px;width: 980px;">
+
+    </div>
 </div>
 </body>
 
