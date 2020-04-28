@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>后端分页</title>
+    <link href="/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle1.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle2.css" type="text/css" rel="stylesheet">
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <!--时间选择插件-->
+    <!--日期选择插件-->
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link href="/css/style.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <!--时间选择器-->
+    <script type="text/javascript" src="/js/zh-cn.js"></script>
+    <!--日期选择器-->
+    <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+</head>
+<body>
+<div class="hd_card1" id="part1">
+    <div align="center">
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>区域号</th>
+                <th>温度</th>
+                <th>ph</th>
+                <th>耗氧量</th>
+                <th>氨氮</th>
+                <th>溶解氧</th>
+                <th>电导率</th>
+                <th>浊度</th>
+                <th>发送时间</th>
+            </tr>
+            <tr th:each="regionData:${pageInfo.list}">
+                <td th:text="${regionData.id}"></td>
+                <td th:text="${regionData.zoneId}"></td>
+                <td th:text="${regionData.waterTemperature}"></td>
+                <td th:text="${regionData.ph}"></td>
+                <td th:text="${regionData.cod}"></td>
+                <td th:text="${regionData.nh3}"></td>
+                <td th:text="${regionData.dox}"></td>
+                <td th:text="${regionData.conductivity}"></td>
+                <td th:text="${regionData.turbidity}"></td>
+                <td th:text="${regionData.sendTime}"></td>
+            </tr>
+        </table>
+        <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
+                th:text="${pageInfo.total}"></span> 条记录</p>
+        <a th:href="@{/detailedDataQuery/queryAll.do}">首页</a>
+        <a th:href="@{/detailedDataQuery/queryAll.do(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+        <a th:href="@{/detailedDataQuery/queryAll.do(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+        <a th:href="@{/detailedDataQuery/queryAll.do(pageNum=${pageInfo.pages})}">尾页</a>
+    </div>
+</div>
+</body>
+</html>
