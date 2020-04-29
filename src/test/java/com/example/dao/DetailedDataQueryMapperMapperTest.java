@@ -23,7 +23,7 @@ public class DetailedDataQueryMapperMapperTest {
     @Test
     public void testQueryAll() {
         List<RegionData> list = detailedDataQueryMapper.queryAll();
-        Iterator iterator = list.iterator();
+        Iterator<RegionData> iterator = list.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }

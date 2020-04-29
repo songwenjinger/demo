@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class DetailedDataQueryController {
 
     @GetMapping(value = "/queryAll.do")
     public String queryAll(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) {
-        PageHelper.startPage(pageNum, 5);
+        PageHelper.startPage(pageNum, 8);
         List<RegionData> list = detailedDataQueryService.queryAll();
         PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
         model.addAttribute("pageInfo", pageInfo);

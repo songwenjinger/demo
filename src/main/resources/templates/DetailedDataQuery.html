@@ -24,11 +24,13 @@
     <!--日期选择器-->
     <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script>
+    </script>
 </head>
 <body>
 <div class="hd_card1" id="part1">
     <div align="center">
-        <table border="1">
+        <table class="table table-bordered">
             <tr>
                 <th>id</th>
                 <th>区域号</th>
@@ -51,7 +53,7 @@
                 <td th:text="${regionData.dox}"></td>
                 <td th:text="${regionData.conductivity}"></td>
                 <td th:text="${regionData.turbidity}"></td>
-                <td th:text="${regionData.sendTime}"></td>
+                <td th:text="${#dates.format(regionData.sendTime,'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
         </table>
         <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span

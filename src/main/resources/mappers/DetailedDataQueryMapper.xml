@@ -21,6 +21,6 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from region_data order by send_time
+        from region_data order by id
     </select>
 </mapper>
