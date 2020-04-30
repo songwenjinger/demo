@@ -54,6 +54,13 @@ body {
 
 }
 
+.hd_card1 a {
+    /*margin-left: 10px;*/
+    /*vertical-align: top;*/
+    color: #34baff;
+}
+
+
 /* card */
 .hd_card2 {
     /*距离前面一个card的高度*/

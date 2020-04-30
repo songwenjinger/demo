@@ -25,44 +25,104 @@
     <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
     <script>
+        function test1() {// url  请求的页面url
+            var url = '/detailedDataQuery/queryAll.do';
+            $.get(url, function (result) {
+                $("#part").html(result);// 将返回的字符串渲染为html
+            });
+        }
+
+        function test2(hasPreviousPageParam, prePageParam) {
+            console.log(hasPreviousPageParam, prePageParam);
+            var param;
+            if (hasPreviousPageParam === "true") {
+                param = {
+                    pageNum: prePageParam
+                };
+            } else {
+                param = {
+                    pageNum: 1
+                };
+            }
+            var url = '/detailedDataQuery/queryAll.do';
+            $.get(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+            });
+        }
+
+        function test3(hasNextPage, nextPage, pages) {
+            var param;
+            if (hasNextPage === "true") {
+                param = {
+                    pageNum: nextPage
+                };
+            } else {
+                param = {
+                    pageNum: pages
+                }
+            }
+
+            var url = '/detailedDataQuery/queryAll.do';
+            $.get(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+            });
+        }
+
+        function test4(pagesParam) {
+            var param = {
+                pageNum: pagesParam
+            };
+            var url = '/detailedDataQuery/queryAll.do';
+            $.get(url, param, function (data) {
+                //  ddq_fillTable(data);
+                $("#part").html(data);// 将返回的字符串渲染为html
+                // window.location.reload(data);
+            });
+        }
     </script>
 </head>
 <body>
-<div class="hd_card1" id="part1">
-    <div align="center">
-        <table class="table table-bordered">
-            <tr>
-                <th>id</th>
-                <th>区域号</th>
-                <th>温度</th>
-                <th>ph</th>
-                <th>耗氧量</th>
-                <th>氨氮</th>
-                <th>溶解氧</th>
-                <th>电导率</th>
-                <th>浊度</th>
-                <th>发送时间</th>
-            </tr>
-            <tr th:each="regionData:${pageInfo.list}">
-                <td th:text="${regionData.id}"></td>
-                <td th:text="${regionData.zoneId}"></td>
-                <td th:text="${regionData.waterTemperature}"></td>
-                <td th:text="${regionData.ph}"></td>
-                <td th:text="${regionData.cod}"></td>
-                <td th:text="${regionData.nh3}"></td>
-                <td th:text="${regionData.dox}"></td>
-                <td th:text="${regionData.conductivity}"></td>
-                <td th:text="${regionData.turbidity}"></td>
-                <td th:text="${#dates.format(regionData.sendTime,'yyyy-MM-dd HH:mm:ss')}"></td>
-            </tr>
-        </table>
-        <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
-                th:text="${pageInfo.total}"></span> 条记录</p>
-        <a th:href="@{/detailedDataQuery/queryAll.do}">首页</a>
-        <a th:href="@{/detailedDataQuery/queryAll.do(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
-        <a th:href="@{/detailedDataQuery/queryAll.do(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
-        <a th:href="@{/detailedDataQuery/queryAll.do(pageNum=${pageInfo.pages})}">尾页</a>
+<div id="part">
+
+    <div class="hd_card1" id="part1">
+        <div align="center">
+            <table class="table table-bordered" id="ddq_tab">
+                <tr>
+                    <th>id</th>
+                    <th>区域号</th>
+                    <th>温度</th>
+                    <th>ph</th>
+                    <th>耗氧量</th>
+                    <th>氨氮</th>
+                    <th>溶解氧</th>
+                    <th>电导率</th>
+                    <th>浊度</th>
+                    <th>发送时间</th>
+                </tr>
+                <tr th:each="regionData:${pageInfo.list}">
+                    <td th:text="${regionData.id}"></td>
+                    <td th:text="${regionData.zoneId}"></td>
+                    <td th:text="${regionData.waterTemperature}"></td>
+                    <td th:text="${regionData.ph}"></td>
+                    <td th:text="${regionData.cod}"></td>
+                    <td th:text="${regionData.nh3}"></td>
+                    <td th:text="${regionData.dox}"></td>
+                    <td th:text="${regionData.conductivity}"></td>
+                    <td th:text="${regionData.turbidity}"></td>
+                    <td th:text="${#dates.format(regionData.sendTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+            </table>
+            <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
+                    th:text="${pageInfo.total}"></span> 条记录</p>
+            <a href="javascript:void(0);" onclick="test1()" id="sy1">首页</a>
+            <a th:onclick="'javascript:test2(\''+${pageInfo.hasPreviousPage}+'\',\''+${pageInfo.prePage}+'\')'"
+               id="sy2">上一页</a>
+            <a th:onclick="'javascript:test3(\''+${pageInfo.hasNextPage}+'\',\''+${pageInfo.nextPage}+'\',\''+${pageInfo.pages}+'\')'"
+               id="sy3">下一页</a>
+            <a th:onclick="'javascript:test4(\''+${pageInfo.pages}+'\')'" id="sy4">尾页</a>
+        </div>
     </div>
 </div>
+
 </body>
 </html>
