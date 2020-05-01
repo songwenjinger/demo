@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.StatisticsDataQueryMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.PropertyDataStatistics">
+        <!-- 用id属性来映射主键字段 -->
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 用result属性来映射非主键字段 -->
+        <result property="zoneId" column="zone_id" jdbcType="INTEGER"/>
+        <result property="property" column="property" jdbcType="VARCHAR"/>
+        <result property="maxData" column="max_data" jdbcType="FLOAT"/>
+        <result property="minData" column="min_data" jdbcType="FLOAT"/>
+        <result property="avgData" column="avg_data" jdbcType="FLOAT"/>
+        <result property="sumData" column="sum_data" jdbcType="FLOAT"/>
+        <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, zone_id, property,max_data,min_data,avg_data,sum_data,send_time
+   </sql>
+    <select id="queryByUserDefined" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from day_region_data
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+        order by send_time
+    </select>
+    <select id="queryByWeek" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from week_region_data
+        where zone_id=#{zoneId} and
+        DATE_SUB(CURDATE(), INTERVAL 7*#{num} DAY)  <![CDATA[ <= ]]> date(send_time)
+        order by send_time
+    </select>
+    <select id="queryByMonth" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from month_region_data
+        where zone_id=#{zoneId} and
+        send_time between date_sub(now(),interval #{num} month) and now();
+    </select>
+
+    <select id="queryByYear" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from year_region_data
+        where zone_id=#{zoneId} and
+        send_time between date_sub(now(),interval #{num} year ) and now();
+    </select>
+    <select id="queryRecentSevenDays" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from day_region_data
+        where zone_id=#{zoneId} and
+        DATE_SUB(CURDATE(), INTERVAL 7 DAY)<![CDATA[ <= ]]> date(send_time)
+    </select>
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from day_region_data
+    </select>
+
+</mapper>
