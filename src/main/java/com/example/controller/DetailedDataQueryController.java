@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Iterator;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,10 +26,83 @@ public class DetailedDataQueryController {
     @Autowired
     DetailedDataQueryService detailedDataQueryService;
 
+    /**
+     * 查询所有信息
+     *
+     * @param model   视图
+     * @param pageNum 分页的页数
+     * @return 返回一个前端页面
+     */
     @GetMapping(value = "/queryAll.do")
     public String queryAll(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) {
         PageHelper.startPage(pageNum, 8);
         List<RegionData> list = detailedDataQueryService.queryAll();
+        PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "DetailedDataQuery";
+    }
+
+    /**
+     * 如果是刚点击进来，就查询所有的，点击查询按钮之后，按照条件查询
+     * @param model 视图
+     * @param pageNum 页数
+     * @param zoneId 区域id
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 页面
+     * @throws ParseException
+     */
+    @PostMapping(value = "/queryByCondition.do")
+    public String queryByCondition(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                   Integer zoneId, String startTime, String endTime) throws ParseException {
+        List<RegionData> list;
+        if (startTime == null || startTime.equals("")) {
+            PageHelper.startPage(pageNum, 8);
+            list = detailedDataQueryService.queryAll();
+        } else {
+            PageHelper.startPage(pageNum, 8);
+            list = detailedDataQueryService.queryByCondition(zoneId, startTime, endTime);
+        }
+        PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "DetailedDataQuery";
+    }
+
+    @PostMapping(value = "/queryByConditionOrderBySendTimeAsc.do")
+    public String queryByConditionOrderBySendTimeAsc(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                                     String zoneMessage, String startTime, String endTime) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<RegionData> list = detailedDataQueryService.queryByConditionOrderBySendTimeAsc(zoneMessage, startTime, endTime);
+        PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "DetailedDataQuery";
+    }
+
+    @PostMapping(value = "/queryByConditionOrderBySendTimeDesc.do")
+    public String queryByConditionOrderBySendTimeDesc(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                                      String zoneMessage, String startTime, String endTime) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<RegionData> list = detailedDataQueryService.queryByConditionOrderBySendTimeDesc(zoneMessage, startTime, endTime);
+        PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "DetailedDataQuery";
+    }
+
+    @PostMapping(value = "/queryByConditionOrderByZoneIdAsc.do")
+    public String queryByConditionOrderByZoneIdAsc(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                                   String zoneMessage, String startTime, String endTime) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<RegionData> list = detailedDataQueryService.queryByConditionOrderByZoneIdAsc(zoneMessage, startTime, endTime);
+        PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "DetailedDataQuery";
+    }
+
+    @PostMapping(value = "/queryByConditionOrderByZoneIdDesc.do")
+    public String queryByConditionOrderByZoneIdDesc(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                                    String zoneMessage, String startTime, String endTime) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<RegionData> list = detailedDataQueryService.queryByConditionOrderByZoneIdDesc(zoneMessage, startTime, endTime);
         PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
         model.addAttribute("pageInfo", pageInfo);
         return "DetailedDataQuery";

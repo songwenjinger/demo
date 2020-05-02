@@ -16,49 +16,12 @@
     <sql id="Base_Column_List">
     id, zone_id, property,max_data,min_data,avg_data,sum_data,send_time
    </sql>
-    <select id="queryByUserDefined" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from day_region_data
-        where zone_id=#{zoneId} and
-        #{startTime} <![CDATA[ <= ]]> send_time
-        and #{endTime} <![CDATA[ >= ]]> send_time
-        order by send_time
-    </select>
-    <select id="queryByWeek" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from week_region_data
-        where zone_id=#{zoneId} and
-        DATE_SUB(CURDATE(), INTERVAL 7*#{num} DAY)  <![CDATA[ <= ]]> date(send_time)
-        order by send_time
-    </select>
-    <select id="queryByMonth" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from month_region_data
-        where zone_id=#{zoneId} and
-        send_time between date_sub(now(),interval #{num} month) and now();
-    </select>
-
-    <select id="queryByYear" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from year_region_data
-        where zone_id=#{zoneId} and
-        send_time between date_sub(now(),interval #{num} year ) and now();
-    </select>
-    <select id="queryRecentSevenDays" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from day_region_data
-        where zone_id=#{zoneId} and
-        DATE_SUB(CURDATE(), INTERVAL 7 DAY)<![CDATA[ <= ]]> date(send_time)
-    </select>
     <select id="queryAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from day_region_data
     </select>
+
+
 
 </mapper>

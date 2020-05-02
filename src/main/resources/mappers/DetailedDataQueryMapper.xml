@@ -21,6 +21,50 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from region_data order by id
+        from region_data
+    </select>
+    <select id="queryByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+    </select>
+    <select id="queryByConditionOrderBySendTimeAsc" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+        order by send_time asc
+    </select>
+    <select id="queryByConditionOrderBySendTimeDesc" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+        order by send_time desc
+    </select>
+    <select id="queryByConditionOrderByZoneIdAsc" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+        order by zone_id asc
+    </select>
+    <select id="queryByConditionOrderByZoneIdDesc" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_data
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+        order by zone_id desc
     </select>
 </mapper>

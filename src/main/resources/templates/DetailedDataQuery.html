@@ -24,37 +24,93 @@
     <!--日期选择器-->
     <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
+
     <script>
+
+        $(document).load('click', "#detailedDateQuery", function () {
+        });
+
+
         function test1() {// url  请求的页面url
-            var url = '/detailedDataQuery/queryAll.do';
-            $.get(url, function (result) {
+            $.cookie("input_value", $('#searchText_ddq').val());
+            $.cookie("ddq_startTime", $('#ddq_startTime').val());
+            $.cookie("ddq_endTime", $('#ddq_endTime').val());
+            var url;
+            inputAssignment();
+            startTime = $("#ddq_startTime").val();
+            endTime = $("#ddq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/detailedDataQuery/queryAll.do';
+            }
+
+            url = '/detailedDataQuery/queryByCondition.do';
+            var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime
+            };
+            $.post(url, param, function (result) {
                 $("#part").html(result);// 将返回的字符串渲染为html
+                $("#searchText_ddq").val($.cookie('input_value'));
+                $("#ddq_startTime").val($.cookie('ddq_startTime'));
+                $("#ddq_endTime").val($.cookie('ddq_endTime'));
             });
         }
 
         function test2(hasPreviousPageParam, prePageParam) {
-            console.log(hasPreviousPageParam, prePageParam);
+            $.cookie("input_value", $('#searchText_ddq').val());
+            $.cookie("ddq_startTime", $('#ddq_startTime').val());
+            $.cookie("ddq_endTime", $('#ddq_endTime').val());
+            inputAssignment();
+            var url;
+            startTime = $("#ddq_startTime").val();
+            endTime = $("#ddq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/detailedDataQuery/queryAll.do';
+            }
             var param;
             if (hasPreviousPageParam === "true") {
                 param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
                     pageNum: prePageParam
                 };
             } else {
                 param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
                     pageNum: 1
                 };
             }
-            var url = '/detailedDataQuery/queryAll.do';
-            $.get(url, param, function (data) {
+            var url = '/detailedDataQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_ddq").val($.cookie('input_value'));
+                $("#ddq_startTime").val($.cookie('ddq_startTime'));
+                $("#ddq_endTime").val($.cookie('ddq_endTime'));
             });
         }
 
         function test3(hasNextPage, nextPage, pages) {
+            $.cookie("input_value", $('#searchText_ddq').val());
+            $.cookie("ddq_startTime", $('#ddq_startTime').val());
+            $.cookie("ddq_endTime", $('#ddq_endTime').val());
+            inputAssignment();
             var param;
+            startTime = $("#ddq_startTime").val();
+            endTime = $("#ddq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/detailedDataQuery/queryAll.do';
+            }
             if (hasNextPage === "true") {
                 param = {
-                    pageNum: nextPage
+                    pageNum: nextPage,
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime
                 };
             } else {
                 param = {
@@ -62,31 +118,99 @@
                 }
             }
 
-            var url = '/detailedDataQuery/queryAll.do';
-            $.get(url, param, function (data) {
+            var url = '/detailedDataQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_ddq").val($.cookie('input_value'));
+                $("#ddq_startTime").val($.cookie('ddq_startTime'));
+                $("#ddq_endTime").val($.cookie('ddq_endTime'));
             });
         }
 
         function test4(pagesParam) {
+            $.cookie("input_value", $('#searchText_ddq').val());
+            $.cookie("ddq_startTime", $('#ddq_startTime').val());
+            $.cookie("ddq_endTime", $('#ddq_endTime').val());
+            var url;
+            inputAssignment();
+            startTime = $("#ddq_startTime").val();
+            endTime = $("#ddq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/detailedDataQuery/queryAll.do';
+            }
             var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime,
                 pageNum: pagesParam
             };
-            var url = '/detailedDataQuery/queryAll.do';
-            $.get(url, param, function (data) {
-                //  ddq_fillTable(data);
+            var url = '/detailedDataQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
-                // window.location.reload(data);
+                $("#searchText_ddq").val($.cookie('input_value'));
+                $("#ddq_startTime").val($.cookie('ddq_startTime'));
+                $("#ddq_endTime").val($.cookie('ddq_endTime'));
             });
+        }
+
+        function ddq_searchAllPart() {
+            $.cookie("input_value", $('#searchText_ddq').val());
+            $.cookie("ddq_startTime", $('#ddq_startTime').val());
+            $.cookie("ddq_endTime", $('#ddq_endTime').val());
+            inputAssignment();
+            startTime = $("#ddq_startTime").val();
+            endTime = $("#ddq_endTime").val();
+            if (startTime === "" || endTime === "" || startTime > endTime) {
+                alert("日期输入错误");
+                return;
+            }
+            var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime
+            };
+            var url = '/detailedDataQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_ddq").val($.cookie('input_value'));
+                $("#ddq_startTime").val($.cookie('ddq_startTime'));
+                $("#ddq_endTime").val($.cookie('ddq_endTime'));
+            });
+        }
+
+        function inputAssignment() {
+            if ($('#searchText_ddq').val() == null || $('#searchText_ddq').val() == '') {
+                zoneId = 1;
+            } else {
+                zoneId = $('#searchText_ddq').val();
+            }
         }
     </script>
 </head>
 <body>
 <div id="part">
-
     <div class="hd_card1" id="part1">
-        <div align="center">
-            <table class="table table-bordered" id="ddq_tab">
+        <div class="hd_mySearch" id="hdc_part1_1">
+            <input type="text" placeholder="请输入要查询的区域" id="searchText_ddq"
+                   style="width: 220px;margin-left: 0" value="">
+            <div class="dynamicDisplay_detail" id="hdc_part1_1_4">
+                <input class="js-datepicker " id="ddq_startTime"
+                       name="example-datepicker" placeholder="开始日期"
+                       data-date-format="yyyy-mm-dd"
+                       style="width: 70px;text-align: center;margin-left: 50px"/>
+                <input placeholder="至"
+                       style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left: 0px"
+                       disabled="disabled"/>
+                <input class="js-datepicker " id="ddq_endTime"
+                       name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
+                       style="width: 70px;text-align: center;margin-left: 0"/>
+                <button class="btn btn-info btn-xs" type="button" onclick="ddq_searchAllPart()"
+                        style="margin-left: 50px">查询
+                </button>
+            </div>
+        </div>
+        <div align="center" id="part2">
+            <table class="table table-bordered" id="ddq_tab" style="margin-top: 15px">
                 <tr>
                     <th>id</th>
                     <th>区域号</th>

@@ -27,7 +27,7 @@ body {
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
     /*每一个卡片的宽和高*/
-    height: 505px;
+    height: 510px;
     width: 1050px;
     /*字体距离div的距离*/
     padding-left: 10px;
@@ -132,6 +132,8 @@ body {
 
 .hd_mySearch input:focus {
     border: 1px solid #dddddd;
+
+/*input{behavior:url(#default#savehistory)};*/
 }
 
 .hd_mySearch button {
