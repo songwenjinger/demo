@@ -24,69 +24,289 @@
     <!--日期选择器-->
     <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
     <script>
         function test1() {// url  请求的页面url
-            var url = '/statisticsDataQuery/queryAll.do';
-            $.get(url, function (result) {
-                $("#part").html(result);// 将返回的字符串渲染为html
-            });
+            var result = setCookie();
+            var urlString = result[0];
+            var num = result[1];
+            var startTime = result[2];
+            var endTime = result[3];
+            var param;
+            param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime,
+                num: num,
+                pageNum: 1
+            };
+            if (urlString === "/statisticsDataQuery/queryAll.do") {
+                $.get(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            } else {
+                $.post(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            }
+
         }
 
         function test2(hasPreviousPageParam, prePageParam) {
-            console.log(hasPreviousPageParam, prePageParam);
+            var result = setCookie();
+            var urlString = result[0];
+            var num = result[1];
+            var startTime = result[2];
+            var endTime = result[3];
             var param;
             if (hasPreviousPageParam === "true") {
                 param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
+                    num: num,
                     pageNum: prePageParam
                 };
             } else {
                 param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
+                    num: num,
                     pageNum: 1
                 };
             }
-            var url = '/statisticsDataQuery/queryAll.do';
-            $.get(url, param, function (data) {
-                $("#part").html(data);// 将返回的字符串渲染为html
-            });
+            if (urlString === "/statisticsDataQuery/queryAll.do") {
+                $.get(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            } else {
+                $.post(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            }
         }
 
         function test3(hasNextPage, nextPage, pages) {
+            var result = setCookie();
+            var urlString = result[0];
+            var num = result[1];
+            var startTime = result[2];
+            var endTime = result[3];
             var param;
             if (hasNextPage === "true") {
                 param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
+                    num: num,
                     pageNum: nextPage
                 };
             } else {
                 param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
+                    num: num,
                     pageNum: pages
                 }
             }
+            if (urlString === "/statisticsDataQuery/queryAll.do") {
+                $.get(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            } else {
+                $.post(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            }
 
-            var url = '/statisticsDataQuery/queryAll.do';
-            $.get(url, param, function (data) {
-                $("#part").html(data);// 将返回的字符串渲染为html
-            });
         }
 
         function test4(pagesParam) {
+            var result = setCookie();
+            var urlString = result[0];
+            var num = result[1];
+            var startTime = result[2];
+            var endTime = result[3];
             var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime,
+                num: num,
                 pageNum: pagesParam
             };
-            var url = '/statisticsDataQuery/queryAll.do';
-            $.get(url, param, function (data) {
-                //  ddq_fillTable(data);
+            if (urlString === "/statisticsDataQuery/queryAll.do") {
+                $.get(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            } else {
+                $.post(urlString, param, function (data) {
+                    $("#part").html(data);// 将返回的字符串渲染为html
+                    getCookie();
+                });
+            }
+        }
+
+        function sdq_drop_down_event(value) {
+            document.getElementById("sdq_part1_1_1").style.display = "none";
+            document.getElementById("sdq_part1_1_2").style.display = "none";
+            document.getElementById("sdq_part1_1_3").style.display = "none";
+            document.getElementById("sdq_part1_1_4").style.display = "none";
+            if (value === "weekQuery") {
+                document.getElementById("sdq_part1_1_1").style.display = "";
+            } else if (value === "monthQuery") {
+                document.getElementById("sdq_part1_1_2").style.display = "";
+            } else if (value === "yearQuery") {
+                document.getElementById("sdq_part1_1_3").style.display = "";
+            } else if (value === "ownQuery") {
+                document.getElementById("sdq_part1_1_4").style.display = "";
+            }
+
+        }
+
+        function sdq_searchAllPart() {
+            var result = setCookie();
+            var urlString = result[0];
+            var num = result[1];
+            var startTime = result[2];
+            var endTime = result[3];
+            console.log(result);
+            var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime,
+                num: num
+            };
+            $.post(urlString, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
-                // window.location.reload(data);
+                getCookie();
             });
+        }
+
+        function inputAssignment() {
+            if ($('#searchText_sdq').val() == null || $('#searchText_sdq').val() == '') {
+                zoneId = 1;
+            } else {
+                zoneId = $('#searchText_sdq').val();
+            }
+        }
+
+        function setCookie() {
+            inputAssignment();
+            var selectObject = document.getElementById("sdq_select");
+            var selectValue = selectObject.options[selectObject.selectedIndex].value;
+            $.cookie("searchText_sdq", $('#searchText_sdq').val());
+            $.cookie("selectValue", selectObject.options[selectObject.selectedIndex].value);
+            var urlString;
+            var num;
+            var startTime, endTime;
+            if (selectValue === 'weekQuery') {
+                urlString = "/statisticsDataQuery/queryByWeek.do";
+                num = $('#sdq_part1_1_1_input').val();
+                $.cookie("sdq_part1_1_1_input", $('#sdq_part1_1_1_input').val());
+            } else if (selectValue === 'monthQuery') {
+                urlString = "/statisticsDataQuery/queryByMonth.do";
+                num = $('#sdq_part1_1_2_input').val();
+                $.cookie("sdq_part1_1_2_input", $('#sdq_part1_1_2_input').val());
+            } else if (selectValue === 'yearQuery') {
+                urlString = "/statisticsDataQuery/queryByYear.do";
+                num = $('#sdq_part1_1_3_input').val();
+                $.cookie("sdq_part1_1_3_input", $('#sdq_part1_1_3_input').val());
+            } else if (selectValue === 'ownQuery') {
+                startTime = $("#sdq_part1_1_4_startTime").val();
+                endTime = $("#sdq_part1_1_4_endTime").val();
+                urlString = "/statisticsDataQuery/queryByUserDefined.do";
+                if (startTime === "" || endTime === "" || startTime > endTime) {
+                    alert("日期输入错误");
+                    return;
+                }
+                $.cookie("sdq_part1_1_4_startTime", $('#sdq_part1_1_4_startTime').val());
+                $.cookie("sdq_part1_1_4_endTime", $('#sdq_part1_1_4_endTime').val());
+            } else {
+                urlString = "/statisticsDataQuery/queryAll.do";
+            }
+            return [urlString, num, startTime, endTime];
+        }
+
+        function getCookie() {
+            $("#searchText_sdq").val($.cookie('searchText_sdq'));
+            $("#sdq_select").val($.cookie('selectValue'));
+            sdq_drop_down_event($.cookie('selectValue'));
+            if ($.cookie('selectValue') === 'weekQuery') {
+                $("#sdq_part1_1_1_input").val($.cookie('sdq_part1_1_1_input'));
+            } else if ($.cookie('selectValue') === 'monthQuery') {
+                $("#sdq_part1_1_2_input").val($.cookie('sdq_part1_1_2_input'));
+            } else if ($.cookie('selectValue') === 'yearQuery') {
+                $("#sdq_part1_1_3_input").val($.cookie('sdq_part1_1_3_input'));
+            } else if ($.cookie('selectValue') === 'ownQuery') {
+                $("#sdq_part1_1_4_startTime").val($.cookie('sdq_part1_1_4_startTime'));
+                $("#sdq_part1_1_4_endTime").val($.cookie('sdq_part1_1_4_endTime'));
+            } else {
+
+            }
+
         }
     </script>
 </head>
 <body>
 <div id="part">
-
     <div class="hd_card1" id="part1">
+        <div class="hd_mySearch" id="sdq_part1_1">
+            <input type="text" placeholder="请输入区域号" id="searchText_sdq"
+                   style="width: 220px;margin-left: 0">
+            <select id="sdq_select" class="hd_drop_down_box"
+                    onclick="sdq_drop_down_event(this.options[this.selectedIndex].value);">
+                <option disabled="disabled" selected="selected">查询类型</option>
+                <option value="weekQuery">按周查询</option>
+                <option value="monthQuery">按月查询</option>
+                <option value="yearQuery">按年查询</option>
+                <option value="ownQuery">自定义查询</option>
+            </select>
+            <div class="dynamicDisplay">
+                <div id="sdq_part1_1_1" style="display: none;padding-left: 40px">
+                    <h6 style="display: inline">近</h6>
+                    <input id="sdq_part1_1_1_input" style="display: inline;width: 50px;margin-left: 5px"
+                           placeholder='输入数字'/>
+                    <h6 style="display: inline">&nbsp;周</h6>
+                </div>
+                <div id="sdq_part1_1_2" style="display: none;padding-left: 40px">
+                    <h6 style="display: inline">近</h6>
+                    <input id="sdq_part1_1_2_input" style="display: inline;width: 50px;margin-left: 5px"
+                           placeholder='输入数字'/>
+                    <h6 style="display: inline">&nbsp;月</h6>
+                </div>
+                <div id="sdq_part1_1_3" style="display: none;padding-left: 40px">
+                    <h6 style="display: inline">近</h6>
+                    <input id="sdq_part1_1_3_input" style="display: inline;width: 50px;margin-left: 5px"
+                           placeholder='输入数字'/>
+                    <h6 style="display: inline">&nbsp;年</h6>
+                </div>
+
+                <div class="dynamicDisplay_detail" id="sdq_part1_1_4" style="display:none;">
+                    <input class="js-datepicker " id="sdq_part1_1_4_startTime"
+                           name="example-datepicker" placeholder="开始日期" value=""
+                           data-date-format="yyyy-mm-dd"
+                           style="width: 70px;text-align: center;margin-left: 20px"/>
+                    <input placeholder="至"
+                           style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left: 0px"
+                           disabled="disabled"/>
+                    <input class="js-datepicker " id="sdq_part1_1_4_endTime"
+                           name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
+                           style="width: 70px;text-align: center;margin-left: 0"/>
+                </div>
+            </div>
+            <button class="btn btn-info btn-xs" type="button" onclick="sdq_searchAllPart()">查询</button>
+        </div>
         <div align="center">
-            <table class="table table-bordered" id="ddq_tab">
+            <table class="table table-bordered" id="sdq_tab" style="margin-top: 15px">
                 <tr>
                     <th>id</th>
                     <th>区域号</th>
@@ -106,14 +326,14 @@
                     <td th:text="${#dates.format(propertyDataStatistics.sendTime,'yyyy-MM-dd')}"></td>
                 </tr>
             </table>
-             <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
-                     th:text="${pageInfo.total}"></span> 条记录</p>
-             <a href="javascript:void(0);" onclick="test1()" id="sy1">首页</a>
-             <a th:onclick="'javascript:test2(\''+${pageInfo.hasPreviousPage}+'\',\''+${pageInfo.prePage}+'\')'"
-                id="sy2">上一页</a>
-             <a th:onclick="'javascript:test3(\''+${pageInfo.hasNextPage}+'\',\''+${pageInfo.nextPage}+'\',\''+${pageInfo.pages}+'\')'"
-                id="sy3">下一页</a>
-             <a th:onclick="'javascript:test4(\''+${pageInfo.pages}+'\')'" id="sy4">尾页</a>
+            <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
+                    th:text="${pageInfo.total}"></span> 条记录</p>
+            <a href="javascript:void(0);" onclick="test1()" id="sy1">首页</a>
+            <a th:onclick="'javascript:test2(\''+${pageInfo.hasPreviousPage}+'\',\''+${pageInfo.prePage}+'\')'"
+               id="sy2">上一页</a>
+            <a th:onclick="'javascript:test3(\''+${pageInfo.hasNextPage}+'\',\''+${pageInfo.nextPage}+'\',\''+${pageInfo.pages}+'\')'"
+               id="sy3">下一页</a>
+            <a th:onclick="'javascript:test4(\''+${pageInfo.pages}+'\')'" id="sy4">尾页</a>
         </div>
     </div>
 </div>

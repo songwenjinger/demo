@@ -9,11 +9,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -23,7 +21,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/statisticsDataQuery")
 public class StatisticsDataQueryController {
-    //  DetailedDataQueryService detailedDataQueryService;
     @Autowired
     StatisticsDataQueryService statisticsDataQueryService;
 
@@ -35,5 +32,53 @@ public class StatisticsDataQueryController {
         model.addAttribute("pageInfo", pageInfo);
         return "StatisticsDataQuery";
     }
+
+    @PostMapping(value = "/queryByWeek.do")
+    public String queryByWeek(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                              Integer zoneId, Integer num) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<PropertyDataStatistics> list = statisticsDataQueryService.queryByWeek(zoneId, num);
+        PageInfo<PropertyDataStatistics> pageInfo = new PageInfo<PropertyDataStatistics>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "StatisticsDataQuery";
+    }
+
+    @PostMapping(value = "/queryByMonth.do")
+    public String queryByMonth(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                               Integer zoneId, Integer num) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<PropertyDataStatistics> list = statisticsDataQueryService.queryByMonth(zoneId, num);
+        PageInfo<PropertyDataStatistics> pageInfo = new PageInfo<PropertyDataStatistics>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "StatisticsDataQuery";
+    }
+
+    @PostMapping(value = "/queryByYear.do")
+    public String queryByYear(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                              Integer zoneId, Integer num) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<PropertyDataStatistics> list = statisticsDataQueryService.queryByYear(zoneId, num);
+        PageInfo<PropertyDataStatistics> pageInfo = new PageInfo<PropertyDataStatistics>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "StatisticsDataQuery";
+    }
+
+    @PostMapping(value = "/queryByUserDefined.do")
+    public String queryByUserDefined(Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                     Integer zoneId, String startTime, String endTime) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        List<PropertyDataStatistics> list = statisticsDataQueryService.queryByUserDefined(zoneId, startTime, endTime);
+        PageInfo<PropertyDataStatistics> pageInfo = new PageInfo<PropertyDataStatistics>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "StatisticsDataQuery";
+    }
+
+   /* public List<PropertyDataStatistics> judge(String )
+    {
+        if (startTime == null || startTime.equals("")) {
+            PageHelper.startPage(pageNum, 8);
+            list = detailedDataQueryService.queryAll();
+        }
+    }*/
 
 }

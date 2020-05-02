@@ -4,9 +4,12 @@ import com.example.dao.StatisticsDataQueryMapper;
 import com.example.entity.PropertyDataStatistics;
 import com.example.response.ServerResponse;
 import com.example.service.StatisticsDataQueryService;
+import com.example.util.DateParse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,5 +29,25 @@ public class StatisticsDataQueryServiceImpl implements StatisticsDataQueryServic
         } else {
             return list;
         }
+    }
+
+    @Override
+    public List<PropertyDataStatistics> queryByWeek(Integer zoneId, Integer num) {
+        return statisticsDataQueryMapper.queryByWeek(zoneId, num);
+    }
+
+    @Override
+    public List<PropertyDataStatistics> queryByMonth(Integer zoneId, Integer num) {
+        return statisticsDataQueryMapper.queryByMonth(zoneId, num);
+    }
+
+    @Override
+    public List<PropertyDataStatistics> queryByYear(Integer zoneId, Integer num) {
+        return statisticsDataQueryMapper.queryByYear(zoneId, num);
+    }
+
+    @Override
+    public List<PropertyDataStatistics> queryByUserDefined(Integer zoneId, String startTime, String endTime) throws ParseException {
+        return statisticsDataQueryMapper.queryByUserDefined(zoneId, DateParse.parseDate(startTime), DateParse.parseDate(endTime));
     }
 }

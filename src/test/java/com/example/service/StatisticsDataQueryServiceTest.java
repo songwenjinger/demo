@@ -22,4 +22,10 @@ public class StatisticsDataQueryServiceTest {
         System.out.println(statisticsDataQueryService.queryAll());
     }
 
+    @Test
+    public void testQueryByMonth() {
+        System.out.println(statisticsDataQueryService.queryByMonth(1, 2));
+    }
+
+
 }
