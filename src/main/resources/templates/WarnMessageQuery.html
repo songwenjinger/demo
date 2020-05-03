@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>后端分页</title>
+    <link href="/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle1.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle2.css" type="text/css" rel="stylesheet">
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <!--时间选择插件-->
+    <!--日期选择插件-->
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link href="/css/style.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <!--时间选择器-->
+    <script type="text/javascript" src="/js/zh-cn.js"></script>
+    <!--日期选择器-->
+    <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
+
+    <script>
+        function test1() {// url  请求的页面url
+            $.cookie("input_value", $('#searchText_wmq').val());
+            $.cookie("wmq_startTime", $('#wmq_startTime').val());
+            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            var url;
+            inputAssignment();
+            startTime = $("#wmq_startTime").val();
+            endTime = $("#wmq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/warnMessageQuery/queryAll.do';
+            }
+
+            url = '/warnMessageQuery/queryByCondition.do';
+            var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime
+            };
+            $.post(url, param, function (result) {
+                $("#part").html(result);// 将返回的字符串渲染为html
+                $("#searchText_wmq").val($.cookie('input_value'));
+                $("#wmq_startTime").val($.cookie('wmq_startTime'));
+                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+            });
+        }
+
+        function test2(hasPreviousPageParam, prePageParam) {
+            $.cookie("input_value", $('#searchText_wmq').val());
+            $.cookie("wmq_startTime", $('#wmq_startTime').val());
+            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            inputAssignment();
+            var url;
+            startTime = $("#wmq_startTime").val();
+            endTime = $("#wmq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/warnMessageQuery/queryAll.do';
+            }
+            var param;
+            if (hasPreviousPageParam === "true") {
+                param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
+                    pageNum: prePageParam
+                };
+            } else {
+                param = {
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime,
+                    pageNum: 1
+                };
+            }
+            var url = '/warnMessageQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_wmq").val($.cookie('input_value'));
+                $("#wmq_startTime").val($.cookie('wmq_startTime'));
+                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+            });
+        }
+
+        function test3(hasNextPage, nextPage, pages) {
+            $.cookie("input_value", $('#searchText_wmq').val());
+            $.cookie("wmq_startTime", $('#wmq_startTime').val());
+            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            inputAssignment();
+            var param;
+            startTime = $("#wmq_startTime").val();
+            endTime = $("#wmq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/warnMessageQuery/queryAll.do';
+            }
+            if (hasNextPage === "true") {
+                param = {
+                    pageNum: nextPage,
+                    zoneId: zoneId,
+                    startTime: startTime,
+                    endTime: endTime
+                };
+            } else {
+                param = {
+                    pageNum: pages
+                }
+            }
+
+            var url = '/warnMessageQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_wmq").val($.cookie('input_value'));
+                $("#wmq_startTime").val($.cookie('wmq_startTime'));
+                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+            });
+        }
+
+        function test4(pagesParam) {
+            $.cookie("input_value", $('#searchText_wmq').val());
+            $.cookie("wmq_startTime", $('#wmq_startTime').val());
+            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            var url;
+            inputAssignment();
+            startTime = $("#wmq_startTime").val();
+            endTime = $("#wmq_endTime").val();
+            if (startTime === "" || endTime === "") {
+                url = '/detailedDataQuery/queryAll.do';
+            }
+            var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime,
+                pageNum: pagesParam
+            };
+            var url = '/warnMessageQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_wmq").val($.cookie('input_value'));
+                $("#wmq_startTime").val($.cookie('wmq_startTime'));
+                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+            });
+        }
+
+        function wmq_searchAllPart() {
+            $.cookie("input_value", $('#searchText_wmq').val());
+            $.cookie("wmq_startTime", $('#wmq_startTime').val());
+            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            inputAssignment();
+            startTime = $("#wmq_startTime").val();
+            endTime = $("#wmq_endTime").val();
+            if (startTime === "" || endTime === "" || startTime > endTime) {
+                alert("日期输入错误");
+                return;
+            }
+            var param = {
+                zoneId: zoneId,
+                startTime: startTime,
+                endTime: endTime
+            };
+            var url = '/warnMessageQuery/queryByCondition.do';
+            $.post(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+                $("#searchText_wmq").val($.cookie('input_value'));
+                $("#wmq_startTime").val($.cookie('wmq_startTime'));
+                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+            });
+        }
+
+        function inputAssignment() {
+            if ($('#searchText_wmq').val() == null || $('#searchText_wmq').val() == '') {
+                zoneId = 1;
+            } else {
+                zoneId = $('#searchText_wmq').val();
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="part">
+    <div class="hd_card1" id="part1">
+        <div class="hd_mySearch" id="wmq_part1_1">
+            <input type="text" placeholder="请输入要查询的区域" id="searchText_wmq"
+                   style="width: 220px;margin-left: 0" value="">
+            <div class="dynamicDisplay_detail" id="wmq_part1_1_4">
+                <input class="js-datepicker " id="wmq_startTime"
+                       name="example-datepicker" placeholder="开始日期"
+                       data-date-format="yyyy-mm-dd"
+                       style="width: 70px;text-align: center;margin-left: 50px"/>
+                <input placeholder="至"
+                       style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left: 0px"
+                       disabled="disabled"/>
+                <input class="js-datepicker " id="wmq_endTime"
+                       name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
+                       style="width: 70px;text-align: center;margin-left: 0"/>
+                <button class="btn btn-info btn-xs" type="button" onclick="wmq_searchAllPart()"
+                        style="margin-left: 50px">查询
+                </button>
+            </div>
+        </div>
+        <div align="center" id="part2">
+            <table class="table table-bordered" id="wmq_tab" style="margin-top: 15px">
+                <tr>
+                    <th>id</th>
+                    <th>区域号</th>
+                    <th>报警级别</th>
+                    <th>报警代码</th>
+                    <th>报警信息</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                </tr>
+                <tr th:each="warnMessage:${pageInfo.list}">
+                    <td th:text="${warnMessage.id}"></td>
+                    <td th:text="${warnMessage.zoneId}"></td>
+                    <td th:text="${warnMessage.rank}"></td>
+                    <td th:text="${warnMessage.messageCode}"></td>
+                    <td th:text="${warnMessage.message}"></td>
+                    <td th:text="${warnMessage.status}"></td>
+                    <td th:text="${#dates.format(warnMessage.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+            </table>
+            <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
+                    th:text="${pageInfo.total}"></span> 条记录</p>
+            <a href="javascript:void(0);" onclick="test1()" id="sy1">首页</a>
+            <a th:onclick="'javascript:test2(\''+${pageInfo.hasPreviousPage}+'\',\''+${pageInfo.prePage}+'\')'"
+               id="sy2">上一页</a>
+            <a th:onclick="'javascript:test3(\''+${pageInfo.hasNextPage}+'\',\''+${pageInfo.nextPage}+'\',\''+${pageInfo.pages}+'\')'"
+               id="sy3">下一页</a>
+            <a th:onclick="'javascript:test4(\''+${pageInfo.pages}+'\')'" id="sy4">尾页</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
