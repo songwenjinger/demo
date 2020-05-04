@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @ author: SongWenjing
@@ -25,13 +26,13 @@ public class WarnMessageAnalyzeController {
 
     @GetMapping(value = "/jumpWarnMessageAnalyze.do")
     public String jumpWarnMessageAnalyze() {
-        System.out.println("okok");
+//        System.out.println("okok");
         return "WarnMessageAnalyze";
     }
 
     @PostMapping(value = "/zoneCompare.do")
     @ResponseBody
-    public LinkedHashMap<Object, Object> zoneCompare(String startTime, String endTime) throws ParseException {
+    public Map<Object, Object> zoneCompare(String startTime, String endTime) throws ParseException {
         return warnMessageAnalyzeService.zoneCompare(startTime, endTime);
     }
 

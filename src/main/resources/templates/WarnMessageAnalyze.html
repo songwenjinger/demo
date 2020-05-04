@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>后端分页</title>
     <link href="/css/icon.css" type="text/css" rel="stylesheet">
     <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
@@ -26,17 +25,129 @@
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
     <script>
+        var zoneId = 1;
         $(document).load('click', "#warnMessageAnalyze", function () {
-            fillPart1();
-            fillPart2();
+            part1();
+            part2(zoneId);
         });
-
-        function fillPart1() {
-
+        function searchAllPart()
+        {
+            part1();
+            part2(zoneId);
         }
 
-        function fillPart2() {
+        function part1() {
+            var param = paramInit();
+            var startTime = param[0];
+            var endTime = param[1];
+            $.ajax({
+                url: "/warnMessageAnalyze/zoneCompare.do",
+                type: "post",
+                dataType: "json",
+                data: {"startTime": startTime, "endTime": endTime},
+                success: function (data) {
+                    fillPart1(data);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
 
+        function fillPart1(data) {
+            var myChart = echarts.init(document.getElementById('part2'));
+            var names = [];
+            var brower = [];
+            $.each(data, function (index, item) {
+                names.push(index); //挨个取出类别并填入类别数组
+                brower.push({
+                    name: index + "号区域",
+                    value: item
+                });
+            });
+            var option = {
+                title: {
+                    text: '各区域预警次数对比',
+                    top: 50
+                },
+                tooltip: {},
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '55%',
+                        data: brower
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.on('click', function (params) {
+                part2(names[params.dataIndex]);
+            });
+            myChart.setOption(option);
+        }
+
+        function part2(zoneId) {
+            var param = paramInit();
+            var startTime = param[0];
+            var endTime = param[1];
+            $.ajax({
+                url: "/warnMessageAnalyze/reasonCompare.do",
+                type: "post",
+                dataType: "json",
+                data: {"startTime": startTime, "endTime": endTime, "zoneId": zoneId},
+                success: function (data) {
+                    fillPart2(data, zoneId);
+                },
+                error: function (msg) {
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
+
+        function fillPart2(data, zoneId) {
+            var myChart = echarts.init(document.getElementById('part3'));
+            var names = [];
+            var brower = [];
+            $.each(data, function (index, item) {
+                names.push(index + "号区域"); //挨个取出类别并填入类别数组
+                brower.push({
+                    name: item[0] + "[" + index + "]",
+                    value: item[1]
+                });
+            });
+            var option = {
+                title: {
+                    text: '单个区域报警原因对比' + "(" + "当前" + +zoneId + "号区域" + ")",
+                    top: 50
+                },
+                tooltip: {},
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '55%',
+                        data: brower
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+
+        function paramInit() {
+            var startTime, endTime;
+            if ($('#wma_startTime').val() == null || $('#wma_startTime').val() == '') {
+                startTime = "2020-01-01";
+            } else {
+                startTime = $('#wma_startTime').val();
+            }
+            if ($('#wma_endTime').val() == null || $('#wma_endTime').val() == '') {
+                endTime = "2020-06-01";
+            } else {
+                endTime = $('#wma_endTime').val();
+            }
+            return [startTime, endTime];
         }
     </script>
 
@@ -45,26 +156,23 @@
 <!--第一个区域，数据区域参数对比-->
 <div class="hd_card1" id="part1">
     <div class="hd_mySearch" id="wma_part1_1">
-        <!--<input type="text" placeholder="请输入要查询的区域" id="searchText_wma"
-               style="width: 220px;margin-left: 0" value="">-->
         <div class="dynamicDisplay_detail" id="wma_part1_1_4">
             <input class="js-datepicker " id="wma_startTime"
                    name="example-datepicker" placeholder="开始日期"
-                   data-date-format="yyyy-mm-dd"
+                   data-date-format="yyyy-mm-dd" value="2020-01-01"
                    style="width: 70px;text-align: center;margin-left: 50px"/>
             <input placeholder="至"
                    style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left:0 "
                    disabled="disabled"/>
             <input class="js-datepicker " id="wma_endTime"
-                   name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
+                   name="example-datepicker" placeholder="结束日期" value="2020-06-01" data-date-format="yyyy-mm-dd"
                    style="width: 70px;text-align: center;margin-left: 0"/>
-            <button class="btn btn-info btn-xs" type="button" onclick="wma_searchAllPart()"
+            <button class="btn btn-info btn-xs" type="button" onclick="searchAllPart()"
                     style="margin-left: 50px">查询
             </button>
         </div>
     </div>
     <div class="wma_card1" id="part2">
-
     </div>
     <div class="wma_card2" id="part3">
 

@@ -149,13 +149,13 @@ body {
 
 .wma_card1 {
     display: inline-block;
-    width: 500px;
+    width: 470px;
     height: 450px;
     float: left;
 }
 
 .wma_card2 {
-    width: 500px;
+    width: 530px;
     height: 450px;
     float: right;
 }
