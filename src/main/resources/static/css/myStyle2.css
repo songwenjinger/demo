@@ -133,7 +133,7 @@ body {
 .hd_mySearch input:focus {
     border: 1px solid #dddddd;
 
-/*input{behavior:url(#default#savehistory)};*/
+    /*input{behavior:url(#default#savehistory)};*/
 }
 
 .hd_mySearch button {
@@ -145,4 +145,17 @@ body {
 .hd_mySearch span {
     width: 30px;
     height: 25px;
+}
+
+.wma_card1 {
+    display: inline-block;
+    width: 500px;
+    height: 450px;
+    float: left;
+}
+
+.wma_card2 {
+    width: 500px;
+    height: 450px;
+    float: right;
 }

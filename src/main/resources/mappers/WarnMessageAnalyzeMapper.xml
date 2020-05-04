@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.WarnMessageAnalyzeMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.WarnMessage">
+        <!-- 用id属性来映射主键字段 -->
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 用result属性来映射非主键字段 -->
+        <result property="zoneId" column="zone_id" jdbcType="INTEGER"/>
+        <result property="rank" column="rank" jdbcType="INTEGER"/>
+        <result property="messageCode" column="message_code" jdbcType="VARCHAR"/>
+        <result property="message" column="message" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, zone_id, rank, message_code, message, status,create_time
+   </sql>
+    <select id="zoneCompare" resultType="java.util.LinkedHashMap">
+       SELECT zone_id as 'key', count(*) as 'value'
+       FROM warn_message
+       where #{startTime} <![CDATA[ <= ]]> create_time
+       and #{endTime} <![CDATA[ >= ]]> create_time
+       GROUP BY zone_id;
+    </select>
+    <select id="reasonCompare" resultType="java.util.LinkedHashMap">
+        select message_code as 'messageCode',message as 'message',count(*)  as 'count'
+        from warn_message
+        where zone_id=#{zoneId}
+        and #{startTime} <![CDATA[ <= ]]> create_time
+        and #{endTime} <![CDATA[ >= ]]> create_time
+        group by message_code;
+    </select>
+</mapper>
