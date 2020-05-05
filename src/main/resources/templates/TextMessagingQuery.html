@@ -28,18 +28,18 @@
 
     <script>
         function test1() {// url  请求的页面url
-            $.cookie("input_value", $('#searchText_wmq').val());
-            $.cookie("wmq_startTime", $('#wmq_startTime').val());
-            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            $.cookie("input_value", $('#searchText_tmq').val());
+            $.cookie("tmq_startTime", $('#tmq_startTime').val());
+            $.cookie("tmq_endTime", $('#tmq_endTime').val());
             var url;
             inputAssignment();
-            startTime = $("#wmq_startTime").val();
-            endTime = $("#wmq_endTime").val();
+            startTime = $("#tmq_startTime").val();
+            endTime = $("#tmq_endTime").val();
             if (startTime === "" || endTime === "") {
-                url = '/warnMessageQuery/queryAll.do';
+                url = '/textMessagingQuery/queryAll.do';
             }
 
-            url = '/warnMessageQuery/queryByCondition.do';
+            url = '/textMessagingQuery/queryByCondition.do';
             var param = {
                 zoneId: zoneId,
                 startTime: startTime,
@@ -47,22 +47,22 @@
             };
             $.post(url, param, function (result) {
                 $("#part").html(result);// 将返回的字符串渲染为html
-                $("#searchText_wmq").val($.cookie('input_value'));
-                $("#wmq_startTime").val($.cookie('wmq_startTime'));
-                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+                $("#searchText_tmq").val($.cookie('input_value'));
+                $("#tmq_startTime").val($.cookie('tmq_startTime'));
+                $("#tmq_endTime").val($.cookie('tmq_endTime'));
             });
         }
 
         function test2(hasPreviousPageParam, prePageParam) {
-            $.cookie("input_value", $('#searchText_wmq').val());
-            $.cookie("wmq_startTime", $('#wmq_startTime').val());
-            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            $.cookie("input_value", $('#searchText_tmq').val());
+            $.cookie("tmq_startTime", $('#tmq_startTime').val());
+            $.cookie("tmq_endTime", $('#tmq_endTime').val());
             inputAssignment();
             var url;
-            startTime = $("#wmq_startTime").val();
-            endTime = $("#wmq_endTime").val();
+            startTime = $("#tmq_startTime").val();
+            endTime = $("#tmq_endTime").val();
             if (startTime === "" || endTime === "") {
-                url = '/warnMessageQuery/queryAll.do';
+                url = '/textMessagingQuery/queryAll.do';
             }
             var param;
             if (hasPreviousPageParam === "true") {
@@ -80,25 +80,25 @@
                     pageNum: 1
                 };
             }
-            var url = '/warnMessageQuery/queryByCondition.do';
+            var url = '/textMessagingQuery/queryByCondition.do';
             $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
-                $("#searchText_wmq").val($.cookie('input_value'));
-                $("#wmq_startTime").val($.cookie('wmq_startTime'));
-                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+                $("#searchText_tmq").val($.cookie('input_value'));
+                $("#tmq_startTime").val($.cookie('tmq_startTime'));
+                $("#tmq_endTime").val($.cookie('tmq_endTime'));
             });
         }
 
         function test3(hasNextPage, nextPage, pages) {
-            $.cookie("input_value", $('#searchText_wmq').val());
-            $.cookie("wmq_startTime", $('#wmq_startTime').val());
-            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            $.cookie("input_value", $('#searchText_tmq').val());
+            $.cookie("tmq_startTime", $('#tmq_startTime').val());
+            $.cookie("tmq_endTime", $('#tmq_endTime').val());
             inputAssignment();
             var param;
-            startTime = $("#wmq_startTime").val();
-            endTime = $("#wmq_endTime").val();
+            startTime = $("#tmq_startTime").val();
+            endTime = $("#tmq_endTime").val();
             if (startTime === "" || endTime === "") {
-                url = '/warnMessageQuery/queryAll.do';
+                url = '/textMessagingQuery/queryAll.do';
             }
             if (hasNextPage === "true") {
                 param = {
@@ -113,25 +113,25 @@
                 }
             }
 
-            var url = '/warnMessageQuery/queryByCondition.do';
+            var url = '/textMessagingQuery/queryByCondition.do';
             $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
-                $("#searchText_wmq").val($.cookie('input_value'));
-                $("#wmq_startTime").val($.cookie('wmq_startTime'));
-                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+                $("#searchText_tmq").val($.cookie('input_value'));
+                $("#tmq_startTime").val($.cookie('tmq_startTime'));
+                $("#tmq_endTime").val($.cookie('tmq_endTime'));
             });
         }
 
         function test4(pagesParam) {
-            $.cookie("input_value", $('#searchText_wmq').val());
-            $.cookie("wmq_startTime", $('#wmq_startTime').val());
-            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+            $.cookie("input_value", $('#searchText_tmq').val());
+            $.cookie("tmq_startTime", $('#tmq_startTime').val());
+            $.cookie("tmq_endTime", $('#tmq_endTime').val());
             var url;
             inputAssignment();
-            startTime = $("#wmq_startTime").val();
-            endTime = $("#wmq_endTime").val();
+            startTime = $("#tmq_startTime").val();
+            endTime = $("#tmq_endTime").val();
             if (startTime === "" || endTime === "") {
-                url = '/warnMessageQuery/queryAll.do';
+                url = '/textMessagingQuery/queryAll.do';
             }
             var param = {
                 zoneId: zoneId,
@@ -139,22 +139,22 @@
                 endTime: endTime,
                 pageNum: pagesParam
             };
-            var url = '/warnMessageQuery/queryByCondition.do';
+            var url = '/textMessagingQuery/queryByCondition.do';
             $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
-                $("#searchText_wmq").val($.cookie('input_value'));
-                $("#wmq_startTime").val($.cookie('wmq_startTime'));
-                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+                $("#searchText_tmq").val($.cookie('input_value'));
+                $("#tmq_startTime").val($.cookie('tmq_startTime'));
+                $("#tmq_endTime").val($.cookie('tmq_endTime'));
             });
         }
 
-        function wmq_searchAllPart() {
-            $.cookie("input_value", $('#searchText_wmq').val());
-            $.cookie("wmq_startTime", $('#wmq_startTime').val());
-            $.cookie("wmq_endTime", $('#wmq_endTime').val());
+        function tmq_searchAllPart() {
+            $.cookie("input_value", $('#searchText_tmq').val());
+            $.cookie("tmq_startTime", $('#tmq_startTime').val());
+            $.cookie("tmq_endTime", $('#tmq_endTime').val());
             inputAssignment();
-            startTime = $("#wmq_startTime").val();
-            endTime = $("#wmq_endTime").val();
+            startTime = $("#tmq_startTime").val();
+            endTime = $("#tmq_endTime").val();
             if (startTime === "" || endTime === "" || startTime > endTime) {
                 alert("日期输入错误");
                 return;
@@ -164,20 +164,20 @@
                 startTime: startTime,
                 endTime: endTime
             };
-            var url = '/warnMessageQuery/queryByCondition.do';
+            var url = '/textMessagingQuery/queryByCondition.do';
             $.post(url, param, function (data) {
                 $("#part").html(data);// 将返回的字符串渲染为html
-                $("#searchText_wmq").val($.cookie('input_value'));
-                $("#wmq_startTime").val($.cookie('wmq_startTime'));
-                $("#wmq_endTime").val($.cookie('wmq_endTime'));
+                $("#searchText_tmq").val($.cookie('input_value'));
+                $("#tmq_startTime").val($.cookie('tmq_startTime'));
+                $("#tmq_endTime").val($.cookie('tmq_endTime'));
             });
         }
 
         function inputAssignment() {
-            if ($('#searchText_wmq').val() == null || $('#searchText_wmq').val() == '') {
+            if ($('#searchText_tmq').val() == null || $('#searchText_tmq').val() == '') {
                 zoneId = 1;
             } else {
-                zoneId = $('#searchText_wmq').val();
+                zoneId = $('#searchText_tmq').val();
             }
         }
     </script>
@@ -185,44 +185,48 @@
 <body>
 <div id="part">
     <div class="hd_card1" id="part1">
-        <div class="hd_mySearch" id="wmq_part1_1">
-            <input type="text" placeholder="请输入要查询的区域" id="searchText_wmq"
+        <div class="hd_mySearch" id="tmq_part1_1">
+            <input type="text" placeholder="请输入要查询的区域" id="searchText_tmq"
                    style="width: 220px;margin-left: 0" value="">
-            <div class="dynamicDisplay_detail" id="wmq_part1_1_4">
-                <input class="js-datepicker " id="wmq_startTime"
+            <div class="dynamicDisplay_detail" id="tmq_part1_1_4">
+                <input class="js-datepicker " id="tmq_startTime"
                        name="example-datepicker" placeholder="开始日期"
                        data-date-format="yyyy-mm-dd"
                        style="width: 70px;text-align: center;margin-left: 50px"/>
                 <input placeholder="至"
                        style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left: 0px"
                        disabled="disabled"/>
-                <input class="js-datepicker " id="wmq_endTime"
+                <input class="js-datepicker " id="tmq_endTime"
                        name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
                        style="width: 70px;text-align: center;margin-left: 0"/>
-                <button class="btn btn-info btn-xs" type="button" onclick="wmq_searchAllPart()"
+                <button class="btn btn-info btn-xs" type="button" onclick="tmq_searchAllPart()"
                         style="margin-left: 50px">查询
                 </button>
             </div>
         </div>
         <div align="center" id="part2">
-            <table class="table table-bordered" id="wmq_tab" style="margin-top: 15px">
+            <table class="table table-bordered" id="tmq_tab" style="margin-top: 15px">
                 <tr>
                     <th>id</th>
+                    <th>报警事件id</th>
                     <th>区域号</th>
                     <th>报警级别</th>
-                    <th>报警代码</th>
-                    <th>报警信息</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
                     <th>状态</th>
-                    <th>创建时间</th>
+                    <th>备注</th>
+                    <th>发送时间</th>
                 </tr>
-                <tr th:each="warnMessage:${pageInfo.list}">
-                    <td th:text="${warnMessage.id}"></td>
-                    <td th:text="${warnMessage.zoneId}"></td>
-                    <td th:text="${warnMessage.rank}"></td>
-                    <td th:text="${warnMessage.messageCode}"></td>
-                    <td th:text="${warnMessage.message}"></td>
-                    <td th:text="${warnMessage.status}"></td>
-                    <td th:text="${#dates.format(warnMessage.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <tr th:each="textMessaging:${pageInfo.list}">
+                    <td th:text="${textMessaging.id}"></td>
+                    <td th:text="${textMessaging.eventId}"></td>
+                    <td th:text="${textMessaging.zoneId}"></td>
+                    <td th:text="${textMessaging.rank}"></td>
+                    <td th:text="${textMessaging.sendPhone}"></td>
+                    <td th:text="${textMessaging.email}"></td>
+                    <td th:text="${textMessaging.status}"></td>
+                    <td th:text="${textMessaging.remark}"></td>
+                    <td th:text="${#dates.format(textMessaging.sendTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>
             </table>
             <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span

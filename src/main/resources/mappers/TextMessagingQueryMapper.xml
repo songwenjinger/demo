@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.TextMessagingQueryMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.TextMessaging">
+        <!-- 用id属性来映射主键字段 -->
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 用result属性来映射非主键字段 -->
+        <result property="eventId" column="event_id" jdbcType="INTEGER"/>
+        <result property="zoneId" column="zone_id" jdbcType="INTEGER"/>
+        <result property="rank" column="rank" jdbcType="INTEGER"/>
+        <result property="sendPhone" column="send_phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,event_id, zone_id, rank, send_phone,email ,status,remark,send_time
+   </sql>
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from text_messaging
+    </select>
+    <select id="queryByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from text_messaging
+        where zone_id=#{zoneId} and
+        #{startTime} <![CDATA[ <= ]]> send_time
+        and #{endTime} <![CDATA[ >= ]]> send_time
+    </select>
+</mapper>
