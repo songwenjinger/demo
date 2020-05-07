@@ -32,10 +32,11 @@
         <div class="lyear-layout-sidebar-scroll">
             <nav class="sidebar-main">
                 <ul class="nav nav-drawer">
-                    <li class="nav-item nav">
-                        <a href="/user/adminMainShow.do"><i
-                                class="mdi mdi-home"></i> 主页</a>
-                    </li>
+                    <!--  <li class="nav-item nav">
+                          &lt;!&ndash;<a href="/user/adminMainShow.do"><i&ndash;&gt;
+                          <a href="/regionData/jumpRealTimeRegionData.do"><i
+                                  class="mdi mdi-home"></i> 主页</a>
+                      </li>-->
                     <li class="nav-item nav-item-has-subnav">
                         <a href="#"><i class="mdi mdi-trending-up"></i> 数据实时检测</a>
                         <ul class="nav nav-subnav">
@@ -85,11 +86,18 @@
                                    onclick="test('/textMessagingQuery/queryAll.do')">短息发布查询</a>
                             </li>
                             <li><a href="#" id=""
-                                   onclick="test('/warnMessageAnalyze/jumpWarnMessageAnalyze.do')">手动发送短信</a></li>
+                                   onclick="test('/textMessagingSend/jumpTextMessagingSend.do')">手动发送短信</a></li>
                         </ul>
                     </li>
                     <li class="nav-item nav-item-has-subnav">
                         <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统管理</a>
+                        <ul class="nav nav-subnav">
+                            <li><a href="#" id="modifyZoneMessage"
+                                   onclick="test('/textMessagingQuery/queryAll.do')">修改区域信息</a>
+                            </li>
+                            <li><a href="#" id="appendZoneMessage"
+                                   onclick="test('/textMessagingSend/jumpTextMessagingSend.do')">增加区域信息</a></li>
+                        </ul>
                     </li>
                     <!--  <li class="nav-item nav-item-has-subnav">
                           <a href="javascript:void(0)"><i class="mdi mdi-menu"></i> 多级菜单</a>
@@ -147,70 +155,70 @@
         </nav>
     </header>
     <main class="lyear-layout-content" id="main1">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card bg-success">
-                        <div class="card-body clearfix">
-                            <div class="pull-right">
-                                <p class="h4 text-white m-t-0">温度</p>
-                                <p class="h4 text-white m-b-0">50.2</p>
-                            </div>
-                            <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
-                                    class="mdi1 mdi-oil-temperature"></i></span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card bg-success">
-                        <div class="card-body clearfix">
-                            <div class="pull-right">
-                                <p class="h4 text-white m-t-0">PH值</p>
-                                <p class="h4 text-white m-b-0">50.2</p>
-                            </div>
-                            <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
-                                    class="mdi1 mdi-test-tube"></i></span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card bg-success">
-                        <div class="card-body clearfix">
-                            <div class="pull-right">
-                                <p class="h4 text-white m-t-0">浊度</p>
-                                <p class="h4 text-white m-b-0">50.2</p>
-                            </div>
-                            <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
-                                    class="mdi1 mdi-water"></i></span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card bg-success">
-                        <div class="card-body clearfix">
-                            <div class="pull-right">
-                                <p class="h4 text-white m-t-0">溶解氧</p>
-                                <p class="h4 text-white m-b-0">50.2</p>
-                            </div>
-                            <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
-                                    class="mdi1 mdi-gas-cylinder"></i></span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card bg-success">
-                        <div class="card-body clearfix">
-                            <div class="pull-right">
-                                <p class="h4 text-white m-t-0">电导率</p>
-                                <p class="h4 text-white m-b-0">50.2</p>
-                            </div>
-                            <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
-                                    class="mdi1 mdi-flash "></i></span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--  <div class="container-fluid">
+              <div class="row">
+                  <div class="col-sm-6 col-lg-3">
+                      <div class="card bg-success">
+                          <div class="card-body clearfix">
+                              <div class="pull-right">
+                                  <p class="h4 text-white m-t-0">温度</p>
+                                  <p class="h4 text-white m-b-0">50.2</p>
+                              </div>
+                              <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
+                                      class="mdi1 mdi-oil-temperature"></i></span></div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                      <div class="card bg-success">
+                          <div class="card-body clearfix">
+                              <div class="pull-right">
+                                  <p class="h4 text-white m-t-0">PH值</p>
+                                  <p class="h4 text-white m-b-0">50.2</p>
+                              </div>
+                              <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
+                                      class="mdi1 mdi-test-tube"></i></span></div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                      <div class="card bg-success">
+                          <div class="card-body clearfix">
+                              <div class="pull-right">
+                                  <p class="h4 text-white m-t-0">浊度</p>
+                                  <p class="h4 text-white m-b-0">50.2</p>
+                              </div>
+                              <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
+                                      class="mdi1 mdi-water"></i></span></div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                      <div class="card bg-success">
+                          <div class="card-body clearfix">
+                              <div class="pull-right">
+                                  <p class="h4 text-white m-t-0">溶解氧</p>
+                                  <p class="h4 text-white m-b-0">50.2</p>
+                              </div>
+                              <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
+                                      class="mdi1 mdi-gas-cylinder"></i></span></div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                      <div class="card bg-success">
+                          <div class="card-body clearfix">
+                              <div class="pull-right">
+                                  <p class="h4 text-white m-t-0">电导率</p>
+                                  <p class="h4 text-white m-b-0">50.2</p>
+                              </div>
+                              <div class="pull-left"><span class="img-avatar img-avatar-58 bg-translucent"><i
+                                      class="mdi1 mdi-flash "></i></span></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>-->
     </main>
 </div>
 <script type="text/javascript">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -310,6 +310,7 @@
                 <tr>
                     <th>id</th>
                     <th>区域号</th>
+                    <th width="50">属性</th>
                     <th>最大值</th>
                     <th>最小值</th>
                     <th>平均值</th>
@@ -319,6 +320,7 @@
                 <tr th:each="propertyDataStatistics:${pageInfo.list}">
                     <td th:text="${propertyDataStatistics.id}"></td>
                     <td th:text="${propertyDataStatistics.zoneId}"></td>
+                    <td th:text="${propertyDataStatistics.property}"></td>
                     <td th:text="${propertyDataStatistics.maxData}"></td>
                     <td th:text="${propertyDataStatistics.minData}"></td>
                     <td th:text="${propertyDataStatistics.avgData}"></td>

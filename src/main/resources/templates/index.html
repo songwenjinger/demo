@@ -132,7 +132,7 @@
                 <input type="text" placeholder="请输入账号"/>
             </div>
             <div style="margin:5px 0px;">
-                <input type="text" placeholder="请输入密码"/>
+                <input type="password" placeholder="请输入密码" style="width: 271px;height: 31px;margin-top: 10px"/>
             </div>
             <div style="margin:5px 0px;">
                 <input type="text" style="width:150px;" placeholder="请输入验证码" id="code"/>
@@ -159,12 +159,12 @@
         if (val == '') {
             alert('请输入验证码！');
         } else if (val == num) {
-            alert('提交成功！');
+            // alert('提交成功！');
             document.getElementById(".input-val").val('');
             draw(show_num);
 
         } else {
-            alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
+            // alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
             document.getElementById("id").value = '';
             draw(show_num);
         }

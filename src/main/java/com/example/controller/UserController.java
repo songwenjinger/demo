@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping("/login.do")
     public String toLogin() {
         System.out.println("ok");
-        return "index";
+        return "adminMainShow";
     }
 
     @GetMapping("/adminMainShow.do")
