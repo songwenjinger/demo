@@ -23,7 +23,13 @@ public class RegionMesOperateServiceImpl implements RegionMesOperateService {
     }
 
     @Override
-    public int addRegionMes(RegionMes regionMes) {
+    public int addRegionMes(String zoneName, String brief, String phone, String email) {
+        RegionMes regionMes = new RegionMes();
+        regionMes.setZoneName(zoneName);
+        regionMes.setBrief(brief);
+        regionMes.setPhone(phone);
+        regionMes.setEmail(email);
+        regionMes.setStatus(1);
         return regionMesOperateMapper.addRegionMes(regionMes);
     }
 

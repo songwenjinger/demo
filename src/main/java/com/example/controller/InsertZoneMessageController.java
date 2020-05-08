@@ -26,7 +26,7 @@ public class InsertZoneMessageController {
 
     @PostMapping(value = "/insertZoneMessage.do")
     @ResponseBody
-    public Integer InsertZoneMessage(RegionMes regionMes) {
-        return regionMesOperateService.addRegionMes(regionMes);
+    public Integer InsertZoneMessage(String zoneName, String brief, String phone, String email) {
+        return regionMesOperateService.addRegionMes(zoneName, brief, phone, email);
     }
 }

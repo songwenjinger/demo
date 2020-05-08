@@ -12,7 +12,7 @@ import java.util.List;
 public interface RegionMesOperateService {
     public List<RegionMes> queryAll();
 
-    public int addRegionMes(RegionMes regionMes);
+    public int addRegionMes(String zoneName, String brief, String phone, String email);
 
     public int updateStatus(Integer id, Integer status);
 
