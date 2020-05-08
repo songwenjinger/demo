@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>后端分页</title>
+    <link href="/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle1.css" type="text/css" rel="stylesheet">
+    <link href="/css/myStyle2.css" type="text/css" rel="stylesheet">
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <!--时间选择插件-->
+    <!--日期选择插件-->
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link href="/css/style.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <!--时间选择器-->
+    <script type="text/javascript" src="/js/zh-cn.js"></script>
+    <!--日期选择器-->
+    <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
+
+    <script>
+        function test1() {// url  请求的页面url
+
+            var url = '/modifyZoneMessage/queryAll.do';
+            var param = {};
+            $.get(url, param, function (result) {
+                $("#part").html(result);// 将返回的字符串渲染为html
+            });
+        }
+
+        function test2(hasPreviousPageParam, prePageParam) {
+            var url = '/modifyZoneMessage/queryAll.do';
+            var param;
+            if (hasPreviousPageParam === "true") {
+                param = {
+                    pageNum: prePageParam
+                };
+            } else {
+                param = {
+                    pageNum: 1
+                };
+            }
+            $.get(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+            });
+        }
+
+        function test3(hasNextPage, nextPage, pages) {
+            var url = '/modifyZoneMessage/queryAll.do';
+            var param;
+            if (hasNextPage === "true") {
+                param = {
+                    pageNum: nextPage
+                };
+            } else {
+                param = {
+                    pageNum: pages
+                }
+            }
+
+            $.get(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+            });
+        }
+
+        function test4(pagesParam) {
+            var url = '/modifyZoneMessage/queryAll.do';
+            var param = {
+                pageNum: pagesParam
+            };
+            $.get(url, param, function (data) {
+                $("#part").html(data);// 将返回的字符串渲染为html
+            });
+        }
+
+        function mzm_updateStatus(id, status) {
+            var url = '/modifyZoneMessage/updateStatus.do';
+            var param = {
+                id: id,
+                status: status
+            };
+            $.post(url, param, function (data) {
+                test1();
+            });
+        }
+
+        function mzm_update(regionMes) {
+            var url = '/modifyZoneMessage/jumpUpdate.do';
+            $.get(url, function (data) {
+                $("#part").html(data);
+                $.cookie("regionMes", JSON.stringify(regionMes));
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="part">
+    <div class="hd_card1" id="part1">
+        <div align="center" id="part2">
+            <table class="table table-bordered" id="mzm_tab" style="margin-top: 15px">
+                <tr>
+                    <th>id</th>
+                    <th>区域名字</th>
+                    <th>区域简介</th>
+                    <th>负责人手机号</th>
+                    <th>负责人邮箱</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                    <th>修改</th>
+                    <th>上/下线</th>
+                </tr>
+                <tr th:each="regionMes:${pageInfo.list}">
+                    <td th:text="${regionMes.id}"></td>
+                    <td th:text="${regionMes.zoneName}"></td>
+                    <td th:text="${regionMes.brief}"></td>
+                    <td th:text="${regionMes.phone}"></td>
+                    <td th:text="${regionMes.email}"></td>
+                    <td th:text="${regionMes.status}"></td>
+                    <td th:text="${#dates.format(regionMes.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(regionMes.updateTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td>
+                        <button class="btn btn-info btn-xs" type="button"
+                                th:onclick="mzm_update([[${regionMes}]])">
+                            修改
+                        </button>
+                    </td>
+                    <td th:if="${regionMes.status}==1">
+                        <button class="btn btn-info btn-xs" type="button"
+                                th:onclick="'javascript:mzm_updateStatus(\''+${regionMes.id}+'\',\''+${regionMes.status}+'\');'">
+                            下线
+                        </button>
+                    </td>
+                    <td th:if="${regionMes.status}==0">
+                        <button class="btn btn-info btn-xs" type="button"
+                                th:onclick="'javascript:mzm_updateStatus(\''+${regionMes.id}+'\',\''+${regionMes.status}+'\');'">
+                            上线
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
+                    th:text="${pageInfo.total}"></span> 条记录</p>
+            <a href="javascript:void(0);" onclick="test1()" id="sy1">首页</a>
+            <a th:onclick="'javascript:test2(\''+${pageInfo.hasPreviousPage}+'\',\''+${pageInfo.prePage}+'\')'"
+               id="sy2">上一页</a>
+            <a th:onclick="'javascript:test3(\''+${pageInfo.hasNextPage}+'\',\''+${pageInfo.nextPage}+'\',\''+${pageInfo.pages}+'\')'"
+               id="sy3">下一页</a>
+            <a th:onclick="'javascript:test4(\''+${pageInfo.pages}+'\')'" id="sy4">尾页</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -312,3 +312,121 @@ body {
 .tms_div3 {
     margin-top: 20px;
 }
+
+.mzmu_card1 {
+    /*距离前面一个card的高度*/
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    /*字体颜色*/
+    color: #3b4552;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+    /*每一个卡片的宽和高*/
+    height: 510px;
+    width: 1050px;
+    /*字体距离div的距离*/
+    padding-left: 10px;
+    padding-top: 10px;
+    /*左浮动*/
+    float: left;
+    border-top: 2px solid #1D6FA3;
+}
+
+.mzmu_input1 {
+    margin-left: 0;
+    width: 400px;
+    height: 30px;
+    /*border-top: 0.4mm solid #459ced;*/
+    /*border-left: 0.4mm solid #459ced;*/
+    /*border-bottom: 1px solid #459ced;*/
+    border: 1px solid #999999;
+}
+
+
+.mzmu_input2 {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 400px;
+    height: 30px;
+    /*border-top: 0.4mm solid #459ced;*/
+    /*border-left: 0.4mm solid #459ced;*/
+    /*border-bottom: 1px solid #459ced;*/
+    border: 1px solid #999999;
+}
+
+.mzmu_input1::-webkit-input-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input1::-moz-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input1:-moz-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input1:-ms-input-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input2::-webkit-input-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input2::-moz-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input2:-moz-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_input2:-ms-input-placeholder {
+    color: #999999;
+    font-size: 12px;
+}
+
+.mzmu_font {
+    width: 100px;
+    height: 50px;
+}
+
+/*text-align: center;*/
+.mzmu_div0 {
+    /*vertical-align: middle;*/
+    vertical-align: top;
+    margin-left: 200px;
+    margin-top: 100px;
+    display: inline-block;
+}
+
+.mzmu_div1 {
+    /*float: top;*/
+    vertical-align: top;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+}
+
+.mzmu_div2 {
+    vertical-align: top;
+    margin-top: 10px;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+}
+
+.mzmu_div3 {
+    margin-top: 20px;
+}

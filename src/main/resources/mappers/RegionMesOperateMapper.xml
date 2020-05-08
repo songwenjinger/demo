@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.RegionMesOperateMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.RegionMes">
+        <!-- 用id属性来映射主键字段 -->
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 用result属性来映射非主键字段 -->
+        <result property="zoneName" column="zone_name" jdbcType="VARCHAR"/>
+        <result property="brief" column="brief" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, zone_name, brief, phone,email, status,create_time,update_time
+   </sql>
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_mes
+    </select>
+    <insert id="addRegionMes">
+        insert into region_mes(zone_name,brief,phone,email,status,create_time,update_time)
+        values (#{regionMes.zoneName},#{regionMes.brief},#{regionMes.phone},#{regionMes.email},#{regionMes.status},now(),now());
+    </insert>
+    <update id="updateStatus">
+        update region_mes
+        set status=#{status}
+        where id=#{id}
+    </update>
+
+    <update id="updateRegion">
+        update region_mes
+        <set>
+            <if test="regionMes.zoneName != null">zone_name=#{regionMes.zoneName},</if>
+            <if test="regionMes.brief!= null">brief=#{regionMes.brief},</if>
+            <if test="regionMes.phone">phone=#{regionMes.phone},</if>
+            <if test="regionMes.email != null">email=#{regionMes.email},</if>
+        </set>
+        where id=#{regionMes.id}
+    </update>
+
+</mapper>
