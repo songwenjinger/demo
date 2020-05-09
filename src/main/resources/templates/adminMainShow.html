@@ -15,6 +15,8 @@
     <script type="text/javascript" src="/js/main.min.js"></script>
     <!--图表插件-->
     <script type="text/javascript" src="/js/Chart.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
 </head>
 <body>
 <div class="lyear-layout-container">
@@ -143,11 +145,11 @@
                             <span>管理员 <span class="caret"></span></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a></li>
-                            <li><a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a></li>
-                            <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                            <li><a href="#" onclick="test('/user/jumpUpdatePassword')"><i
+                                    class="mdi mdi-lock-outline"></i> 修改密码</a></li>
                             <li class="divider"></li>
-                            <li><a href="lyear_pages_login.html"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
+                            <li><a href="/user/logout.do"><i class="mdi mdi-logout-variant"></i> 退出登录</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

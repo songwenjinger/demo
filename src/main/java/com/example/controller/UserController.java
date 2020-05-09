@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,16 @@ public class UserController {
     public String toLogin() {
         System.out.println("ok");
         return "adminMainShow";
+    }
+
+    @GetMapping("/logout.do")
+    public String logout() {
+        return "index";
+    }
+
+    @GetMapping("/jumpUpdatePassword")
+    public String jumpUpdatePassword() {
+        return "UpdatePassword";
     }
 
     @GetMapping("/adminMainShow.do")
@@ -52,20 +63,9 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/test.do")
-    public String toTest() {
-//        System.out.println("ok");
-        return "test";
+    @PostMapping(value = "/updatePassword.do")
+    @ResponseBody
+    public int updatePassword(String originPassword, String password, String userPhone) {
+        return userService.updatePassword(originPassword, password, userPhone);
     }
-
-    @GetMapping("/order.do")
-    public String jumpOrder() {
-        return "order";
-    }
-
-    @GetMapping("/car.do")
-    public String jumpCar() {
-        return "car";
-    }
-
 }

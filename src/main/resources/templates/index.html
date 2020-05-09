@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <title>基于云平台的工业园水质监测系统</title>
     <link rel="stylesheet" type="text/css" href="/css/style2.0.css">
+    <link rel="stylesheet" type="text/css" href="/css/myStyle1.css">
+    <!--<script type="text/javascript" src="/js/com.js"></script>-->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
+    <!--<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>-->
     <style type="text/css">
         * {
             padding: 0;
@@ -16,131 +21,63 @@
             color: #2ec0f6;
         }
 
-        .tyg-div {
-            z-index: -1000;
-            float: left;
-            position: absolute;
-            left: 5%;
-            top: 20%;
-        }
-
-        .tyg-p {
-            font-size: 14px;
-            font-family: 'microsoft yahei';
-            position: absolute;
-            top: 135px;
-            left: 60px;
-        }
-
-        .tyg-div-denglv {
-            z-index: 1000;
-            float: right;
-            position: absolute;
-            right: 3%;
-            top: 10%;
-        }
-
-        .tyg-div-form {
-            background-color: #23305a;
-            width: 300px;
-            height: auto;
-            margin: 120px auto 0 auto;
-            color: #2ec0f6;
-        }
-
-        .tyg-div-form form {
-            padding: 10px;
-        }
-
-        .tyg-div-form form input[type="text"] {
-            width: 270px;
-            height: 30px;
-            margin: 25px 10px 0px 0px;
-        }
-
-        .tyg-div-form form button {
-            cursor: pointer;
-            width: 270px;
-            height: 44px;
-            margin-top: 25px;
-            padding: 0;
-            background: #2ec0f6;
-            -moz-border-radius: 6px;
-            -webkit-border-radius: 6px;
-            border-radius: 6px;
-            border: 1px solid #2ec0f6;
-            -moz-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .25) inset,
-            0 2px 7px 0 rgba(0, 0, 0, .2);
-            -webkit-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .25) inset,
-            0 2px 7px 0 rgba(0, 0, 0, .2);
-            box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .25) inset,
-            0 2px 7px 0 rgba(0, 0, 0, .2);
-            font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
-            -o-transition: all .2s;
-            -moz-transition: all .2s;
-            -webkit-transition: all .2s;
-            -ms-transition: all .2s;
-        }
     </style>
-<body>
-<div class="tyg-div">
-    <ul>
-        <li>让</li>
-        <li>
-            <div style="margin-left:20px;">数</div>
-        </li>
-        <li>
-            <div style="margin-left:40px;">据</div>
-        </li>
-        <li>
-            <div style="margin-left:60px;">改</div>
-        </li>
-        <li>
-            <div style="margin-left:80px;">变</div>
-        </li>
-        <li>
-            <div style="margin-left:100px;">生</div>
-        </li>
-        <li>
-            <div style="margin-left:120px;">活</div>
-        </li>
-    </ul>
-</div>
-<div id="contPar" class="contPar">
-    <div id="page1" style="z-index:1;">
-        <div class="title0">工业园水质监测系统</div>
-        <div class="title1">水质监测、生产运营、数据查询、故障预警</div>
-        <div class="imgGroug">
-            <ul>
-                <img alt="" class="img0 png" src="/img/page0.jpg">
-                <img alt="" class="img1 png" src="/img/page1.jpg">
-                <img alt="" class="img2 png" src="/img/page2.jpg">
-            </ul>
-        </div>
-        <img alt="" class="img3 png" src="/img/page3.jpg">
+<body style="background-color:#191c2d">
+<div id="part">
+    <div class="tyg-div">
+        <ul>
+            <li>让</li>
+            <li>
+                <div style="margin-left:20px;">数</div>
+            </li>
+            <li>
+                <div style="margin-left:40px;">据</div>
+            </li>
+            <li>
+                <div style="margin-left:60px;">改</div>
+            </li>
+            <li>
+                <div style="margin-left:80px;">变</div>
+            </li>
+            <li>
+                <div style="margin-left:100px;">生</div>
+            </li>
+            <li>
+                <div style="margin-left:120px;">活</div>
+            </li>
+        </ul>
     </div>
-</div>
-<div class="tyg-div-denglv">
-    <div class="tyg-div-form">
-        <form action="/user/login.do">
-            <h2>欢迎访问 工业园水质监测系统</h2>
-            <div style="margin:5px 0px;">
-                <input type="text" placeholder="请输入账号"/>
+    <div id="contPar" class="contPar">
+        <div id="page1" style="z-index:1;">
+            <div class="title0">工业园水质监测系统</div>
+            <div class="title1">水质监测、生产运营、数据查询、故障预警</div>
+            <div class="imgGroug">
+                <ul>
+                    <img alt="" class="img0 png" src="/img/page0.jpg">
+                    <img alt="" class="img1 png" src="/img/page1.jpg">
+                    <img alt="" class="img2 png" src="/img/page2.jpg">
+                </ul>
             </div>
-            <div style="margin:5px 0px;">
-                <input type="password" placeholder="请输入密码" style="width: 271px;height: 31px;margin-top: 10px"/>
-            </div>
-            <div style="margin:5px 0px;">
-                <input type="text" style="width:150px;" placeholder="请输入验证码" id="code"/>
-                <canvas id="canvas" width="102" height="35" onclick="dj()"
-                        style="vertical-align:bottom; border: 1px solid #cccccc; border-radius: 5px; background-color: #ffffff"></canvas>
-            </div>
-            <button type="submit" onclick="sublim()">登<span style="width:20px;"></span>录</button>
-        </form>
+            <img alt="" class="img3 png" src="/img/page3.jpg">
+        </div>
+    </div>
+    <div class="tyg-div-denglv">
+        <div class="tyg-div-form">
+            <h2 style="margin-left: 10px">欢迎访问 工业园水质监测系统</h2>
+            <input type="text" id="input1" placeholder="请输入账号"
+                   style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
+            <input type="password" placeholder="请输入密码"
+                   style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
+            <input type="text" style="width:150px;height: 31px;margin-top: 20px;margin-left: 10px" placeholder="请输入验证码"
+                   id="code"/>
+            <canvas id="canvas" width="102" height="35" onclick="dj()"
+                    style="vertical-align:bottom; border: 1px solid #cccccc; border-radius: 5px; background-color: #ffffff;margin-left: 10px"></canvas>
+            <button type="submit" onclick="sublim()"
+                    style="width: 271px;height:31px;margin-left: 10px;margin-top: 20px;
+                    background-color: #2ec0f6;border: 1px solid #2ec0f6;color: #f9fafb;font-size: 16px">
+                登录
+            </button>
+        </div>
     </div>
 </div>
 </body>
@@ -152,22 +89,27 @@
         draw(show_num);
     }
 
-
     function sublim() {
-        var val = document.getElementById("code").value;
-        var num = show_num.join("");
-        if (val == '') {
-            alert('请输入验证码！');
-        } else if (val == num) {
-            // alert('提交成功！');
-            document.getElementById(".input-val").val('');
-            draw(show_num);
+        /*   $.cookie('userPhone', $('input1').val());
+           var val = document.getElementById("code").value;
+           var num = show_num.join("");
+           if (val == '') {
+               alert('请输入验证码！');
+           } else if (val == num) {
+               // alert('提交成功！');
+               document.getElementById(".input-val").val('');
+               draw(show_num);
 
-        } else {
-            // alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
-            document.getElementById("id").value = '';
-            draw(show_num);
-        }
+           } else {
+               // alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
+               document.getElementById("id").value = '';
+               draw(show_num);
+           }*/
+        console.log("执行sublim函数");
+        $.cookie("userPhone", $('#input1').val());
+        console.log($.cookie('userPhone'));
+        window.location.href = "/user/login.do";
+        // $.cookie("input_value", $('#input1').val());
     }
 
     function draw(show_num) {
@@ -224,6 +166,4 @@
         return "rgb(" + r + "," + g + "," + b + ")";
     }
 </script>
-<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="/js/com.js"></script>
 </html>

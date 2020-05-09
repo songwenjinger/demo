@@ -5,4 +5,15 @@
         select * from example_user
         where user_name=#{userName} and password=#{password}
     </select>
+
+    <select id="getUserPassword" resultType="String">
+      select password from usertb
+      where user_phone=#{phone}
+    </select>
+
+    <update id="updatePassword">
+        update usertb
+        set password=#{password}
+        where user_phone=#{phone}
+    </update>
 </mapper>
