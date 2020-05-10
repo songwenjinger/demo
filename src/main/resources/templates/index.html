@@ -23,50 +23,50 @@
 
     </style>
 <body style="background-color:#191c2d">
-<div id="part">
-    <div class="tyg-div">
-        <ul>
-            <li>让</li>
-            <li>
-                <div style="margin-left:20px;">数</div>
-            </li>
-            <li>
-                <div style="margin-left:40px;">据</div>
-            </li>
-            <li>
-                <div style="margin-left:60px;">改</div>
-            </li>
-            <li>
-                <div style="margin-left:80px;">变</div>
-            </li>
-            <li>
-                <div style="margin-left:100px;">生</div>
-            </li>
-            <li>
-                <div style="margin-left:120px;">活</div>
-            </li>
-        </ul>
-    </div>
-    <div id="contPar" class="contPar">
-        <div id="page1" style="z-index:1;">
-            <div class="title0">工业园水质监测系统</div>
-            <div class="title1">水质监测、生产运营、数据查询、故障预警</div>
-            <div class="imgGroug">
-                <ul>
-                    <img alt="" class="img0 png" src="/img/page0.jpg">
-                    <img alt="" class="img1 png" src="/img/page1.jpg">
-                    <img alt="" class="img2 png" src="/img/page2.jpg">
-                </ul>
-            </div>
-            <img alt="" class="img3 png" src="/img/page3.jpg">
+<div class="tyg-div">
+    <ul>
+        <li>让</li>
+        <li>
+            <div style="margin-left:20px;">数</div>
+        </li>
+        <li>
+            <div style="margin-left:40px;">据</div>
+        </li>
+        <li>
+            <div style="margin-left:60px;">改</div>
+        </li>
+        <li>
+            <div style="margin-left:80px;">变</div>
+        </li>
+        <li>
+            <div style="margin-left:100px;">生</div>
+        </li>
+        <li>
+            <div style="margin-left:120px;">活</div>
+        </li>
+    </ul>
+</div>
+<div id="contPar" class="contPar">
+    <div id="page1" style="z-index:1;">
+        <div class="title0">工业园水质监测系统</div>
+        <div class="title1">水质监测、生产运营、数据查询、故障预警</div>
+        <div class="imgGroug">
+            <ul>
+                <img alt="" class="img0 png" src="/img/page0.jpg">
+                <img alt="" class="img1 png" src="/img/page1.jpg">
+                <img alt="" class="img2 png" src="/img/page2.jpg">
+            </ul>
         </div>
+        <img alt="" class="img3 png" src="/img/page3.jpg">
     </div>
-    <div class="tyg-div-denglv">
+</div>
+<div class="tyg-div-denglv">
+    <form action="/user/login.do" method="post">
         <div class="tyg-div-form">
             <h2 style="margin-left: 10px">欢迎访问 工业园水质监测系统</h2>
-            <input type="text" id="input1" placeholder="请输入账号"
+            <input type="text" id="input1" placeholder="请输入账号" name="userPhone"
                    style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
-            <input type="password" placeholder="请输入密码"
+            <input type="password" id="input2" placeholder="请输入密码" name="password"
                    style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
             <input type="text" style="width:150px;height: 31px;margin-top: 20px;margin-left: 10px" placeholder="请输入验证码"
                    id="code"/>
@@ -78,7 +78,7 @@
                 登录
             </button>
         </div>
-    </div>
+    </form>
 </div>
 </body>
 <script>
@@ -105,10 +105,11 @@
                document.getElementById("id").value = '';
                draw(show_num);
            }*/
-        console.log("执行sublim函数");
+        // var userPhone = $('#input1').val();
+        // var password = $('#input2').val();
         $.cookie("userPhone", $('#input1').val());
         console.log($.cookie('userPhone'));
-        window.location.href = "/user/login.do";
+        // window.location.href = "/user/login.do?" + "userPhone=" + userPhone + "&" + "password=" + password;
         // $.cookie("input_value", $('#input1').val());
     }
 

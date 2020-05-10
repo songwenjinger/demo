@@ -5,10 +5,7 @@ import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -20,11 +17,11 @@ public class UserController {
     private UserService userService;
 
     //@GetMapping注解表示以GET方法请求/user/login.do时运行本方法
-    @GetMapping("/login.do")
+ /*   @GetMapping("/login.do")
     public String toLogin() {
         System.out.println("ok");
         return "adminMainShow";
-    }
+    }*/
 
     @GetMapping("/logout.do")
     public String logout() {
@@ -52,15 +49,13 @@ public class UserController {
 
     //@PostMapping注解表示以POST方法请求/user/login.do时运行本方法
     @PostMapping("/login.do")
-    public String login(String userName, String password,
-                        HttpSession session, Model model) {
-        User user = userService.login(userName, password);
+    public String login(@RequestParam String userPhone, @RequestParam String password) {
+        User user = userService.login(userPhone, password);
         if (user != null) {
-            session.setAttribute("user", user);
-            model.addAttribute("user", user);
-            return "login";
+            return user.getIdentity() == 1 ? "adminMainShow" : "userMainShow";
+        } else {
+            return "index";
         }
-        return "login";
     }
 
     @PostMapping(value = "/updatePassword.do")

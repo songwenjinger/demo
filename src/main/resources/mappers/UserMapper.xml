@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.dao.UserMapper">
     <select id="login" resultType="User">
-        select * from example_user
-        where user_name=#{userName} and password=#{password}
+        select * from usertb
+        where user_phone=#{userPhone} and password=#{password}
     </select>
 
     <select id="getUserPassword" resultType="String">

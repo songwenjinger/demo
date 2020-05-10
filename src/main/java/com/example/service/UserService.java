@@ -4,7 +4,7 @@ import com.example.entity.User;
 
 public interface UserService {
 
-    public User login(String uerName, String pwd);
+    public User login(String userPhone, String pwd);
 
     public String getUserPassword(String phone);
 
