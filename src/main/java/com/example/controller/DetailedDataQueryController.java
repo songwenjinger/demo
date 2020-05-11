@@ -122,7 +122,7 @@ public class DetailedDataQueryController {
      *
      * @return
      */
-    @RequestMapping(value = "/jumpToDetailedDataQuery.do")
+    @GetMapping(value = "/jumpToDetailedDataQuery.do")
     public String jumpToDetailedDataQuery(Model model, HttpServletRequest httpServletRequest, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) throws ParseException {
         String startTime = "2020-01-01";
         String endTime = "2020-06-01";

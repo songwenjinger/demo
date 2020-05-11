@@ -53,7 +53,8 @@ public class WarnMessageQueryController {
         model.addAttribute("pageInfo", pageInfo);
         return "WarnMessageQuery";
     }
-    @RequestMapping(value = "/jumpToWarnMessageQuery.do")
+
+    @GetMapping(value = "/jumpToWarnMessageQuery.do")
     public String jumpToWarnMessageQuery(Model model, HttpServletRequest httpServletRequest, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) throws ParseException {
         String startTime = "2020-01-01";
         String endTime = "2020-06-01";

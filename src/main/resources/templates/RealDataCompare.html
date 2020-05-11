@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/js/echarts.min.js"></script>
     <script>
         var zoneMessage;
-        $(document).load('click', "#zoneCompare", function () {
+        $(function () {
             searchAllPart_rc();
         });
 
@@ -287,7 +287,7 @@
                     name: horLegend_name[i],
                     type: 'bar',
                     data: getDataStatisticsResponse(data, horLegend[i]),
-                    barWidth:'10'
+                    barWidth: '10'
                 })
                 ;
             }

@@ -28,7 +28,7 @@
         var num;
         var startTime;
         var endTime;
-        $(document).load('click', "#historyData", function () {
+        $(function () {
             console.log($.cookie('zoneId'));
             if ($.cookie('zoneId') !== '0') {
                 zoneId = $.cookie('zoneId');

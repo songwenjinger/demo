@@ -15,7 +15,7 @@
         var zoneId;
         var orderStatus = 1;
         document.getElementById("curPage").value = ccurPage;
-        $(document).load('click', "#zoneQuery", function () {
+        $(function () {
             console.log($.cookie('zoneId'));
             if ($.cookie('zoneId') !== '0') {
                 zoneId = $.cookie('zoneId');
