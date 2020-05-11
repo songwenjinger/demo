@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.dao.UserMapper">
-    <select id="login" resultType="User">
+    <resultMap id="BaseResultMap" type="com.example.entity.User">
+        <!-- 用id属性来映射主键字段 -->
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 用result属性来映射非主键字段 -->
+        <result property="userPhone" column="user_phone" jdbcType="INTEGER"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="zoneId" column="zone_id" jdbcType="INTEGER"/>
+        <result property="identity" column="identity" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="login" resultMap="BaseResultMap">
         select * from usertb
         where user_phone=#{userPhone} and password=#{password}
     </select>

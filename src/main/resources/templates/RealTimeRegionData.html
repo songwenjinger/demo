@@ -9,12 +9,21 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
     <script>
         var ccurPage = 1;
         var zoneId;
         var orderStatus = 1;
         document.getElementById("curPage").value = ccurPage;
         $(document).load('click', "#zoneQuery", function () {
+            console.log($.cookie('zoneId'));
+            if ($.cookie('zoneId') !== '0') {
+                zoneId = $.cookie('zoneId');
+                console.log(zoneId);
+                $("#searchText").val(zoneId);
+                document.getElementById("searchText").setAttribute('readOnly', true);
+
+            }
             judgePrePageButtonStatus();
             realTimeQuery();
             part1Chart();

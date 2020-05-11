@@ -26,6 +26,14 @@
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
     <script>
+        $(function () {
+            if ($.cookie('zoneId') !== '0') {
+                zoneId = $.cookie('zoneId');
+                $("#searchText_sdq").val(zoneId);
+                document.getElementById("searchText_sdq").setAttribute('readOnly', true);
+            }
+        });
+
         function test1() {// url  请求的页面url
             var result = setCookie();
             var urlString = result[0];

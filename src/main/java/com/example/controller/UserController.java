@@ -38,6 +38,11 @@ public class UserController {
         return "adminMainShow";
     }
 
+    @GetMapping("/userMainShow.do")
+    public String userMainShow() {
+        return "userMainShow";
+    }
+
     @RequestMapping("/hi")
     public ModelAndView sayHello() {
         ModelAndView modelAndView = new ModelAndView();
@@ -48,13 +53,14 @@ public class UserController {
     }
 
     //@PostMapping注解表示以POST方法请求/user/login.do时运行本方法
-    @PostMapping("/login.do")
-    public String login(@RequestParam String userPhone, @RequestParam String password) {
+    @PostMapping(value = "/login.do")
+    @ResponseBody
+    public User login(String userPhone, String password) {
         User user = userService.login(userPhone, password);
-        if (user != null) {
-            return user.getIdentity() == 1 ? "adminMainShow" : "userMainShow";
+        if (user == null) {
+            return new User();
         } else {
-            return "index";
+            return user;
         }
     }
 

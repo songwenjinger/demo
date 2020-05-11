@@ -2,16 +2,15 @@ package com.example.controller;
 
 import com.example.entity.RegionData;
 import com.example.service.DetailedDataQueryService;
+import com.example.util.OperateCookies;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,15 @@ import java.util.List;
 public class DetailedDataQueryController {
     @Autowired
     DetailedDataQueryService detailedDataQueryService;
+
+
+    @PostMapping(value = "/fillTableInit.do")
+    @ResponseBody
+    public List<RegionData> fillTableInit(@RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+                                          Integer zoneId, String startTime, String endTime) throws ParseException {
+        PageHelper.startPage(pageNum, 8);
+        return detailedDataQueryService.queryByCondition(zoneId, startTime, endTime);
+    }
 
     /**
      * 查询所有信息
@@ -44,11 +52,12 @@ public class DetailedDataQueryController {
 
     /**
      * 如果是刚点击进来，就查询所有的，点击查询按钮之后，按照条件查询
-     * @param model 视图
-     * @param pageNum 页数
-     * @param zoneId 区域id
+     *
+     * @param model     视图
+     * @param pageNum   页数
+     * @param zoneId    区域id
      * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param endTime   结束时间
      * @return 页面
      * @throws ParseException
      */
@@ -107,5 +116,23 @@ public class DetailedDataQueryController {
         model.addAttribute("pageInfo", pageInfo);
         return "DetailedDataQuery";
     }
+
+    /**
+     * 获取cookie的值，得到对应的页面，返回
+     *
+     * @return
+     */
+    @RequestMapping(value = "/jumpToDetailedDataQuery.do")
+    public String jumpToDetailedDataQuery(Model model, HttpServletRequest httpServletRequest, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) throws ParseException {
+        String startTime = "2020-01-01";
+        String endTime = "2020-06-01";
+        Integer zoneId = OperateCookies.getZoneIdCookie(httpServletRequest);
+        PageHelper.startPage(pageNum, 8);
+        List<RegionData> list = detailedDataQueryService.queryByCondition(zoneId, startTime, endTime);
+        PageInfo<RegionData> pageInfo = new PageInfo<RegionData>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "DetailedDataQuery";
+    }
+
 
 }

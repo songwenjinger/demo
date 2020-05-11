@@ -59,10 +59,11 @@
                         <a href="javascript:void(0)"><i class="mdi mdi-chart-bar"></i> 数据查询</a>
                         <ul class="nav nav-subnav">
                             <li><a href="#" id="detailedDateQuery"
-                                   onclick="test('/detailedDataQuery/queryAll.do')">详细数据查询</a>
+                                   onclick="test('/detailedDataQuery/jumpToDetailedDataQuery.do')">详细数据查询</a>
                             </li>
                             <li><a href="#" id="query"
-                                   onclick="test('/statisticsDataQuery/queryAll.do')">统计数据查询</a></li>
+                                   onclick="test('/statisticsDataQuery/jumpToStatisticsDataQuery.do')">统计数据查询</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -73,7 +74,7 @@
                                    onclick="test('/warnMessageQuery/queryAll.do')">报警数据查询</a>
                             </li>
                             <li><a href="#" id="warnMessageAnalyze"
-                                   onclick="test('/warnMessageAnalyze/jumpWarnMessageAnalyze.do')">报警数据分析</a></li>
+                                   onclick="test('/warnMessageAnalyze/jumpUserWarnMessageAnalyze.do')">报警数据分析</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -179,6 +180,10 @@
 </div>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
+    $(function () {
+        console.log($.cookie('wmq_count'));
+    });
+
     function test(url) {// url  请求的页面url
         $.get(url, function (result) {
             $("#main1").html(result);// 将返回的字符串渲染为html

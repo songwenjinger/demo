@@ -30,6 +30,12 @@ public class WarnMessageAnalyzeController {
         return "WarnMessageAnalyze";
     }
 
+    @GetMapping(value = "/jumpUserWarnMessageAnalyze.do")
+    public String jumpUserWarnMessageAnalyze() {
+//        System.out.println("okok");
+        return "UserWarnMessageAnalyze";
+    }
+
     @PostMapping(value = "/zoneCompare.do")
     @ResponseBody
     public Map<Object, Object> zoneCompare(String startTime, String endTime) throws ParseException {

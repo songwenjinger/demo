@@ -22,12 +22,19 @@
     <!--日期选择器-->
     <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
     <script>
         var zoneId;
         var num;
         var startTime;
         var endTime;
         $(document).load('click', "#historyData", function () {
+            console.log($.cookie('zoneId'));
+            if ($.cookie('zoneId') !== '0') {
+                zoneId = $.cookie('zoneId');
+                $("#searchText_hd").val(zoneId);
+                document.getElementById("searchText_hd").setAttribute('readOnly', true);
+            }
             hd_searchAllPart();
         });
 

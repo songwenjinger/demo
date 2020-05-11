@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.entity.RegionData;
 import com.example.entity.WarnMessage;
 import com.example.service.WarnMessageQueryService;
+import com.example.util.OperateCookies;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
@@ -51,4 +53,16 @@ public class WarnMessageQueryController {
         model.addAttribute("pageInfo", pageInfo);
         return "WarnMessageQuery";
     }
+    @RequestMapping(value = "/jumpToWarnMessageQuery.do")
+    public String jumpToWarnMessageQuery(Model model, HttpServletRequest httpServletRequest, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) throws ParseException {
+        String startTime = "2020-01-01";
+        String endTime = "2020-06-01";
+        Integer zoneId = OperateCookies.getZoneIdCookie(httpServletRequest);
+        PageHelper.startPage(pageNum, 8);
+        List<WarnMessage> list = warnMessageQueryService.queryByCondition(zoneId, startTime, endTime);
+        PageInfo<WarnMessage> pageInfo = new PageInfo<WarnMessage>(list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "WarnMessageQuery";
+    }
+
 }

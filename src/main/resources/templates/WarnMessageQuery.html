@@ -27,6 +27,15 @@
     <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
 
     <script>
+        $(function () {
+            // console.log($.cookie('zoneId'));
+            if ($.cookie('zoneId') !== '0') {
+                zoneId = $.cookie('zoneId');
+                $("#searchText_wmq").val(zoneId);
+                document.getElementById("searchText_wmq").setAttribute('readOnly', true);
+            }
+        });
+
         function test1() {// url  请求的页面url
             $.cookie("input_value", $('#searchText_wmq').val());
             $.cookie("wmq_startTime", $('#wmq_startTime').val());
@@ -191,13 +200,13 @@
             <div class="dynamicDisplay_detail" id="wmq_part1_1_4">
                 <input class="js-datepicker " id="wmq_startTime"
                        name="example-datepicker" placeholder="开始日期"
-                       data-date-format="yyyy-mm-dd"
+                       data-date-format="yyyy-mm-dd" value="2020-01-01"
                        style="width: 70px;text-align: center;margin-left: 50px"/>
                 <input placeholder="至"
                        style="width: 15px;background-color: #f9fafb;border-left-color:#f9fafb ;border-right-color: #f9fafb;margin-left: 0px"
                        disabled="disabled"/>
                 <input class="js-datepicker " id="wmq_endTime"
-                       name="example-datepicker" placeholder="结束日期" value="" data-date-format="yyyy-mm-dd"
+                       name="example-datepicker" placeholder="结束日期" value="2020-06-01" data-date-format="yyyy-mm-dd"
                        style="width: 70px;text-align: center;margin-left: 0"/>
                 <button class="btn btn-info btn-xs" type="button" onclick="wmq_searchAllPart()"
                         style="margin-left: 50px">查询

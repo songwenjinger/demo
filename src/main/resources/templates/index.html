@@ -6,10 +6,8 @@
     <title>基于云平台的工业园水质监测系统</title>
     <link rel="stylesheet" type="text/css" href="/css/style2.0.css">
     <link rel="stylesheet" type="text/css" href="/css/myStyle1.css">
-    <!--<script type="text/javascript" src="/js/com.js"></script>-->
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.min.js"></script>
-    <!--<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>-->
     <style type="text/css">
         * {
             padding: 0;
@@ -61,24 +59,24 @@
     </div>
 </div>
 <div class="tyg-div-denglv">
-    <form action="/user/login.do" method="post">
-        <div class="tyg-div-form">
-            <h2 style="margin-left: 10px">欢迎访问 工业园水质监测系统</h2>
-            <input type="text" id="input1" placeholder="请输入账号" name="userPhone"
-                   style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
-            <input type="password" id="input2" placeholder="请输入密码" name="password"
-                   style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
-            <input type="text" style="width:150px;height: 31px;margin-top: 20px;margin-left: 10px" placeholder="请输入验证码"
-                   id="code"/>
-            <canvas id="canvas" width="102" height="35" onclick="dj()"
-                    style="vertical-align:bottom; border: 1px solid #cccccc; border-radius: 5px; background-color: #ffffff;margin-left: 10px"></canvas>
-            <button type="submit" onclick="sublim()"
-                    style="width: 271px;height:31px;margin-left: 10px;margin-top: 20px;
+    <!--<form action="/user/login.do" method="post">-->
+    <div class="tyg-div-form">
+        <h2 style="margin-left: 10px">欢迎访问 工业园水质监测系统</h2>
+        <input type="text" id="input1" placeholder="请输入账号" name="userPhone"
+               style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
+        <input type="password" id="input2" placeholder="请输入密码" name="password"
+               style="width: 271px;height: 31px;margin-top: 20px;margin-left: 10px"/>
+        <input type="text" style="width:150px;height: 31px;margin-top: 20px;margin-left: 10px" placeholder="请输入验证码"
+               id="code"/>
+        <canvas id="canvas" width="102" height="35" onclick="dj()"
+                style="vertical-align:bottom; border: 1px solid #cccccc; border-radius: 5px; background-color: #ffffff;margin-left: 10px"></canvas>
+        <button type="submit" onclick="sublim()"
+                style="width: 271px;height:31px;margin-left: 10px;margin-top: 20px;
                     background-color: #2ec0f6;border: 1px solid #2ec0f6;color: #f9fafb;font-size: 16px">
-                登录
-            </button>
-        </div>
-    </form>
+            登录
+        </button>
+    </div>
+    <!--</form>-->
 </div>
 </body>
 <script>
@@ -105,12 +103,41 @@
                document.getElementById("id").value = '';
                draw(show_num);
            }*/
-        // var userPhone = $('#input1').val();
-        // var password = $('#input2').val();
-        $.cookie("userPhone", $('#input1').val());
-        console.log($.cookie('userPhone'));
-        // window.location.href = "/user/login.do?" + "userPhone=" + userPhone + "&" + "password=" + password;
-        // $.cookie("input_value", $('#input1').val());
+        var userPhone = $('#input1').val();
+        var password = $('#input2').val();
+        $.cookie('ddq_count', '0');
+        $.cookie('sdq_count', '0');
+        $.cookie('wma_count', '0');
+        $.cookie('wmq_count', '0');
+
+        $.ajax({
+            url: "/user/login.do",
+            type: "post",
+            dataType: "json",
+            data: {"userPhone": userPhone, "password": password},
+            success: function (data) {
+                success(data);
+            },
+            error: function (msg) {
+                alert("ajax连接异常：" + msg);
+            }
+        });
+    }
+
+    function success(data) {
+        console.log("执行成功！");
+        console.log($.cookie("ddq_count"));
+        if (data.identity == null) {
+            window.confirm("登录失败！检查用户名密码是否正确")
+        } else {
+            $.cookie("userPhone", data.userPhone);
+            $.cookie("zoneId", data.zoneId);
+            if (data.identity === 1) {
+                window.location.href = "/user/adminMainShow.do?";
+            } else {
+                window.location.href = "/user/userMainShow.do?";
+            }
+        }
     }
 
     function draw(show_num) {
